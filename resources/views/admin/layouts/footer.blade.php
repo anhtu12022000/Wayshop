@@ -1,6 +1,7 @@
-<!-- /.content-wrapper -->
-         <footer class="main-footer">
-            <strong>Copyright &copy; 2016-2017 <a href="#">Thememinister</a>.</strong> All rights reserved.
-         </footer>
-   
-      <!-- /.wrapper -->
+<footer class="main-footer">
+   <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+   All rights reserved.
+   <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.0.4
+   </div>
+</footer>
