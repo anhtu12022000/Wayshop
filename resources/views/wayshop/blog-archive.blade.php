@@ -2,7 +2,7 @@
 @section('content')
 <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-   <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+   <img src="{{ asset('img/fashion/fashion-header-bg-8.jpg') }}" alt="fashion img">
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
@@ -30,7 +30,7 @@
                     <div class="col-md-4 col-sm-4">
                       <article class="aa-latest-blog-single">
                         <figure class="aa-blog-img">                    
-                          <a href="#"><img alt="img" src="img/promo-banner-1.jpg"></a>  
+                          <a href="#"><img alt="img" src="{{ asset('img/promo-banner-1.jpg') }}"></a>  
                             <figcaption class="aa-blog-img-caption">
                             <span href="#"><i class="fa fa-eye"></i>5K</span>
                             <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
@@ -48,7 +48,7 @@
                     <div class="col-md-4 col-sm-4">
                       <article class="aa-latest-blog-single">
                         <figure class="aa-blog-img">                    
-                          <a href="#"><img alt="img" src="img/promo-banner-2.jpg"></a>  
+                          <a href="#"><img alt="img" src="{{ asset('img/promo-banner-2.jpg') }}"></a>  
                             <figcaption class="aa-blog-img-caption">
                             <span href="#"><i class="fa fa-eye"></i>5K</span>
                             <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
@@ -66,7 +66,7 @@
                     <div class="col-md-4 col-sm-4">
                       <article class="aa-latest-blog-single">
                         <figure class="aa-blog-img">                    
-                          <a href="#"><img alt="img" src="img/promo-banner-3.jpg"></a>  
+                          <a href="#"><img alt="img" src="{{ asset('img/promo-banner-3.jpg') }}"></a>  
                             <figcaption class="aa-blog-img-caption">
                             <span href="#"><i class="fa fa-eye"></i>5K</span>
                             <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
@@ -84,7 +84,7 @@
                     <div class="col-md-4 col-sm-4">
                       <article class="aa-latest-blog-single">
                         <figure class="aa-blog-img">                    
-                          <a href="#"><img alt="img" src="img/promo-banner-4.jpg"></a>  
+                          <a href="#"><img alt="img" src="{{ asset('img/promo-banner-4.jpg') }}"></a>  
                             <figcaption class="aa-blog-img-caption">
                             <span href="#"><i class="fa fa-eye"></i>5K</span>
                             <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
@@ -102,7 +102,7 @@
                     <div class="col-md-4 col-sm-4">
                       <article class="aa-latest-blog-single">
                         <figure class="aa-blog-img">                    
-                          <a href="#"><img alt="img" src="img/promo-banner-5.jpg"></a>  
+                          <a href="#"><img alt="img" src="{{ asset('img/promo-banner-5.jpg') }}"></a>  
                             <figcaption class="aa-blog-img-caption">
                             <span href="#"><i class="fa fa-eye"></i>5K</span>
                             <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
@@ -120,7 +120,7 @@
                      <div class="col-md-4 col-sm-4">
                       <article class="aa-latest-blog-single">
                         <figure class="aa-blog-img">                    
-                          <a href="#"><img alt="img" src="img/promo-banner-1.jpg"></a>  
+                          <a href="#"><img alt="img" src="{{ asset('img/promo-banner-1.jpg') }}"></a>  
                             <figcaption class="aa-blog-img-caption">
                             <span href="#"><i class="fa fa-eye"></i>5K</span>
                             <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
@@ -138,7 +138,7 @@
                     <div class="col-md-4 col-sm-4">
                       <article class="aa-latest-blog-single">
                         <figure class="aa-blog-img">                    
-                          <a href="#"><img alt="img" src="img/promo-banner-2.jpg"></a>  
+                          <a href="#"><img alt="img" src="{{ asset('img/promo-banner-2.jpg') }}"></a>  
                             <figcaption class="aa-blog-img-caption">
                             <span href="#"><i class="fa fa-eye"></i>5K</span>
                             <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
@@ -156,7 +156,7 @@
                     <div class="col-md-4 col-sm-4">
                       <article class="aa-latest-blog-single">
                         <figure class="aa-blog-img">                    
-                          <a href="#"><img alt="img" src="img/promo-banner-3.jpg"></a>  
+                          <a href="#"><img alt="img" src="{{ asset('img/promo-banner-3.jpg') }}"></a>  
                             <figcaption class="aa-blog-img-caption">
                             <span href="#"><i class="fa fa-eye"></i>5K</span>
                             <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
@@ -225,21 +225,21 @@
                     <div class="aa-recently-views">
                       <ul>
                         <li>
-                          <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
+                          <a class="aa-cartbox-img" href="#"><img src="{{ asset('img/woman-small-2.jpg') }}" alt="img"></a>
                           <div class="aa-cartbox-info">
                             <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
                             <p>March 26th 2016</p>
                           </div>                    
                         </li>
                         <li>
-                          <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
+                          <a class="aa-cartbox-img" href="#"><img src="{{ asset('img/woman-small-1.jpg') }}" alt="img"></a>
                           <div class="aa-cartbox-info">
                             <h4><a href="#">Lorem ipsum dolor.</a></h4>
                             <p>March 26th 2016</p>
                           </div>                    
                         </li>
                          <li>
-                          <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
+                          <a class="aa-cartbox-img" href="#"><img src="{{ asset('img/woman-small-2.jpg') }}" alt="img"></a>
                           <div class="aa-cartbox-info">
                             <h4><a href="#">Lorem ipsum dolor.</a></h4>
                             <p>March 26th 2016</p>

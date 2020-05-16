@@ -28,7 +28,7 @@ class IndexController extends Controller
 
     public function detail()
     {
-        return view('wayshop.shop-detail');
+        return view('wayshop.product-detail');
     }
 
     public function account()
@@ -41,9 +41,9 @@ class IndexController extends Controller
         return view('wayshop.wishlist');
     }
 
-    public function service()
+    public function shop()
     {
-        return view('wayshop.service');
+        return view('wayshop.shop');
     }
 
     public function contact()

@@ -77,7 +77,7 @@
         <div class="row">
         <div class="col-md-12">
           <div class="aa-footer-bottom-area">
-            <p>Designed by <a href="http://www.markups.io/">MarkUps.io</a></p>
+            <p>Designed by <a href="http://www.markups.io/">Anh Tú</a></p>
             <div class="aa-footer-payment">
               <span class="fa fa-cc-mastercard"></span>
               <span class="fa fa-cc-visa"></span>

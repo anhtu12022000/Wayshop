@@ -3,7 +3,7 @@
 
     <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-   <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+   <img src="{{ asset('img/fashion/fashion-header-bg-8.jpg') }}" alt="fashion img">
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
@@ -41,7 +41,7 @@
                     <tbody>
                       <tr>
                         <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="img/man/polo-shirt-1.png" alt="img"></a></td>
+                        <td><a href="#"><img src="{{ asset('img/man/polo-shirt-1.png') }}" alt="img"></a></td>
                         <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
                         <td>$250</td>
                         <td><input class="aa-cart-quantity" type="number" value="1"></td>
@@ -49,7 +49,7 @@
                       </tr>
                       <tr>
                         <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="img/man/polo-shirt-2.png" alt="img"></a></td>
+                        <td><a href="#"><img src="{{ asset('img/man/polo-shirt-2.png') }}" alt="img"></a></td>
                         <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
                         <td>$150</td>
                         <td><input class="aa-cart-quantity" type="number" value="1"></td>
@@ -57,7 +57,7 @@
                       </tr>
                       <tr>
                         <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="img/man/polo-shirt-3.png" alt="img"></a></td>
+                        <td><a href="#"><img src="{{ asset('img/man/polo-shirt-3.png') }}" alt="img"></a></td>
                         <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
                         <td>$50</td>
                         <td><input class="aa-cart-quantity" type="number" value="1"></td>

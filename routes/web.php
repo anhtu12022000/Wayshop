@@ -38,10 +38,10 @@ Route::match(['get','post'], '/', 'IndexController@index');
 Route::match(['get','post'], '/aboutus', 'IndexController@aboutus');
 Route::match(['get','post'], '/cart', 'IndexController@cart');
 Route::match(['get','post'], '/checkout', 'IndexController@checkout');
-Route::match(['get','post'], '/shop-detail', 'IndexController@detail');
+Route::match(['get','post'], '/product-detail', 'IndexController@detail');
 Route::match(['get','post'], '/my-account', 'IndexController@account');
 Route::match(['get','post'], '/wishlist', 'IndexController@wishlist');
-Route::match(['get','post'], '/service', 'IndexController@service');
+Route::match(['get','post'], '/shop', 'IndexController@shop');
 Route::match(['get','post'], '/contact-us', 'IndexController@contact');
 
 

@@ -3,7 +3,7 @@
 
  <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-   <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+   <img src="{{ asset('img/fashion/fashion-header-bg-8.jpg') }}" alt="fashion img">
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
@@ -39,7 +39,7 @@
                       </div>
                     </div>
                     <figure class="aa-blog-img">
-                      <a href="#"><img src="img/fashion/3.jpg" alt="fashion img"></a>
+                      <a href="#"><img src="{{ asset('img/fashion/3.jpg') }}" alt="fashion img"></a>
                     </figure>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates voluptatum accusamus dolorum ipsam adipisci laudantium laborum ipsa excepturi soluta, dolore similique, velit id, rerum repudiandae enim modi! Quo, debitis, in.</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, laudantium error nisi, fuga odio sint dignissimos similique maiores nihil amet, impedit atque saepe distinctio, in repudiandae quia. Hic numquam laborum, aliquam eligendi quo inventore aperiam quae error commodi voluptatum dolorum tempore, atque, ratione molestiae, nostrum perferendis. Similique voluptatum error quaerat?</p>
@@ -98,7 +98,7 @@
                         <li>
                           <div class="media">
                             <div class="media-left">    
-                                <img class="media-object news-img" src="img/testimonial-img-3.jpg" alt="img">      
+                                <img class="media-object news-img" src="{{ asset('img/testimonial-img-3.jpg') }}" alt="img">      
                             </div>
                             <div class="media-body">
                              <h4 class="author-name">Charlie Balley</h4>
@@ -111,7 +111,7 @@
                         <li>
                           <div class="media">
                             <div class="media-left">    
-                                <img class="media-object news-img" src="img/testimonial-img-2.jpg" alt="img">      
+                                <img class="media-object news-img" src="{{ asset('img/testimonial-img-2.jpg') }}" alt="img">      
                             </div>
                             <div class="media-body">
                              <h4 class="author-name">Charlie Balley</h4>
@@ -125,7 +125,7 @@
                           <li class="author-comments">
                             <div class="media">
                               <div class="media-left">    
-                                  <img class="media-object news-img" src="img/testimonial-img-3.jpg" alt="img">      
+                                  <img class="media-object news-img" src="{{ asset('img/testimonial-img-3.jpg') }}" alt="img">      
                               </div>
                               <div class="media-body">
                                <h4 class="author-name">Admin</h4>
@@ -140,7 +140,7 @@
                             <li>
                               <div class="media">
                                 <div class="media-left">    
-                                    <img class="media-object news-img" src="img/testimonial-img-2.jpg" alt="img">      
+                                    <img class="media-object news-img" src="{{ asset('img/testimonial-img-2.jpg') }}" alt="img">      
                                 </div>
                                 <div class="media-body">
                                  <h4 class="author-name">Charlie Balley</h4>
@@ -155,7 +155,7 @@
                         <li>
                           <div class="media">
                             <div class="media-left">    
-                                <img class="media-object news-img" src="img/testimonial-img-2.jpg" alt="img">      
+                                <img class="media-object news-img" src="{{ asset('img/testimonial-img-2.jpg') }}" alt="img">      
                             </div>
                             <div class="media-body">
                              <h4 class="author-name">Charlie Balley</h4>
@@ -253,21 +253,21 @@
                     <div class="aa-recently-views">
                       <ul>
                         <li>
-                          <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
+                          <a class="aa-cartbox-img" href="#"><img src="{{ asset('img/woman-small-2.jpg') }}" alt="img"></a>
                           <div class="aa-cartbox-info">
                             <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
                             <p>March 26th 2016</p>
                           </div>                    
                         </li>
                         <li>
-                          <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
+                          <a class="aa-cartbox-img" href="#"><img src="{{ asset('img/woman-small-1.jpg') }}" alt="img"></a>
                           <div class="aa-cartbox-info">
                             <h4><a href="#">Lorem ipsum dolor.</a></h4>
                             <p>March 26th 2016</p>
                           </div>                    
                         </li>
                          <li>
-                          <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
+                          <a class="aa-cartbox-img" href="#"><img src="{{ asset('img/woman-small-2.jpg') }}" alt="img"></a>
                           <div class="aa-cartbox-info">
                             <h4><a href="#">Lorem ipsum dolor.</a></h4>
                             <p>March 26th 2016</p>

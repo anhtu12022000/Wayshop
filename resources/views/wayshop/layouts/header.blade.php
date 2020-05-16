@@ -59,9 +59,9 @@
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
                   <li><a href="account.html">My Account</a></li>
-                  <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
-                  <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
-                  <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
+                  <li class="hidden-xs"><a href="{{ url('/wishlist') }}">Wishlist</a></li>
+                  <li class="hidden-xs"><a href="{{ url('/cart') }}">My Cart</a></li>
+                  <li class="hidden-xs"><a href="{{ url('/checkout') }}">Checkout</a></li>
                   <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                 </ul>
               </div>
@@ -86,7 +86,7 @@
                   <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
                 </a>
                 <!-- img based logo -->
-                <!-- <a href="index.html"><img src="{{ asset('front_assets/img/logo.jpg') }}" alt="logo img"></a> -->
+                <a href="{{ url('/') }}"><img src="{{ asset('front_assets/img/logo.jpg') }}" alt="logo img"></a> 
               </div>
               <!-- / logo  -->
                <!-- cart box -->

@@ -3,7 +3,7 @@
 
 <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-    <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+    <img src="{{ asset('img/fashion/fashion-header-bg-8.jpg') }}" alt="fashion img">
     <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
@@ -322,7 +322,7 @@
                   <div class="aa-payment-method">                    
                     <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
                     <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked> Via Paypal </label>
-                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">    
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg') }}" border="0" alt="PayPal Acceptance Mark">    
                     <input type="submit" value="Place Order" class="aa-browse-btn">                
                   </div>
                 </div>
