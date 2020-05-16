@@ -55,4 +55,14 @@ Route::group(['prefix' => 'admin'], function () {
         Route::match(['get','post'], '/add', 'PostController@add');
         Route::match(['get','post'], '/edit', 'PostController@edit');
     });
+    Route::group(['prefix' => 'avcs'], function () {
+        Route::match(['get','post'], '/', 'PostController@index');
+        Route::match(['get','post'], '/add', 'PostController@add');
+        Route::match(['get','post'], '/edit', 'PostController@edit');
+    });
+    Route::group(['prefix' => 'acvs'], function () {
+        Route::match(['get','post'], '/', 'PostController@index');
+        Route::match(['get','post'], '/add', 'PostController@add');
+        Route::match(['get','post'], '/edit', 'PostController@edit');
+    });
 });
