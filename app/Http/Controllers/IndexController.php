@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Frontend\PostsController;
 
 class IndexController extends Controller
 {
     public function index()
     {
-    	return view('wayshop.home');
+        $PostsController = new PostsController;
+        $dataPosts = $PostsController->getAllPost();
+    	return view('wayshop.home')->with('dataPosts',$dataPosts);
     }
 
     public function aboutus()

@@ -17,36 +17,138 @@
    </div>
   </section>
   <!-- / catg header banner section -->
-
+@if (Auth::user())
  <!-- Cart view section -->
  <section id="aa-myaccount">
    <div class="container">
      <div class="row">
        <div class="col-md-12">
-        <div class="aa-myaccount-area">         
+        <div class="aa-myaccount-area"> 
+          <div class="text-center">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+              <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+            @endif   
+          </div>        
             <div class="row">
               <div class="col-md-6">
                 <div class="aa-myaccount-login">
-                <h4>Login</h4>
-                 <form action="" class="aa-login-form">
-                  <label for="">Username or Email address<span>*</span></label>
-                   <input type="text" placeholder="Username or email">
-                   <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
-                    <button type="submit" class="aa-browse-btn">Login</button>
-                    <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+                  @if (session('danger'))
+                    <div class="alert alert-danger">{{session('danger')}}</div>
+                  @endif
+                <h4>Change password</h4>
+                 <form action="{{ url('user/change-password') }}" method="post" class="aa-login-form">
+                  @csrf
+                  <label for="">New password<span>*</span></label>
+                   <input type="password" name="password" placeholder="New password">
+                   <label for="">Confirm password<span>*</span></label>
+                    <input type="password" name="password_confirmation" placeholder="Confirm Password">
+                    <button type="submit" class="aa-browse-btn">Change</button>
                     <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
                   </form>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="aa-myaccount-register">                 
+                <div class="aa-myaccount-register">
+                  @if (session('status'))
+                    <div class="alert alert-success">{{session('status')}}</div>
+                  @endif              
+                 <h4>Change infomation</h4>
+                 <form action="{{ url('user/change-infomation') }}" method="post" class="aa-login-form">
+                  @csrf
+                    <label for="">Username<span>*</span></label>
+                    <input type="text" name="name" value="{{ Auth::user()->name }}" placeholder="Username">
+                    <label for="">Email address<span>*</span></label>
+                    <input type="text" name="email" value="{{ Auth::user()->email }}" placeholder="Email address">
+                    <label for="">Address<span>*</span></label>
+                    <input type="text" name="address" value="{{ Auth::user()->address }}" placeholder="Your Address">
+                    <label for="">Phone<span>*</span></label>
+                    <input type="text" name="phone" value="{{ Auth::user()->phone }}" placeholder="Your Phone">
+                    <label for="">Gender<span>*</span></label>
+                    <select name="gender" id="">
+                      <option value="male">Male</option>
+                      <option @if (Auth::user()->gender == 'famale')
+                        selected="" 
+                      @endif value="famale">Famale</option>
+                    </select><br>
+                    <button type="submit" class="aa-browse-btn">Change</button>                    
+                  </form>
+                </div>
+              </div>
+            </div>          
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+
+@else
+
+ <section id="aa-myaccount">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+        <div class="aa-myaccount-area"> 
+          <div class="text-center">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+              <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+            @endif   
+          </div>        
+            <div class="row">
+              <div class="col-md-6">
+                <div class="aa-myaccount-login">
+                  @if (session('danger'))
+                    <div class="alert alert-danger">{{session('danger')}}</div>
+                  @endif
+                <h4>Login</h4>
+                 <form action="{{ url('user/login') }}" method="post" class="aa-login-form">
+                  @csrf
+                  <label for="">Email address<span>*</span></label>
+                   <input type="text" name="email" value="{{ old('email') }}" placeholder="Email address">
+                   <label for="">Password<span>*</span></label>
+                    <input type="password" name="password" value="{{ old('password') }}" placeholder="Password">
+                    <button type="submit" class="aa-browse-btn">Login</button>
+                    <label class="rememberme" for="rememberme"><input type="checkbox" name="remember_token" id="rememberme"> Remember me </label>
+                    <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+                  </form>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="aa-myaccount-register">
+                  @if (session('status'))
+                    <div class="alert alert-success">{{session('status')}}</div>
+                  @endif              
                  <h4>Register</h4>
-                 <form action="" class="aa-login-form">
-                    <label for="">Username or Email address<span>*</span></label>
-                    <input type="text" placeholder="Username or email">
+                 <form action="{{ url('user/register') }}" method="post" class="aa-login-form">
+                  @csrf
+                    <label for="">Username<span>*</span></label>
+                    <input type="text" name="name" value="{{ old('name') }}" placeholder="Username">
+                    <label for="">Email address<span>*</span></label>
+                    <input type="text" name="email" value="{{ old('email') }}" placeholder="Email address">
+                    <label for="">Address<span>*</span></label>
+                    <input type="text" name="address" value="{{ old('address') }}" placeholder="Your Address">
+                    <label for="">Phone<span>*</span></label>
+                    <input type="text" name="phone" value="{{ old('phone') }}" placeholder="Your Phone">
+                    <label for="">Gender<span>*</span></label>
+                    <select name="gender" id="">
+                      <option value="male">Male</option>
+                      <option value="famale">Famale</option>
+                    </select><br>
                     <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
+                    <input type="password" name="password" value="{{ old('password') }}" placeholder="Password">
+                    <label for="">Confirm Password<span>*</span></label>
+                    <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm Password">
                     <button type="submit" class="aa-browse-btn">Register</button>                    
                   </form>
                 </div>
@@ -58,6 +160,6 @@
    </div>
  </section>
  <!-- / Cart view section -->
-
+@endif
 
 @endsection

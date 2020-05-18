@@ -29,54 +29,49 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/posts/add') }}" class="btn btn-info float-right">Thêm</a>
+                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/posts/add') }}" class="btn btn-info float-right">Add</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        @if (session('success'))
+                            <div class="alert alert-danger">{{session('success')}}</div>
+                          @endif
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Tên</th>
-                                <th>Ảnh</th>
-                                <th>Giá</th>
-                                <th>Giá KM</th>
+                                <th>Title</th>
+                                <th width="20%">Image</th>
+                                <th>Description</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Iphone</td>
-                                    <td>ảnh</td>
-                                    <td>2000</td>
-                                    <td>1000</td>
-                                    <td></td>
-                                </tr>
-                                {{-- @php $i = 1; @endphp
-                                @foreach ($product as $value)
+                                @php $i = 1; @endphp
+                                @foreach ($data as $value)
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td>{{ $value['product_name'] }}</td>
-                                        <td><img src="{{ $value['product_img'] }}" width="60" alt=""></td>
-                                        <td>{{ number_format($value['product_price']) }} VNĐ</td>
-                                        <td>{{ number_format($value['product_sale'])}} VNĐ</td>
+                                        <td>{{ $value['title'] }}</td>
+                                        <td><img width="100%" src="{{ asset('/front_assets/img/post/'.$value['image']) }}" width="60" alt=""></td>
+                                        <td>{{ ($value['description']) }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('admin.products.edit',$value->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ route('admin.products.edit',$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <a href="{{ route('admin.products.delete',$value['id']) }}" onclick="return confirm('Bạn có muốn xóa không?');" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                            <a href="{{ url('admin/post/edit-post/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <form method="POST" action="{{ url('admin/post/del-post/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete post: {{ $value['title'] }}')">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @php $i++; @endphp
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
                                 <th>STT</th>
-                                <th>Tên</th>
-                                <th>Ảnh</th>
-                                <th>Giá</th>
-                                <th>Giá KM</th>
+                                <th>Title</th>
+                                <th>Image</th>
+                                <th>Description</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </tfoot>
@@ -109,5 +104,6 @@
                 "autoWidth": false,
             });
         });
+
     </script>
 @endsection

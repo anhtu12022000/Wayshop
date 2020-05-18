@@ -4,7 +4,7 @@
             <a href="index3.html" class="brand-link">
             <img src="admin_assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Admin Daily Shop</span>
             </a>
             <!-- Sidebar -->
             <div class="sidebar">
@@ -27,29 +27,8 @@
                            <i class="nav-icon fas fa-tachometer-alt"></i>
                            <p>
                               Dashboard
-                              <i class="right fas fa-angle-left"></i>
                            </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                           <li class="nav-item">
-                              <a href="./index.html" class="nav-link">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Dashboard v1</p>
-                              </a>
-                           </li>
-                           <li class="nav-item">
-                              <a href="./index2.html" class="nav-link active">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Dashboard v2</p>
-                              </a>
-                           </li>
-                           <li class="nav-item">
-                              <a href="./index3.html" class="nav-link">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Dashboard v3</p>
-                              </a>
-                           </li>
-                        </ul>
                      </li>
                      <li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
@@ -59,6 +38,30 @@
                               <span class="right badge badge-danger">New</span>
                            </p>
                         </a>
+                     </li>
+                     <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                           <i class="nav-icon fas fa-copy"></i>
+                           <p>
+                              Posts
+                              <i class="fas fa-angle-left right"></i>
+                              <span class="badge badge-info right">6</span>
+                           </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                           <li class="nav-item">
+                              <a href="{{ url('admin/post') }}" class="nav-link">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Show All Posts</p>
+                              </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ url('admin/post/add-post') }}" class="nav-link">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Add Post</p>
+                              </a>
+                           </li>
+                        </ul>
                      </li>
                      <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
