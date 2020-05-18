@@ -161,8 +161,8 @@
           <div class="navbar-collapse collapse">
             <!-- Left nav -->
             <ul class="nav navbar-nav">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="#">Men <span class="caret"></span></a>
+              <li><a href="{{ url('/') }}">Home</a></li>
+              <li><a href="{{ url('/shop') }}">Men <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="#">Casual</a></li>
                   <li><a href="#">Sports</a></li>
@@ -181,7 +181,7 @@
                   </li>
                 </ul>
               </li>
-              <li><a href="#">Women <span class="caret"></span></a>
+              <li><a href="{{ url('/shop') }}">Women <span class="caret"></span></a>
                 <ul class="dropdown-menu">  
                   <li><a href="#">Kurta & Kurti</a></li>                                                                
                   <li><a href="#">Trousers</a></li>              
@@ -253,14 +253,14 @@
                 </ul>
               </li>
               <li><a href="#">Furniture</a></li>            
-              <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
+              <li><a href="{{ url('/blog') }}">Blog <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="blog-archive.html">Blog Style 1</a></li>
                   <li><a href="blog-archive-2.html">Blog Style 2</a></li>
                   <li><a href="blog-single.html">Blog Single</a></li>                
                 </ul>
               </li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="{{ url('/contact') }}">Contact</a></li>
               <li><a href="#">Pages <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="product.html">Shop Page</a></li>

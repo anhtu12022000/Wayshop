@@ -50,12 +50,12 @@ Route::match(['get','post'], '/contact-us', 'IndexController@contact');
 Route::group(['prefix' => 'admin'], function () {
     Route::match(['get','post'], '/', 'AdminController@index');
     Route::match(['get','post'], '/dashboard', 'AdminController@dashboard');
-    Route::group(['prefix' => 'posts'], function () {
-        Route::match(['get','post'], '/', 'PostController@index');
-        Route::match(['get','post'], '/add', 'PostController@add');
-        Route::match(['get','post'], '/edit', 'PostController@edit');
+    Route::group(['prefix' => 'products'], function () {
+        Route::match(['get','post'], '/', 'ProductController@index');
+        Route::match(['get','post'], '/add', 'ProductController@add');
+        Route::match(['get','post'], '/edit', 'ProductController@edit');
     });
-    Route::group(['prefix' => 'avcs'], function () {
+    Route::group(['prefix' => 'posts'], function () {
         Route::match(['get','post'], '/', 'PostController@index');
         Route::match(['get','post'], '/add', 'PostController@add');
         Route::match(['get','post'], '/edit', 'PostController@edit');
