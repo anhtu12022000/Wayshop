@@ -362,6 +362,9 @@ img {
   font-size: 14px;
   padding: 5px 8px;
 }
+#aa-header .aa-header-top .aa-header-top-right .aa-head-top-nav-right li a span{   
+    color: #ff6666;
+  }
 #aa-header .aa-header-bottom {
   float: left;
   display: inline;

@@ -58,11 +58,15 @@
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="account.html">My Account</a></li>
+                  <li><a href="{{ url('/my-account') }}">My Account</a></li>
                   <li class="hidden-xs"><a href="{{ url('/wishlist') }}">Wishlist</a></li>
                   <li class="hidden-xs"><a href="{{ url('/cart') }}">My Cart</a></li>
                   <li class="hidden-xs"><a href="{{ url('/checkout') }}">Checkout</a></li>
-                  <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                  @if (Auth::user())
+                    <li><a href="{{ url('user/logout') }}">Logout <span>({{ Auth::user()->name }})</span></a></li>
+                  @else
+                    <li><a href="" data-toggle="modal" data-target="#login-modal">Login</span></a></li>
+                  @endif
                 </ul>
               </div>
             </div>

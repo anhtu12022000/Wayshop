@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Posts;
 
 class IndexController extends Controller
 {
     public function index()
     {
-    	return view('wayshop.home');
+        $dataPosts = Posts::all();
+    	return view('wayshop.home')->width('dataPosts',$dataPosts);
     }
 
     public function aboutus()
