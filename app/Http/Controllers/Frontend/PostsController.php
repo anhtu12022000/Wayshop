@@ -8,5 +8,9 @@ use App\Models\Posts;
 
 class PostsController extends Controller
 {
- 	
+ 	public function getAllPost()
+ 	{
+ 		$dataPosts = Posts::all();
+ 		return $dataPosts;
+ 	}
 }
