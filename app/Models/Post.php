@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     public $table = 'posts';
-    public $filable = ['title','slug','decription','images','body'];
+    public $filable = ['title','slug','description','images','body'];
     public $timestamp = true;
 }

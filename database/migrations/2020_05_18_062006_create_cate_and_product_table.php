@@ -25,14 +25,17 @@ class CreateCateAndProductTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('image', 500);
-            $table->string('decription', 250);
+            $table->string('description', 250);
             $table->integer('price')->unsigned();
             $table->integer('sale')->unsigned();
             $table->string('detail', 5000);
             $table->integer('quantity')->unsigned();
+            $table->string('imageDetail', 500)->nullable();
             $table->boolean('status')->default(0);
-            $table->integer('cate_id');
-            $table->foreign('cate_id')->references('id')->on('cate')->onDelete('cascade');
+            $table->unsignedBigInteger('slide_id')->nullable();
+            $table->foreign('slide_id')->references('id')->on('slides');
+            $table->unsignedBigInteger('cate_id');
+            $table->foreign('cate_id')->references('id')->on('cate');
             $table->timestamps();
         });
     }

@@ -56,6 +56,28 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/edit-slides/{id}', 'SlidesController@EditSlides');
             Route::delete('/del-slides/{id}', 'SlidesController@DeleteSlides');
         });
+
+        Route::group(['prefix' => 'products'], function() {
+            Route::get('/', 'ProductController@index');
+            Route::match(['get','post'], '/add-product', 'ProductController@addProduct');
+            Route::get('/edit-product/{id}', 'ProductController@showEditProduct');
+            Route::post('/edit-product/{id}', 'ProductController@EditProduct');
+            Route::delete('/del-product/{id}', 'ProductController@DeleteProduct');
+        });
+
+        Route::group(['prefix' => 'bills'], function() {
+            Route::get('/', 'BillController@index');
+            Route::get('/edit-product/{id}', 'BillController@showEditProduct');
+            Route::post('/edit-product/{id}', 'BillController@EditProduct');
+            Route::delete('/del-product/{id}', 'BillController@DeleteProduct');
+        });
+
+        Route::group(['prefix' => 'contacts'], function() {
+            Route::get('/', 'ContactController@index');
+            Route::get('/edit-product/{id}', 'ContactController@showEditProduct');
+            Route::post('/edit-product/{id}', 'ContactController@EditProduct');
+            Route::delete('/del-product/{id}', 'ContactController@DeleteProduct');
+        });
     });
 });
 

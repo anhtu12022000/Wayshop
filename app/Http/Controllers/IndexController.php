@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Frontend\PostsController;
-
+use App\Models\Product;
 class IndexController extends Controller
 {
     public function index()
     {
         $PostsController = new PostsController;
-        $dataPosts = $PostsController->getAllPost();
-    	return view('wayshop.home')->with('dataPosts',$dataPosts);
+        $data = Array(
+            'Slides' => "empty",
+            'MenProducts' => Product::orderBy('id','desc')->take(8)->get(),
+            'Posts' => $PostsController->getAllPost()
+        );
+    	return view('wayshop.home')->with('data',$data);
     }
 
     public function aboutus()

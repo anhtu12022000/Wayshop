@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Cate;
 use App\Models\Product;
 use Illuminate\Support\Str;
 
@@ -11,20 +12,25 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $data = Posts::all();
+        $data = Product::all();
     	return view('admin.products.index')->with('data', $data);
     }
 
-    public function addPost(Request $request)
+    public function addProduct(Request $request)
     {
+        $data = Array(
+            'Cate' => Cate::all()
+        );
     	if ($request->isMethod('post')) {
             $request->validate([
-                'title' => 'required|max:120|unique:posts|string',
+                'name' => 'required|max:120|unique:products|string',
                 'description' => 'required|string',
                 'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-                'body' => 'required'
+                'price' => 'required|min:1',
+                'detail' => 'required|string',
+                'quantity' => 'required|min:1' 
             ]);
-            $slug = Str::slug($request->title, '-');
+            $slug = Str::slug($request->name, '-');
             if ($request->hasFile('image')) {
 	            $file = $request->image;
 	            //Lấy Tên files 
@@ -32,53 +38,72 @@ class ProductController extends Controller
             	$file->move(public_path().'/front_assets/img/post', $image);        	
         	}
 
-            $post = new Posts;
-            $post->title = $request->title;
-            $post->slug = $slug;
-            $post->description = $request->description;
-            $post->image = $image;
-            $post->body = $request->body;
-            $post->save();
+            $product = new Products;
+            $product->name = $request->name;
+            $product->slug = $slug;
+            $product->description = $request->description;
+            $product->image = $image;
+            $product->imageDetail = "";
+            $product->price = $request->price;
+            $product->sale = $request->sale;
+            $product->detail = $request->detail;
+            $product->quantity = $request->quantity;
+            $product->status = 1;
+            $product->slide_id = "";
+            $product->cate_id = $request->cate_id;
+            $product->save();
+            return redirect('admin/products')->with('success','Created Successfully.');
         }
-    	return view('admin.products.add');
+    	return view('admin.products.add')->with('data',$data);
     }
 
-    public function showEditPost($id)
+    public function showEditProduct($id)
     {
-        $data = Posts::find($id);
+        $data = Array(
+            'Cate' => Cate::all(),
+            'Product' => Product::find($id)
+        );
     	return view('admin.products.edit')->with('data', $data);
     }
 
-    public function EditPost($id, Request $request)
+    public function EditProduct($id, Request $request)
     {
         $request->validate([
-                'title' => 'required|max:120|string',
-                'description' => 'required|string',
-                'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
-                'body' => 'required'
+            'name' => 'required|max:120|unique:products|string',
+            'description' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'price' => 'required|min:1',
+            'detail' => 'required|string',
+            'quantity' => 'required|min:1' 
         ]);
-        $post = Posts::find($id);
+        $product = Products::find($id);
         $slug = Str::slug($request->title, '-');
             if ($request->hasFile('image')) {
                 $file = $request->image;
                 //Lấy Tên files 
                 $image =  $slug.'.'.$file->getClientOriginalExtension();
                 $file->move(public_path().'/front_assets/img/post', $image);   
-                $post->image = $image;         
+                $product->image = $image;         
         }
-
-            $post->title = $request->title;
-            $post->slug = $slug;
-            $post->description = $request->description;
-            $post->body = $request->body;
-            $post->save();
+            $product->slug = $slug;
+            $product->description = $request->description;
+            $product->image = $image;
+            $product->imageDetail = "";
+            $product->price = $request->price;
+            $product->sale = $request->sale;
+            $product->detail = $request->detail;
+            $product->quantity = $request->quantity;
+            $product->status = 1;
+            $product->slide_id = "";
+            $product->cate_id = $request->cate_id;
+            $product->save();
 
         return redirect('admin/products')->with('success','Update Successfully.');
     }
 
-    public function DeletePost($id)
+    public function DeleteProduct($id)
     {
-        Posts::find($id)->delete();
+        Product::find($id)->delete();
         return redirect('admin/products')->with('success','Delete Successfully.');
     }
 }

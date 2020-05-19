@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public $table = 'products';
+    protected $table = 'products';
     protected $fillable = [
-        'name','slug','image','decription','price','sale','detail','quantity','status','cate_id'
+        'name','slug','image','description','price','sale','detail','quantity','status','slides_id','cate_id'
     ];
     public $timestamp = true;
 

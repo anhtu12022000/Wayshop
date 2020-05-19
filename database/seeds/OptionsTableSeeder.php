@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PostsTableSeeder extends Seeder
+class OptionsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,8 +11,8 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('posts')->insert([
-            ['title','slug','nội dung']
+        DB::table('options')->insert([
+            ['name'=>'DailyShop','description'=>'mô tả','email'=>'email@gmail.com']
         ]);
     }
 }
