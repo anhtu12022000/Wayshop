@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('image'); 
-            $table->string('decription');
+            $table->string('description');
             $table->text('body');
             $table->timestamps();
         });

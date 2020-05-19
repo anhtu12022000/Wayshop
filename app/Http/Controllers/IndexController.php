@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use App\Http\Controllers\Frontend\DataController;
 use App\Models\Contact;
 
+=======
+use App\Http\Controllers\Frontend\PostsController;
+use App\Models\Product;
+>>>>>>> e59803acfe42f79fc19d6243b2576c61c70c41ab
 class IndexController extends Controller
 {
 
@@ -21,7 +26,17 @@ class IndexController extends Controller
 
     public function index()
     {
+<<<<<<< HEAD
     	return view('wayshop.home')->with('dataPosts',$this->dataPosts)->with('dataSlider',$this->dataSlider);
+=======
+        $PostsController = new PostsController;
+        $data = Array(
+            'Slides' => "empty",
+            'MenProducts' => Product::orderBy('id','desc')->take(8)->get(),
+            'Posts' => $PostsController->getAllPost()
+        );
+    	return view('wayshop.home')->with('data',$data);
+>>>>>>> e59803acfe42f79fc19d6243b2576c61c70c41ab
     }
 
     public function aboutus()

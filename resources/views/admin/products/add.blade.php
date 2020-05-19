@@ -34,110 +34,66 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="col-lg-12 row" id="myForm" action="{{url('admin.products.add')}}" method="POST" enctype="multipart/form-data">
+                        <form class="col-lg-12 row" id="myForm" action="{{url('admin/products/add-product')}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="col-lg-8 row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Loại</label>
-                                        <select name="cate_id" class="form-control">
-                                            @foreach ($data['Categories'] as $item)
-                                                <option value="{{$item['id']}}">{{$item['cate_name']}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input class="form-control" name="product_name" value="{{old('product_name')}}" placeholder="Please Enter Name" />
-                                        <span class="text-danger"> {{$errors->first('product_name')}} </span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Price</label>
-                                        <input class="form-control" type="number" name="product_price" value="{{old('product_price')}}" placeholder="Please " />
-                                        <span class="text-danger"> {{$errors->first('product_price')}} </span>
-                                    </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Loại</label>
+                                    <select name="cate_id" class="form-control">
+                                        @foreach ($data['Cate'] as $item)
+                                            <option value="{{$item['id']}}">{{$item['name']}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Quantity</label>
-                                        <input class="form-control" type="number" name="product_quantity" value="{{old('product_quantity')}}" placeholder="Please " />
-                                        <span class="text-danger"> {{$errors->first('product_quantity')}} </span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Sale</label>
-                                        <input class="form-control" type="number" name="product_sale" value="{{old('product_sale')}}" placeholder="Please " />
-                                        <span class="text-danger"> {{$errors->first('product_sale')}} </span>
-                                    </div>
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <input class="form-control" type="number" name="price" value="{{old('price')}}" placeholder="Please " />
+                                    <span class="text-danger"> {{$errors->first('price')}} </span>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label>Quà Tặng</label>
-                                        <input class="form-control" type="number" name="product_gift" value="{{old('product_gift')}}" placeholder="Please " />
-                                        <span class="text-danger"> {{$errors->first('product_gift')}} </span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Short Detail</label>
-                                        <textarea name="product_short_detail" placeholder="Mô tả ngắn" class="form-control" id="" cols="30" rows="10">{{old('product_short_detail')}}</textarea>
-                                        <span class="text-danger"> {{$errors->first('product_slug')}} </span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Images</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                                            </div>
-                                            <div class="custom-file">
-                                              <input type="file" onchange="encodeImageFileAsURL(this)" name="product_img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                            </div>
-                                          </div>
-                                        <span class="text-danger"> {{$errors->first('product_img')}} </span>
-                                        <div class="form-group preview-img mt-3 text-center">
-                                            <img src="images/default.jpg" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Detail</label>
-                                        <textarea class="textarea" name="product_detail" placeholder="Place some text here" >{{old('product_detail')}}</textarea>
-                                        <span class="text-danger"> {{$errors->first('product_detail')}} </span>
-                                    </div>
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <input class="form-control" type="number" name="quantity" value="{{old('quantity')}}" placeholder="Please " />
+                                    <span class="text-danger"> {{$errors->first('quantity')}} </span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Short Detail</label>
+                                    <textarea name="description" placeholder="Mô tả ngắn" class="form-control" id="" cols="30" rows="10">{{old('description')}}</textarea>
+                                    <span class="text-danger"> {{$errors->first('description')}} </span>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Màn Hình</label>
-                                    <input class="form-control" type="text" name="man_hinh" value="{{old('man_hinh')}}" placeholder="Please " />
-                                    <span class="text-danger"> {{$errors->first('man_hinh')}} </span>
+                                    <label>Name</label>
+                                    <input class="form-control" name="name" value="{{old('name')}}" placeholder="Please Enter Name" />
+                                    <span class="text-danger"> {{$errors->first('name')}} </span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Hệ Điều Hành</label>
-                                    <input class="form-control" type="text" name="hdh" value="{{old('hdh')}}" placeholder="Please " />
-                                    <span class="text-danger"> {{$errors->first('hdh')}} </span>
+                                    <label>Sale</label>
+                                    <input class="form-control" type="number" name="sale" value="{{old('sale')}}" placeholder="Please " />
+                                    <span class="text-danger"> {{$errors->first('sale')}} </span>
                                 </div>
                                 <div class="form-group">
-                                    <label>CPU</label>
-                                    <input class="form-control" type="text" name="cpu" value="{{old('cpu')}}" placeholder="Please " />
-                                    <span class="text-danger"> {{$errors->first('cpu')}} </span>
+                                    <label>Images</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" onchange="encodeImageFileAsURL(this)" name="image" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <span class="text-danger"> {{$errors->first('img')}} </span>
                                 </div>
-                                <div class="form-group">
-                                    <label>RAM</label>
-                                    <input class="form-control" type="text" name="ram" value="{{old('ram')}}" placeholder="Please " />
-                                    <span class="text-danger"> {{$errors->first('ram')}} </span>
+                                <div class="form-group preview-img mt-5 text-center">
+                                    <img src="images/default.jpg" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
                                 </div>
+                            </div>
+                            <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>ROM</label>
-                                    <input class="form-control" type="text" name="rom" value="{{old('rom')}}" placeholder="Please " />
-                                    <span class="text-danger"> {{$errors->first('rom')}} </span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Camera</label>
-                                    <input class="form-control" type="text" name="camera" value="{{old('camera')}}" placeholder="Please " />
-                                    <span class="text-danger"> {{$errors->first('camera')}} </span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Dung Lượng</label>
-                                    <input class="form-control" type="text" name="pin" value="{{old('pin')}}" placeholder="Please " />
-                                    <span class="text-danger"> {{$errors->first('pin')}} </span>
+                                    <label>Detail</label>
+                                    <textarea class="textarea" name="detail" placeholder="Place some text here" >{{old('detail')}}</textarea>
+                                    <span class="text-danger"> {{$errors->first('detail')}} </span>
                                 </div>
                             </div>
                             <div class="col-lg-12 text-center">
@@ -172,7 +128,7 @@
             
             $('#myForm').validate({
                 rules: {
-                    product_name: {
+                    name: {
                         // required: true,
                         // email: true,
                     }
@@ -186,7 +142,7 @@
                     // },
                 },
                 messages: {
-                    product_name: {
+                    name: {
                         // required: "Bạn phải nhập thông tin này cho sản phẩm",
                         // email: "Please enter a vaild email address"
                     }
