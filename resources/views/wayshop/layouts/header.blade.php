@@ -166,11 +166,11 @@
             <!-- Left nav -->
             <ul class="nav navbar-nav">
               <li><a href="{{ url('/') }}">Home</a></li>
-<<<<<<< HEAD
+
               <li><a href="#">Men <span class="caret"></span></a>
-=======
+
               <li><a href="{{ url('/shop') }}">Men <span class="caret"></span></a>
->>>>>>> e59803acfe42f79fc19d6243b2576c61c70c41ab
+
                 <ul class="dropdown-menu">                
                   <li><a href="#">Casual</a></li>
                   <li><a href="#">Sports</a></li>
@@ -238,7 +238,7 @@
                   <li><a href="blog-single.html">Blog Single</a></li>                
                 </ul>
               </li>
-<<<<<<< HEAD
+
               <li><a href="{{ url('contact') }}">Contact</a></li>
               <li><a href="#">Pages <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
@@ -247,9 +247,9 @@
                   <li><a href="404.html">404 Page</a></li>                
                 </ul>
               </li>
-=======
+
               <li><a href="{{ url('/contact') }}">Contact</a></li>
->>>>>>> e59803acfe42f79fc19d6243b2576c61c70c41ab
+
             </ul>
           </div><!--/.nav-collapse -->
         </div>

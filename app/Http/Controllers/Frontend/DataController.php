@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Posts;
 use App\Models\Slides;
-use App\Models\Contact;
+use App\Models\Product;
 
 class DataController extends Controller
 {
@@ -21,5 +21,11 @@ class DataController extends Controller
  	{
  		$dataSlider = Slides::orderBy('created_at','desc')->limit(5)->get();
  		return $dataSlider;
+ 	}
+
+ 	public function getAllProduct()
+ 	{
+ 		$dataProduct = Product::orderBy('id','desc')->take(8)->get();
+ 		return $dataProduct;
  	}
 }
