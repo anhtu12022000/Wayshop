@@ -15,7 +15,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">DataTables</li>
+                <li class="breadcrumb-item active">user</li>
                 </ol>
             </div>
             </div>
@@ -29,34 +29,49 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/posts/add') }}" class="btn btn-info float-right">Add</a>
+                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/user/add') }}" class="btn btn-info float-right">Add</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                          @if (session('success'))
+                        @if (session('success'))
                             <div class="alert alert-danger">{{session('success')}}</div>
                           @endif
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Title</th>
+                                <th>Name</th>
                                 <th width="20%">Image</th>
-                                <th>Description</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Permission</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @php $i = 1; @endphp
+                                @php $i = 0; @endphp
                                 @foreach ($data as $value)
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td>{{ $value['title'] }}</td>
-                                        <td><img width="100%" src="{{ asset('/front_assets/img/post/'.$value['image']) }}" width="60" alt=""></td>
-                                        <td>{{ ($value['description']) }}</td>
+                                        <td>{{ $value['name'] }}</td>
+                                        <td><img width="100%" src="{{ asset('/front_assets/img/user/'.$value['image']) }}" width="60" alt=""></td>
+                                        <td>{{ $value['email'] }}</td>
+                                        <td>{{ $value['phone'] }}</td>
+                                        <td>{{ $value['address'] }}</td>
+                                        <td>@if ($value['status'] == 1)
+                                            Active
+                                        @else
+                                            Not Active
+                                        @endif    
+                                    </td>
+                                    <td>@if (isset($value['roles'][0]->name))
+                                        {{ $value['roles'][0]->name }}
+                                    @endif</td>
                                         <td class="text-center">
-                                            <a href="{{ url('admin/post/edit-post/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form method="POST" action="{{ url('admin/post/del-post/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete post: {{ $value['title'] }}')">
+                                            <a href="{{ url('admin/user/edit-user/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <form method="POST" action="{{ url('admin/post/del-user/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete post: {{ $value['title'] }}')">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -69,9 +84,13 @@
                             <tfoot>
                             <tr>
                                 <th>STT</th>
-                                <th>Title</th>
+                                <th>Name</th>
                                 <th>Image</th>
-                                <th>Description</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Address</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </tfoot>

@@ -15,7 +15,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Post</li>
+                    <li class="breadcrumb-item active">Edit User</li>
                     </ol>
                 </div>
                 </div>
@@ -30,28 +30,40 @@
                     <!-- jquery validation -->
                     <div class="card card-primary">
                         <div class="card-header">
-                        <h3 class="card-title">Form add post</h3>
-                        @if (session('success'))
-                            <div class="alert alert-success">{{session('success')}}</div>
-                        @endif
+                        <h3 class="card-title">Form edit user</h3>
                         </div>
+                        
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="col-lg-12 row" id="myForm" action="{{ url('admin/post/add-post') }}" method="post" enctype="multipart/form-data">
+                        <form class="col-lg-12 row" id="myForm" action="{{ url('admin/user/edit-user/'.$data->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="col-lg-8 row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label>Title</label>
-                                        <input class="form-control" name="title" value="{{old('title')}}" placeholder="Please Enter Title" class="@error('title') is-invalid @enderror" />
-                                        @error('title')
+                                        <label>Name</label>
+                                        <input class="form-control" name="name" value="{{ $data->name }}" placeholder="Please Enter Name" class="@error('name') is-invalid @enderror" />
+                                        @error('name')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label>Description</label>
-                                        <textarea name="description" placeholder="Description" id="" cols="30" rows="10" class="form-control @error('description') is-invalid @enderror">{{old('description')}}</textarea>
-                                        @error('description')
+                                        <label>Email</label>
+                                        <input class="form-control" name="email" value="{{ $data->email }}" placeholder="Please Enter Email" class="@error('email') is-invalid @enderror" />
+                                        @error('email')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input class="form-control" name="phone" value="{{ $data->phone }}" placeholder="Please Enter Phone" class="@error('phone') is-invalid @enderror" />
+                                        @error('phone')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input class="form-control" name="address" value="{{ $data->address }}" placeholder="Please Enter Address" class="@error('address') is-invalid @enderror" />
+                                        @error('address')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -70,22 +82,46 @@
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                         <div class="form-group preview-img mt-3 text-center">
-                                            <img width="200" height="200" src="{{ asset('/admin_assets/dist/img/default.png') }}" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
+                                            <img width="200" height="200" src="{{ asset('/front_assets/img/user/'.$data->image) }}" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Content</label>
-                                        <textarea class="textarea @error('body') is-invalid @enderror" name="body" placeholder="Place some text here" >{{old('body')}}</textarea>
-                                        @error('body')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                        <label>Gender</label>
+                                        <select name="gender" id="">
+                                            <option value="0">Male</option>
+                                            <option @if ($data->gender == 1)
+                                                selected="" 
+                                            @endif value="1">Famale</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <select name="status" id="">
+                                            <option value="0">Not Active</option>
+                                            <option @if ($data->status == 1)
+                                                selected="" 
+                                            @endif value="1">Active</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Permission</label>
+                                        <select name="roles" id="">
+                                            <option value="">--- Choose roles ---</option>
+                                            @foreach ($roles as $value)
+                                                <option @if (isset($data['roles'][0]->name) && $data['roles'][0]->name == $value->name)
+                                                    selected="" 
+                                                @endif value="{{ $value->name }}">{{ $value->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 text-center">
-                                <button type="submit" class="btn btn-info">Add Product</button>
+                                <button type="submit" class="btn btn-info">Edit Product</button>
                                 <button type="reset" class="btn btn-warning">Reset</button>
-                                <a href="{{ url('admin/post/') }}" class="btn btn-danger">Hủy</a>
+                                <a href="{{ url('admin/user/') }}" class="btn btn-danger">Hủy</a>
                             </div>
                         </form>
                     </div>

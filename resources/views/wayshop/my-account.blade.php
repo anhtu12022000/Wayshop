@@ -1,4 +1,7 @@
 @extends('wayshop.layouts.master')
+@section('title')
+    Account 
+@endsection
 @section('content')
 
    <!-- catg header banner section -->
@@ -42,7 +45,10 @@
                     <div class="alert alert-danger">{{session('danger')}}</div>
                   @endif
                 <h4>Change password</h4>
-                 <form action="{{ url('user/change-password') }}" method="post" class="aa-login-form">
+                @if (session('changePassword'))
+                  <div class="alert alert-success">{{session('changePassword')}}</div>
+                @endif
+                <form action="{{ url('user/change-password/'.Auth::id()) }}" method="post" class="aa-login-form">
                   @csrf
                   <label for="">New password<span>*</span></label>
                    <input type="password" name="password" placeholder="New password">
@@ -59,6 +65,9 @@
                     <div class="alert alert-success">{{session('status')}}</div>
                   @endif              
                  <h4>Change infomation</h4>
+                 @if (session('changeInformation'))
+                  <div class="alert alert-success">{{session('changeInformation')}}</div>
+                  @endif
                  <form action="{{ url('user/change-infomation') }}" method="post" class="aa-login-form">
                   @csrf
                     <label for="">Username<span>*</span></label>

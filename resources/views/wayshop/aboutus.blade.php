@@ -1,4 +1,7 @@
 @extends('wayshop.layouts.master')
+@section('title')
+    About Us 
+@endsection
 @section('content')
 
     <!-- Start All Title Box -->

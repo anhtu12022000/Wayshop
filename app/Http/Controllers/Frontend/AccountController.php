@@ -49,6 +49,34 @@ class AccountController extends Controller
         }
     }
 
+    public function changePassword($id, Request $request)
+    {
+        $request->validate([
+            'password' => 'required|confirmed'
+        ]);
+        $user = User::find($id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return back()->with('changePassword', 'Change Password Successfully');
+    }
+
+    public function changeInformation($id, Request $request)
+    {
+        $request->validate([
+            'email' => 'required|max:255|string|email',
+            'address' => 'string',
+            'phone' => 'min:10|max:10|numeric',
+        ]);
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+        $user->gender = $request->gender;
+        $user->save();
+        return back()->with('changeInformation', 'Change Information Successfully');
+    }
+
     public function logout()
     {
         Auth::logout();

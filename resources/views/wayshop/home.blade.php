@@ -1,4 +1,7 @@
 @extends('wayshop.layouts.master')
+@section('title')
+    Home 
+@endsection
 @section('content')
  <!-- Start Promo section -->
   <section id="aa-promo">
@@ -1278,44 +1281,22 @@
           <div class="aa-testimonial-area">
             <ul class="aa-testimonial-slider">
               <!-- single slide -->
+            
               <li>
                 <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{ asset('front_assets/img/testimonial-img-2.jpg') }}" alt="testimonial img">
+                <img class="aa-testimonial-img" src="{{ asset('front_assets/img/ngao.jpg') }}" alt="testimonial img">
                   <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
+                  <p>Bài tập lớp môn PHP 3 - Shop bán hàng bằng Laravel.</p>
                   <div class="aa-testimonial-info">
-                    <p>Allison</p>
-                    <span>Designer</span>
-                    <a href="#">Dribble.com</a>
-                  </div>
-                </div>
-              </li>
-              <!-- single slide -->
-              <li>
-                <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{ asset('front_assets/img/testimonial-img-1.jpg') }}" alt="testimonial img">
-                  <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                  <div class="aa-testimonial-info">
-                    <p>KEVIN MEYER</p>
+                    <p>Anh Tú</p>
                     <span>CEO</span>
-                    <a href="#">Alphabet</a>
+                    <a href="https://www.facebook.com/Alaska12022000">https://www.facebook.com/Alaska12022000</a>
                   </div>
                 </div>
               </li>
-               <!-- single slide -->
-              <li>
-                <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{ asset('front_assets/img/testimonial-img-3.jpg') }}" alt="testimonial img">
-                  <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                  <div class="aa-testimonial-info">
-                    <p>Luner</p>
-                    <span>COO</span>
-                    <a href="#">Kinatic Solution</a>
-                  </div>
-                </div>
-              </li>
+
+              <!-- single slide -->
+
             </ul>
           </div>
         </div>

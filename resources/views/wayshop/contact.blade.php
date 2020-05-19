@@ -1,4 +1,7 @@
 @extends('wayshop.layouts.master')
+@section('title')
+    Contact 
+@endsection
 @section('content')
 
     <!-- Start All Title Box -->
@@ -34,37 +37,53 @@
            </div>
            <!-- Contact address -->
            <div class="aa-contact-address">
+            @if (session('success'))
+              <div class="alert alert-success">{{session('success')}}</div>
+            @endif
              <div class="row">
                <div class="col-md-8">
                  <div class="aa-contact-address-left">
-                   <form class="comments-form contact-form" action="">
+                   <form class="comments-form contact-form" action="{{ url('/contact') }}" method="post">
+                    @csrf
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">                        
-                          <input type="text" placeholder="Your Name" class="form-control">
+                          <input type="text" name="name" value="{{old('name')}}" placeholder="Please Enter Your Name" class="form-control @error('title') is-invalid @enderror">
+                          @error('name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">                        
-                          <input type="email" placeholder="Email" class="form-control">
+                          <input type="email" placeholder="Email" name="email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror">
+                          @error('name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
                         </div>
                       </div>
                     </div>
                      <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">                        
-                          <input type="text" placeholder="Subject" class="form-control">
+                          <input type="text" placeholder="Subject" name="subject" value="{{old('subject')}}" class="form-control @error('subject') is-invalid @enderror">
+                          @error('subject')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">                        
-                          <input type="text" placeholder="Company" class="form-control">
+                          <input type="text" placeholder="Company" name="company" class="form-control">
                         </div>
                       </div>
                     </div>                  
                      
                     <div class="form-group">                        
-                      <textarea class="form-control" rows="3" placeholder="Message"></textarea>
+                      <textarea value="{{old('message')}}" class="form-control @error('message') is-invalid @enderror" name="message" rows="3" placeholder="Message"></textarea>
+                      @error('message')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror
                     </div>
                     <button class="aa-secondary-btn">Send</button>
                   </form>

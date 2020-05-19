@@ -15,7 +15,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">DataTables</li>
+                <li class="breadcrumb-item active">Slides</li>
                 </ol>
             </div>
             </div>
@@ -29,11 +29,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/posts/add') }}" class="btn btn-info float-right">Add</a>
+                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/slides/add-slides') }}" class="btn btn-info float-right">Add</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                          @if (session('success'))
+                        @if (session('success'))
                             <div class="alert alert-danger">{{session('success')}}</div>
                           @endif
                         <table id="example1" class="table table-bordered table-striped">
@@ -42,7 +42,7 @@
                                 <th>STT</th>
                                 <th>Title</th>
                                 <th width="20%">Image</th>
-                                <th>Description</th>
+                                <th>Slug</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
@@ -52,11 +52,11 @@
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td>{{ $value['title'] }}</td>
-                                        <td><img width="100%" src="{{ asset('/front_assets/img/post/'.$value['image']) }}" width="60" alt=""></td>
-                                        <td>{{ ($value['description']) }}</td>
+                                        <td><img width="100%" src="{{ asset('/front_assets/img/slides/'.$value['image']) }}" width="60" alt=""></td>
+                                        <td>{{ ($value['slug']) }}</td>
                                         <td class="text-center">
-                                            <a href="{{ url('admin/post/edit-post/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form method="POST" action="{{ url('admin/post/del-post/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete post: {{ $value['title'] }}')">
+                                            <a href="{{ url('admin/slides/edit-slides/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <form method="post" action="{{ url('admin/slides/del-slides/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete post: {{ $value['title'] }}')">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -71,7 +71,7 @@
                                 <th>STT</th>
                                 <th>Title</th>
                                 <th>Image</th>
-                                <th>Description</th>
+                                <th>Slug</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </tfoot>

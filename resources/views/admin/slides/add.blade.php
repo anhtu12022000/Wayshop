@@ -15,7 +15,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Post</li>
+                    <li class="breadcrumb-item active">Slider</li>
                     </ol>
                 </div>
                 </div>
@@ -30,14 +30,16 @@
                     <!-- jquery validation -->
                     <div class="card card-primary">
                         <div class="card-header">
-                        <h3 class="card-title">Form add post</h3>
-                        @if (session('success'))
-                            <div class="alert alert-success">{{session('success')}}</div>
-                        @endif
+                        <h3 class="card-title">Form add slider</h3>
+                        </div>
+                        <div>
+                            @if (session('success'))
+                                <div class="alert alert-success">{{session('success')}}</div>
+                            @endif
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="col-lg-12 row" id="myForm" action="{{ url('admin/post/add-post') }}" method="post" enctype="multipart/form-data">
+                        <form class="col-lg-12 row" id="myForm" action="{{ url('admin/slides/add-slides') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="col-lg-8 row">
                                 <div class="col-lg-12">
@@ -45,13 +47,6 @@
                                         <label>Title</label>
                                         <input class="form-control" name="title" value="{{old('title')}}" placeholder="Please Enter Title" class="@error('title') is-invalid @enderror" />
                                         @error('title')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Description</label>
-                                        <textarea name="description" placeholder="Description" id="" cols="30" rows="10" class="form-control @error('description') is-invalid @enderror">{{old('description')}}</textarea>
-                                        @error('description')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -73,19 +68,12 @@
                                             <img width="200" height="200" src="{{ asset('/admin_assets/dist/img/default.png') }}" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Content</label>
-                                        <textarea class="textarea @error('body') is-invalid @enderror" name="body" placeholder="Place some text here" >{{old('body')}}</textarea>
-                                        @error('body')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12 text-center">
-                                <button type="submit" class="btn btn-info">Add Product</button>
+                                <button type="submit" class="btn btn-info">Add Slider</button>
                                 <button type="reset" class="btn btn-warning">Reset</button>
-                                <a href="{{ url('admin/post/') }}" class="btn btn-danger">Hủy</a>
+                                <a href="{{ url('admin/slides/') }}" class="btn btn-danger">Hủy</a>
                             </div>
                         </form>
                     </div>
