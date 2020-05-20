@@ -24,6 +24,13 @@ Route::match(['get','post'], '/my-account', 'IndexController@account');
 Route::match(['get','post'], '/wishlist', 'IndexController@wishlist');
 Route::match(['get','post'], '/service', 'IndexController@service');
 Route::match(['get','post'], '/contact-us', 'IndexController@contact');
+Route::match(['get','post'], '/shop', 'IndexController@shop');
+Route::get('product-detail/{id}', 'IndexController@productDetail');
+Route::get('post-detail/{slug}', 'IndexController@postDetail');
+
+
+
+Route::get('search/{keyword}', 'IndexController@search');
 
 Route::namespace('Frontend')->group(function () {
     Route::group(['prefix' => 'user'], function() {
@@ -77,6 +84,14 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/edit-product/{id}', 'ContactController@showEditProduct');
             Route::post('/edit-product/{id}', 'ContactController@EditProduct');
             Route::delete('/del-product/{id}', 'ContactController@DeleteProduct');
+        });
+
+        Route::group(['prefix' => 'cate'], function() {
+            Route::get('/', 'CateController@index');
+            Route::match(['get','post'], '/add-cate', 'CateController@addCate');
+            Route::get('/edit-cate/{id}', 'CateController@showEditCate');
+            Route::post('/edit-cate/{id}', 'CateController@EditCate');
+            Route::delete('/del-cate/{id}', 'CateController@DeleteCate');
         });
     });
 });

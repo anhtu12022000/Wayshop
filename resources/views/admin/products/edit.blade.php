@@ -34,7 +34,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="col-lg-12 row" id="myForm" action="{{url('admin/products/add-product')}}" method="POST" enctype="multipart/form-data">
+                        <form class="col-lg-12 row" id="myForm" action="{{url('admin/products/add-product/'.$data['Product']->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="col-lg-6">
                                 <div class="form-group">

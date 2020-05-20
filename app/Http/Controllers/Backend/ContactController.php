@@ -20,6 +20,23 @@ class ContactController extends Controller
         return redirect('admin/contacts')->with('success','Delete Successfully');
     }
 
+    public function sendContact(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|min:6',
+            'email' => 'required|email',
+            'title' => 'required|string|min:6',
+            'body' => 'required|min:6'
+        ]);
+
+        $contact = new Contact;
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->title = $request->title;
+        $contact->body = $request->body;
+        $contact->save();
+        return redirect()->with('success','Gửi thành công.');
+    }
 
 }
 ?>

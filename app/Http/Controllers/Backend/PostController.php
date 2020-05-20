@@ -65,7 +65,7 @@ class PostController extends Controller
                 $image =  $slug.'.'.$file->getClientOriginalExtension();
                 $file->move(public_path().'/front_assets/img/post', $image);   
                 $post->image = $image;         
-        }
+            }
 
             $post->title = $request->title;
             $post->slug = $slug;
