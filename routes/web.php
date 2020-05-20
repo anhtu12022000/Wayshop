@@ -10,13 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Spatie\Permission\Traits\HasRoles;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-Route::get('quyen', function() {
-    Role::create(['name' => 'Administrator']);
-    Auth::user()->assignRole('Administrator');
-});
+// use Spatie\Permission\Traits\HasRoles;
+// use Spatie\Permission\Models\Role;
+// use Spatie\Permission\Models\Permission;
+// Route::get('quyen', function() {
+//     Role::create(['name' => 'Administrator']);
+//     Auth::user()->assignRole('Administrator');
+// });
 
 
 Auth::routes();
