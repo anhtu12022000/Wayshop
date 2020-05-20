@@ -119,4 +119,9 @@ class IndexController extends Controller
         }
         return view('wayshop.contact')->with('dataSlider',$this->dataSlider);
     }
+
+    public function notFound()
+    {
+        return view('wayshop.404')->with('dataSlider',$this->dataSlider);
+    }
 }

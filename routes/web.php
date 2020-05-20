@@ -44,9 +44,7 @@ Route::namespace('Frontend')->group(function () {
     });
 });
 
-Route::get('/404', function() {
-    return view('wayshop.404');
-})->name('404');
+Route::get('/404','IndexController@notFound')->name('404');
 
 //Back-End
 

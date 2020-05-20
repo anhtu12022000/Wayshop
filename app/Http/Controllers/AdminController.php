@@ -31,7 +31,7 @@ class AdminController extends Controller
                 } else {
                     return redirect('/admin')->with('status', 'Invalid Email or Password')->withInput();
                 }
-            } else if (Auth::check()) {
+            } else if (!Auth::viaRemember() | Auth::check() && Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
                 return redirect('admin/dashboard');
             }
         
@@ -39,10 +39,12 @@ class AdminController extends Controller
     }
 
     public function dashboard()
-    {
-        if (Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
+    {    
+        if (!Auth::viaRemember() | Auth::check() && Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
             return view('admin.dashboard');
-        }      
+        } else {
+            return redirect('404');
+        }    
     }
 
     public function logout()
