@@ -35,7 +35,7 @@ class ProductController extends Controller
 	            $file = $request->image;
 	            //Lấy Tên files 
             	$image =  $slug.'.'.$file->getClientOriginalExtension();
-            	$file->move(public_path().'/front_assets/img/post', $image);        	
+            	$file->move(public_path().'/front_assets/img/product', $image);        	
         	}
 
             $product = new Products;
@@ -79,15 +79,18 @@ class ProductController extends Controller
         $product = Products::find($id);
         $slug = Str::slug($request->title, '-');
             if ($request->hasFile('image')) {
+                if($product->image != '' && file_exists(public_path('front_assets/img/product/'.$product->image)))
+                {
+                    unlink(public_path('front_assets/img/product/'.$product->image));
+                }
                 $file = $request->image;
                 //Lấy Tên files 
                 $image =  $slug.'.'.$file->getClientOriginalExtension();
-                $file->move(public_path().'/front_assets/img/post', $image);   
+                $file->move(public_path().'/front_assets/img/product', $image);   
                 $product->image = $image;         
         }
             $product->slug = $slug;
             $product->description = $request->description;
-            $product->image = $image;
             $product->imageDetail = "";
             $product->price = $request->price;
             $product->sale = $request->sale;
@@ -103,7 +106,11 @@ class ProductController extends Controller
 
     public function DeleteProduct($id)
     {
-        Product::find($id)->delete();
+        $product = Product::find($id)->delete();
+        if($product->image != '' && file_exists(public_path('front_assets/img/product/'.$product->image)))
+        {
+            unlink(public_path('front_assets/img/product/'.$product->image));
+        }
         return redirect('admin/products')->with('success','Delete Successfully.');
     }
 }

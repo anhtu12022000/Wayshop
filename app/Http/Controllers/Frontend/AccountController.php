@@ -15,7 +15,7 @@ class AccountController extends Controller
     	$request->validate([
     		'email' => 'required|max:255|string|email',
     		'address' => 'string',
-    		'phone' => 'min:10|max:10|numeric',
+    		'phone' => 'min:11|numeric',
     		'password' => 'required|confirmed'
     	]);
 
@@ -42,7 +42,7 @@ class AccountController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         $remember_token = $request->input('remember_token');
-        if (Auth::attempt(['email' => $email, 'password' => $password], $remember_token)) {
+        if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1], $remember_token)) {
                 return redirect('/');
         } else {
             return redirect('/my-account')->with('danger', 'Invalid Email or Password')->withInput();
