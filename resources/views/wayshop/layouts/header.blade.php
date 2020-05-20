@@ -166,6 +166,13 @@
             <!-- Left nav -->
             <ul class="nav navbar-nav">
               <li><a href="{{ url('/') }}">Home</a></li>
+<<<<<<< HEAD
+              <li><a href="{{ url('/shop') }}">Shop <span class="caret"></span></a>
+                <ul class="dropdown-menu">   
+                  @foreach($data['Cate'] as $item)             
+                  <li><a href="{{ url('/shop') }}">{{$item->name}}</a></li>
+                  @endforeach
+=======
 
               <li><a href="#">Men <span class="caret"></span></a>
 
@@ -229,8 +236,9 @@
                       </li>                   
                     </ul>
                   </li>
+>>>>>>> f22d974bce51e86035b9b32c22227c4fd8f57615
                 </ul>
-              </li>          
+              </li>         
               <li><a href="{{ url('/blog') }}">Blog <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="blog-archive.html">Blog Style 1</a></li>
@@ -238,6 +246,9 @@
                   <li><a href="blog-single.html">Blog Single</a></li>                
                 </ul>
               </li>
+<<<<<<< HEAD
+              <li><a href="{{ url('/contact-us') }}">Contact</a></li>
+=======
 
               <li><a href="{{ url('contact') }}">Contact</a></li>
               <li><a href="#">Pages <span class="caret"></span></a>
@@ -250,6 +261,7 @@
 
               <li><a href="{{ url('/contact') }}">Contact</a></li>
 
+>>>>>>> f22d974bce51e86035b9b32c22227c4fd8f57615
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -263,6 +275,21 @@
       <div id="sequence" class="seq">
         <div class="seq-screen">
           <ul class="seq-canvas">
+<<<<<<< HEAD
+            @foreach($data['Slides'] as $item)
+            <li>
+              <div class="seq-model">
+                <img data-seq src="{{ asset('front_assets/img/slider/1.jpg') }}" alt="Men slide img" />
+              </div>
+              <div class="seq-title">
+               <span data-seq>Save Up to 75% Off</span>                
+                <h2 data-seq>Men Collection</h2>                
+                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
+                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+              </div>
+            </li>
+            @endforeach                 
+=======
             <!-- single slide item -->
             @foreach ($dataSlider as $value)
             <li>
@@ -279,6 +306,7 @@
             @endforeach
             <!-- single slide item -->
                   
+>>>>>>> f22d974bce51e86035b9b32c22227c4fd8f57615
           </ul>
         </div>
         <!-- slider navigation btn -->

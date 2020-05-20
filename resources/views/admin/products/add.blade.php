@@ -88,6 +88,10 @@
                                 <div class="form-group preview-img mt-5 text-center">
                                     <img src="images/default.jpg" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
                                 </div>
+                                <div class="custom-file">
+                                    <input type="file" name="imageDetail[]" multiple class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">

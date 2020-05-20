@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\Frontend\PostsController;
+use App\Models\Cate;
+use App\Models\Product;
+use App\Models\Posts;
+
+
 use App\Http\Controllers\Frontend\DataController;
 use App\Models\Contact;
 
@@ -23,7 +29,14 @@ class IndexController extends Controller
 
     public function index()
     {
-        return view('wayshop.home')->with('dataPosts',$this->dataPosts)->with('dataSlider',$this->dataSlider)->with('dataProduct',$this->dataProduct);
+        $PostsController = new PostsController;
+        $data = Array(
+            'Cate' => Cate::all(),
+            'Slides' => Product::orderBy('id','desc')->take(2)->get(),
+            'MenProducts' => Product::orderBy('id','desc')->take(8)->get(),
+            'Posts' => $PostsController->getAllPost()
+        );
+    	return view('wayshop.home')->with('data',$data);
     }
 
     public function aboutus()
@@ -41,9 +54,27 @@ class IndexController extends Controller
         return view('wayshop.checkout');
     }
 
-    public function detail()
+    public function productDetail($id)
     {
-        return view('wayshop.product-detail');
+        $data = Array(
+            'Cate' => Cate::all(),
+            'Slides' => Product::orderBy('id','desc')->take(2)->get(),
+            'Product' => Product::find($id),
+            'productRelated' => Product::where('id','>',$id)->get()
+        );
+        return view('wayshop.product-detail')->with('data',$data);
+    }
+
+    public function postDetail($slug)
+    {
+        $data = Array(
+            'Cate' => Cate::all(),
+            'Slides' => Product::orderBy('id','desc')->take(2)->get(),
+            'Post' => Posts::where('slug',$slug)->first(),
+            'PostComment' => Posts::where('slug',$slug)->first(),
+            'postRelated' => Product::all(),
+        );
+        return view('wayshop.blog-detail')->with('data',$data);
     }
 
     public function account()
@@ -58,11 +89,17 @@ class IndexController extends Controller
 
     public function shop()
     {
-        return view('wayshop.shop');
+        $data = Array(
+            'Cate' => Cate::all(),
+            'Slides' => Product::orderBy('id','desc')->take(2)->get(),
+            'Products' => Product::all(),
+        );
+        return view('wayshop.shop')->with('data',$data);
     }
 
     public function contact(Request $request)
     {
+
         if ($request->isMethod('post')) {
             $request->validate([
                 'name' => 'required|max:50|string',
