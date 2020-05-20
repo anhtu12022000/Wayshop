@@ -9,6 +9,12 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $data = Posts::all();
@@ -39,6 +45,7 @@ class PostController extends Controller
             $post->image = $image;
             $post->body = $request->body;
             $post->save();
+            return back()->with('success','Add Successfully.');
         }
     	return view('admin.posts.add');
     }
@@ -60,20 +67,23 @@ class PostController extends Controller
         $post = Posts::find($id);
         $slug = Str::slug($request->title, '-');
             if ($request->hasFile('image')) {
+                if($post[0]->image != '' && file_exists(public_path('front_assets/img/post/'.$post[0]->image)))
+                {
+                    unlink(public_path('front_assets/img/post/'.$post[0]->image));
+                }
                 $file = $request->image;
                 //Lấy Tên files 
                 $image =  $slug.'.'.$file->getClientOriginalExtension();
                 $file->move(public_path().'/front_assets/img/post', $image);   
                 $post->image = $image;         
             }
-
             $post->title = $request->title;
             $post->slug = $slug;
             $post->description = $request->description;
             $post->body = $request->body;
             $post->save();
 
-        return redirect('admin/post')->with('success','Update Successfully.');
+        return back()->with('success','Update Successfully.');
     }
 
     public function DeletePost($id)

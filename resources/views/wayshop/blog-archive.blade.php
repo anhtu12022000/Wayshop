@@ -1,4 +1,7 @@
 @extends('wayshop.layouts.master')
+@section('title')
+    Blog-Archive 
+@endsection
 @section('content')
 <!-- catg header banner section -->
   <section id="aa-catg-head-banner">

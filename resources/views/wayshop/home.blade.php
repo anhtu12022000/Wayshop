@@ -1,4 +1,7 @@
 @extends('wayshop.layouts.master')
+@section('title')
+    Home 
+@endsection
 @section('content')
  <!-- Start Promo section -->
   <section id="aa-promo">
@@ -87,7 +90,7 @@
                     <!-- Start men product category -->
                     <div class="tab-pane fade in active" id="men">
                       <ul class="aa-product-catg">
-                        @foreach($data['MenProducts'] as $item)
+                        @foreach($dataProduct as $item)
                         <li>
                           <figure>
                             <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -117,7 +120,7 @@
                     <!-- start women product category -->
                     <div class="tab-pane fade" id="women">
                       <ul class="aa-product-catg">
-                        @foreach($data['MenProducts'] as $item)
+                        @foreach($dataProduct as $item)
                         <li>
                           <figure>
                             <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -146,7 +149,7 @@
                     <!-- start electronic product category -->
                     <div class="tab-pane fade" id="electronics">
                        <ul class="aa-product-catg">
-                        @foreach($data['MenProducts'] as $item)
+                        @foreach($dataProduct as $item)
                         <li>
                           <figure>
                             <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -295,7 +298,7 @@
                 <!-- Start men popular category -->
                 <div class="tab-pane fade in active" id="popular">
                   <ul class="aa-product-catg aa-popular-slider">
-                    @foreach($data['MenProducts'] as $item)
+                    @foreach($dataProduct as $item)
                         <li>
                           <figure>
                             <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -326,7 +329,7 @@
                 <!-- start featured product category -->
                 <div class="tab-pane fade" id="featured">
                  <ul class="aa-product-catg aa-featured-slider">
-                  @foreach($data['MenProducts'] as $item)
+                  @foreach($dataProduct as $item)
                   <li>
                     <figure>
                       <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -357,7 +360,7 @@
                 <!-- start latest product category -->
                 <div class="tab-pane fade" id="latest">
                   <ul class="aa-product-catg aa-latest-slider">
-                    @foreach($data['MenProducts'] as $item)
+                    @foreach($dataProduct as $item)
                         <li>
                           <figure>
                             <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -436,44 +439,22 @@
           <div class="aa-testimonial-area">
             <ul class="aa-testimonial-slider">
               <!-- single slide -->
+            
               <li>
                 <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{ asset('front_assets/img/testimonial-img-2.jpg') }}" alt="testimonial img">
+                <img class="aa-testimonial-img" src="{{ asset('front_assets/img/ngao.jpg') }}" alt="testimonial img">
                   <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
+                  <p>Bài tập lớp môn PHP 3 - Shop bán hàng bằng Laravel.</p>
                   <div class="aa-testimonial-info">
-                    <p>Allison</p>
-                    <span>Designer</span>
-                    <a href="#">Dribble.com</a>
-                  </div>
-                </div>
-              </li>
-              <!-- single slide -->
-              <li>
-                <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{ asset('front_assets/img/testimonial-img-1.jpg') }}" alt="testimonial img">
-                  <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                  <div class="aa-testimonial-info">
-                    <p>KEVIN MEYER</p>
+                    <p>Anh Tú</p>
                     <span>CEO</span>
-                    <a href="#">Alphabet</a>
+                    <a href="https://www.facebook.com/Alaska12022000">https://www.facebook.com/Alaska12022000</a>
                   </div>
                 </div>
               </li>
-               <!-- single slide -->
-              <li>
-                <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{ asset('front_assets/img/testimonial-img-3.jpg') }}" alt="testimonial img">
-                  <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                  <div class="aa-testimonial-info">
-                    <p>Luner</p>
-                    <span>COO</span>
-                    <a href="#">Kinatic Solution</a>
-                  </div>
-                </div>
-              </li>
+
+              <!-- single slide -->
+
             </ul>
           </div>
         </div>
@@ -491,7 +472,7 @@
             <h2>LATEST BLOG</h2>
             <div class="row">
               <!-- single latest blog -->
-              @foreach ($data['Posts'] as $value)
+              @foreach ($dataPosts as $value)
               <div class="col-md-4 col-sm-4">
                 <div class="aa-latest-blog-single">
                   <figure class="aa-blog-img">                    

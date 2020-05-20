@@ -166,11 +166,77 @@
             <!-- Left nav -->
             <ul class="nav navbar-nav">
               <li><a href="{{ url('/') }}">Home</a></li>
+<<<<<<< HEAD
               <li><a href="{{ url('/shop') }}">Shop <span class="caret"></span></a>
                 <ul class="dropdown-menu">   
                   @foreach($data['Cate'] as $item)             
                   <li><a href="{{ url('/shop') }}">{{$item->name}}</a></li>
                   @endforeach
+=======
+
+              <li><a href="#">Men <span class="caret"></span></a>
+
+              <li><a href="{{ url('/shop') }}">Men <span class="caret"></span></a>
+
+                <ul class="dropdown-menu">                
+                  <li><a href="#">Casual</a></li>
+                  <li><a href="#">Sports</a></li>
+                  <li><a href="#">Formal</a></li>
+                  <li><a href="#">Standard</a></li>                                                
+                  <li><a href="#">T-Shirts</a></li>
+                  <li><a href="#">Shirts</a></li>
+                  <li><a href="#">Jeans</a></li>
+                  <li><a href="#">Trousers</a></li>
+                  <li><a href="#">And more.. <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Sleep Wear</a></li>
+                      <li><a href="#">Sandals</a></li>
+                      <li><a href="#">Loafers</a></li>                                      
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="{{ url('/shop') }}">Women <span class="caret"></span></a>
+                <ul class="dropdown-menu">  
+                  <li><a href="#">Kurta & Kurti</a></li>                                                                
+                  <li><a href="#">Trousers</a></li>              
+                  <li><a href="#">Casual</a></li>
+                  <li><a href="#">Sports</a></li>
+                  <li><a href="#">Formal</a></li>                
+                  <li><a href="#">Sarees</a></li>
+                  <li><a href="#">Shoes</a></li>
+                  <li><a href="#">And more.. <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Sleep Wear</a></li>
+                      <li><a href="#">Sandals</a></li>
+                      <li><a href="#">Loafers</a></li>
+                      <li><a href="#">And more.. <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Rings</a></li>
+                          <li><a href="#">Earrings</a></li>
+                          <li><a href="#">Jewellery Sets</a></li>
+                          <li><a href="#">Lockets</a></li>
+                          <li class="disabled"><a class="disabled" href="#">Disabled item</a></li>                       
+                          <li><a href="#">Jeans</a></li>
+                          <li><a href="#">Polo T-Shirts</a></li>
+                          <li><a href="#">SKirts</a></li>
+                          <li><a href="#">Jackets</a></li>
+                          <li><a href="#">Tops</a></li>
+                          <li><a href="#">Make Up</a></li>
+                          <li><a href="#">Hair Care</a></li>
+                          <li><a href="#">Perfumes</a></li>
+                          <li><a href="#">Skin Care</a></li>
+                          <li><a href="#">Hand Bags</a></li>
+                          <li><a href="#">Single Bags</a></li>
+                          <li><a href="#">Travel Bags</a></li>
+                          <li><a href="#">Wallets & Belts</a></li>                        
+                          <li><a href="#">Sunglases</a></li>
+                          <li><a href="#">Nail</a></li>                       
+                        </ul>
+                      </li>                   
+                    </ul>
+                  </li>
+>>>>>>> f22d974bce51e86035b9b32c22227c4fd8f57615
                 </ul>
               </li>         
               <li><a href="{{ url('/blog') }}">Blog <span class="caret"></span></a>
@@ -180,7 +246,22 @@
                   <li><a href="blog-single.html">Blog Single</a></li>                
                 </ul>
               </li>
+<<<<<<< HEAD
               <li><a href="{{ url('/contact-us') }}">Contact</a></li>
+=======
+
+              <li><a href="{{ url('contact') }}">Contact</a></li>
+              <li><a href="#">Pages <span class="caret"></span></a>
+                <ul class="dropdown-menu">                
+                  <li><a href="product.html">Shop Page</a></li>
+                  <li><a href="product-detail.html">Shop Single</a></li>                
+                  <li><a href="404.html">404 Page</a></li>                
+                </ul>
+              </li>
+
+              <li><a href="{{ url('/contact') }}">Contact</a></li>
+
+>>>>>>> f22d974bce51e86035b9b32c22227c4fd8f57615
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -194,6 +275,7 @@
       <div id="sequence" class="seq">
         <div class="seq-screen">
           <ul class="seq-canvas">
+<<<<<<< HEAD
             @foreach($data['Slides'] as $item)
             <li>
               <div class="seq-model">
@@ -207,6 +289,24 @@
               </div>
             </li>
             @endforeach                 
+=======
+            <!-- single slide item -->
+            @foreach ($dataSlider as $value)
+            <li>
+              <div class="seq-model">
+                <img data-seq src="{{ asset('front_assets/img/slides/'.$value->image) }}" alt="{{ $value->title }}" />
+              </div>
+              <div class="seq-title">
+               {{-- <span data-seq>Save Up to 75% Off</span>  --}}               
+                <h2 data-seq>{{ $value->title }}</h2>                
+                {{-- <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p> --}}
+                <a data-seq href="{{ url('shop/'.$value->title) }}" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+              </div>
+            </li>
+            @endforeach
+            <!-- single slide item -->
+                  
+>>>>>>> f22d974bce51e86035b9b32c22227c4fd8f57615
           </ul>
         </div>
         <!-- slider navigation btn -->
@@ -217,4 +317,4 @@
       </div>
     </div>
   </section>
-  <!-- / slider -->
+  <!-- / slider

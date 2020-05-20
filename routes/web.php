@@ -12,7 +12,6 @@
 */
 
 Auth::routes();
-
 // Front-End
 Route::match(['get','post'], '/', 'IndexController@index');
 // Route::match(['get','post'], 'shop', 'IndexController@shop');
@@ -32,22 +31,38 @@ Route::get('post-detail/{slug}', 'IndexController@postDetail');
 
 Route::get('search/{keyword}', 'IndexController@search');
 
+Route::match(['get','post'], '/contact', 'IndexController@contact');
+
+
 Route::namespace('Frontend')->group(function () {
     Route::group(['prefix' => 'user'], function() {
         Route::post('/register', 'AccountController@register');
         Route::post('/login', 'AccountController@login');
+        Route::post('/change-password/{id}', 'AccountController@changePassword');
+        Route::post('/change-information/{id}', 'AccountController@changeInformation');
         Route::get('/logout', 'AccountController@logout');
     });
 });
 
+Route::get('/404', function() {
+    return view('wayshop.404');
+})->name('404');
 
 //Back-End
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::match(['get','post'], '/', 'AdminController@index');
-    Route::match(['get','post'], '/dashboard', 'AdminController@dashboard');
+    Route::match(['get','post'], '/', 'AdminController@index')->name('/admin');
+    Route::match(['get','post'], '/dashboard', 'AdminController@dashboard')->middleware('auth');
     Route::match(['get','post'], '/logout', 'AdminController@logout');
     Route::namespace('Backend')->group(function () {
+
+        Route::group(['prefix' => 'user'], function() {
+            Route::get('/', 'UserController@index');
+            Route::get('/edit-user/{id}', 'UserController@showEditUser');
+            Route::post('/edit-user/{id}', 'UserController@EditUser');
+            Route::delete('/del-user/{id}', 'UserController@DeleteUser');
+        });
+
         Route::group(['prefix' => 'post'], function() {
             Route::get('/', 'PostController@index');
             Route::match(['get','post'], '/add-post', 'PostController@addPost');

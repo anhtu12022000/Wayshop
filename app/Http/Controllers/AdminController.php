@@ -11,6 +11,7 @@ use Auth;
 class AdminController extends Controller
 {
 
+    use HasRoles;
     public function index(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -39,13 +40,9 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        if (Auth::check()) {
-            if (Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
-                return view('admin.dashboard');
-            }
-        } else {
-            return view('wayshop.404');
-        }
+        if (Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
+            return view('admin.dashboard');
+        }      
     }
 
     public function logout()

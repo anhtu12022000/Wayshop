@@ -1,4 +1,7 @@
 @extends('wayshop.layouts.master')
+@section('title')
+    Cart 
+@endsection
 @section('content')
 
     <!-- catg header banner section -->

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\Models\Contact;
 use Illuminate\Support\Str;
 
@@ -40,3 +41,4 @@ class ContactController extends Controller
 
 }
 ?>
+>>>>>>> e59803acfe42f79fc19d6243b2576c61c70c41ab

@@ -1,4 +1,7 @@
 @extends('wayshop.layouts.master')
+@section('title')
+    Product-Detail 
+@endsection
 @section('content')
 <!-- product category -->
   <section id="aa-product-details">
