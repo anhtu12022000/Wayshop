@@ -18,8 +18,8 @@ class IndexController extends Controller
     public function __construct()
     {
         $Data = new DataController;
-        $this->dataPosts = $Data->getAllPost();
-        $this->dataSlider = $Data->getAllSlider();
+        $this->dataPosts = $Data->getPost();
+        $this->dataSlider = $Data->getSlider();
         $this->dataProduct = $Data->getProduct();
         $this->dataCate = $Data->getAllCategory();
         $this->dataProducts = $Data->getAllProduct();

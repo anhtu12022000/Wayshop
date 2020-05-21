@@ -13,13 +13,13 @@ use App\Models\Cate;
 class DataController extends Controller
 {
 
- 	public function getAllPost()
+ 	public function getPost()
  	{
  		$dataPosts = Posts::orderBy('created_at','desc')->limit(3)->get();
  		return $dataPosts;
  	}
 
- 	public function getAllSlider()
+ 	public function getSlider()
  	{
  		$dataSlider = Slides::orderBy('created_at','desc')->limit(5)->get();
  		return $dataSlider;
