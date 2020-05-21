@@ -3,13 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Controllers\Frontend\PostsController;
-use App\Models\Cate;
-use App\Models\Product;
-use App\Models\Posts;
-
-
 use App\Http\Controllers\Frontend\DataController;
 use App\Models\Contact;
 
@@ -18,23 +11,27 @@ class IndexController extends Controller
 
     private $dataPosts;
     private $dataSlider;
+    private $dataCate;
+    private $dataProduct;
+    private $dataProducts;
 
     public function __construct()
     {
         $Data = new DataController;
         $this->dataPosts = $Data->getAllPost();
         $this->dataSlider = $Data->getAllSlider();
-        $this->dataProduct = $Data->getAllProduct();
+        $this->dataProduct = $Data->getProduct();
+        $this->dataCate = $Data->getAllCategory();
+        $this->dataProducts = $Data->getAllProduct();
     }
 
     public function index()
     {
-        $PostsController = new PostsController;
         $data = Array(
-            'Cate' => Cate::all(),
-            'Slides' => Product::orderBy('id','desc')->take(2)->get(),
-            'MenProducts' => Product::orderBy('id','desc')->take(8)->get(),
-            'Posts' => $PostsController->getAllPost()
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider,
+            'MenProducts' => $this->dataProduct,
+            'Posts' => $this->dataPosts
         );
     	return view('wayshop.home')->with('data',$data);
     }
@@ -57,10 +54,10 @@ class IndexController extends Controller
     public function productDetail($id)
     {
         $data = Array(
-            'Cate' => Cate::all(),
-            'Slides' => Product::orderBy('id','desc')->take(2)->get(),
-            'Product' => Product::find($id),
-            'productRelated' => Product::where('id','>',$id)->get()
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider,
+            'Product' => $Data->productDetail($id),
+            'productRelated' => $Data->productRelated($id)
         );
         return view('wayshop.product-detail')->with('data',$data);
     }
@@ -68,11 +65,11 @@ class IndexController extends Controller
     public function postDetail($slug)
     {
         $data = Array(
-            'Cate' => Cate::all(),
-            'Slides' => Product::orderBy('id','desc')->take(2)->get(),
-            'Post' => Posts::where('slug',$slug)->first(),
-            'PostComment' => Posts::where('slug',$slug)->first(),
-            'postRelated' => Product::all(),
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider,
+            'Post' => $Data->postDetail($slug),
+            'PostComment' => $Data->postDetail($slug),
+            'postRelated' => $this->dataPosts
         );
         return view('wayshop.blog-detail')->with('data',$data);
     }
@@ -90,9 +87,9 @@ class IndexController extends Controller
     public function shop()
     {
         $data = Array(
-            'Cate' => Cate::all(),
-            'Slides' => Product::orderBy('id','desc')->take(2)->get(),
-            'Products' => Product::all(),
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider,
+            'Products' =>  $this->dataProducts
         );
         return view('wayshop.shop')->with('data',$data);
     }

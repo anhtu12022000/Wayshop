@@ -290,7 +290,7 @@
             @endforeach                 
 
             <!-- single slide item -->
-            @foreach ($dataSlider as $value)
+            @foreach ($data['Slides'] as $value)
             <li>
               <div class="seq-model">
                 <img data-seq src="{{ asset('front_assets/img/slides/'.$value->image) }}" alt="{{ $value->title }}" />
