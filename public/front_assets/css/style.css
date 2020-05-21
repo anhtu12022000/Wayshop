@@ -48,6 +48,7 @@ body {
   padding: 0;
 }
 
+.caret {}
 /* MODULES - Individual site components */
 ul {
   padding: 0;
@@ -654,7 +655,7 @@ img {
   background-color: #fff;
 }
 #menu .menu-area .navbar-default .navbar-nav .dropdown-menu li a {
-  padding: 8px 15px;
+  padding: 8px 45px 10px 15px;
 }
 #menu .menu-area .navbar-default .navbar-nav .dropdown-menu li a:hover, #menu .menu-area .navbar-default .navbar-nav .dropdown-menu li a:focus {
   color: #fff; 
