@@ -59,7 +59,11 @@
                                         <td class="text-center">
                                             <a href="{{ url('admin/products/edit',$value->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
                                             <a href="{{ url('admin/products/edit-product',$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <a href="{{ url('admin/products/del-product',$value['id']) }}" onclick="return confirm('Bạn có muốn xóa không?');" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                            <form method="POST" action="{{ url('admin/products/del-product/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete product: {{ $value['name'] }}')">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                            </form>                                        
                                         </td>
                                     </tr>
                                     @php $i++; @endphp

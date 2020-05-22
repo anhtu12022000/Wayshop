@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Controllers\Frontend\PostsController;
 use App\Models\Cate;
 use App\Models\Product;
 use App\Models\Posts;
@@ -29,12 +28,11 @@ class IndexController extends Controller
 
     public function index()
     {
-        $PostsController = new PostsController;
         $data = Array(
             'Cate' => Cate::all(),
             'Slides' => Product::orderBy('id','desc')->take(2)->get(),
             'MenProducts' => Product::orderBy('id','desc')->take(8)->get(),
-            'Posts' => $PostsController->getAllPost()
+            'Posts' => $this->dataPosts
         );
     	return view('wayshop.home')->with('data',$data);
     }

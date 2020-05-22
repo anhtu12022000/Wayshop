@@ -30,26 +30,35 @@ class ProductController extends Controller
                 'detail' => 'required|string',
                 'quantity' => 'required|min:1' 
             ]);
+            
+            $product = new Product;
             $slug = Str::slug($request->name, '-');
             if ($request->hasFile('image')) {
 	            $file = $request->image;
-	            //Lấy Tên files 
             	$image =  $slug.'.'.$file->getClientOriginalExtension();
-            	$file->move(public_path().'/front_assets/img/product', $image);        	
+                $file->move(public_path().'/front_assets/img/product', $image); 
+                $product->image = $image;       	
         	}
 
-            $product = new Products;
+            if($request->hasFile('imageDetail')){
+                $imageDetail = [];
+                foreach($request->file('imageDetail') as $fileDetail) {
+                    $filename = $slug.'.'.$fileDetail->getClientOriginalName();
+                    $fileDetail->move(public_path().'/front_assets/img/product', $filename);
+                    array_push($imageDetail, $filename);         	
+                }
+                $product->imageDetail = json_encode($imageDetail);
+            }
+
             $product->name = $request->name;
             $product->slug = $slug;
             $product->description = $request->description;
-            $product->image = $image;
-            $product->imageDetail = "";
             $product->price = $request->price;
             $product->sale = $request->sale;
             $product->detail = $request->detail;
             $product->quantity = $request->quantity;
             $product->status = 1;
-            $product->slide_id = "";
+            $product->slide_id = 1;
             $product->cate_id = $request->cate_id;
             $product->save();
             return redirect('admin/products')->with('success','Created Successfully.');
@@ -69,37 +78,49 @@ class ProductController extends Controller
     public function EditProduct($id, Request $request)
     {
         $request->validate([
-            'name' => 'required|max:120|unique:products|string',
+            // 'name' => 'required|max:120|unique:products,name|string',
             'description' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
             'price' => 'required|min:1',
             'detail' => 'required|string',
             'quantity' => 'required|min:1' 
         ]);
-        $product = Products::find($id);
-        $slug = Str::slug($request->title, '-');
-            if ($request->hasFile('image')) {
-                if($product->image != '' && file_exists(public_path('front_assets/img/product/'.$product->image)))
-                {
-                    unlink(public_path('front_assets/img/product/'.$product->image));
-                }
-                $file = $request->image;
-                //Lấy Tên files 
-                $image =  $slug.'.'.$file->getClientOriginalExtension();
-                $file->move(public_path().'/front_assets/img/product', $image);   
-                $product->image = $image;         
+        $product = Product::find($id);
+        $slug = $product->slug;
+        if ($request->hasFile('image')) {
+            if($product->image != '' && file_exists(public_path('front_assets/img/product/'.$product->image)))
+            {
+                unlink(public_path('front_assets/img/product/'.$product->image));
+            }
+            $file = $request->image;
+            //Lấy Tên files 
+            $image =  $slug.'.'.$file->getClientOriginalExtension();
+            //$file->move(public_path().'/front_assets/img/product', $image);   
+            $product->image = $image;         
         }
-            $product->slug = $slug;
-            $product->description = $request->description;
-            $product->imageDetail = "";
-            $product->price = $request->price;
-            $product->sale = $request->sale;
-            $product->detail = $request->detail;
-            $product->quantity = $request->quantity;
-            $product->status = 1;
-            $product->slide_id = "";
-            $product->cate_id = $request->cate_id;
-            $product->save();
+
+        if($request->hasFile('imageDetail')){
+            $imageDetail = [];
+            foreach($request->file('imageDetail') as $fileDetail) {
+                // if($product->imageDeatil != '' && file_exists(public_path('front_assets/img/product/'.$product->imageDeatil)))
+                // {
+                //     unlink(public_path('front_assets/img/product/'.$product->imageDeatil));
+                // }
+                $filename = $slug.'.'.$fileDetail->getClientOriginalName();
+                //$fileDetail->move(public_path().'/front_assets/img/product', $filename);
+                array_push($imageDetail, $filename);         	
+            }
+            $product->imageDetail = json_encode($imageDetail);
+        }
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->sale = $request->sale;
+        $product->detail = $request->detail;
+        $product->quantity = $request->quantity;
+        $product->status = 1;
+        $product->slide_id = 1;
+        $product->cate_id = $request->cate_id;
+        $product->save();
 
         return redirect('admin/products')->with('success','Update Successfully.');
     }

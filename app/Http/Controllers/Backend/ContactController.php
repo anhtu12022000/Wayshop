@@ -41,4 +41,3 @@ class ContactController extends Controller
 
 }
 ?>
->>>>>>> e59803acfe42f79fc19d6243b2576c61c70c41ab

@@ -33,15 +33,9 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-<<<<<<< HEAD
-                          @if (session('success'))
-                            <div class="alert alert-danger">{{session('success')}}</div>
-                          @endif
-=======
                         @if (session('success'))
                             <div class="alert alert-success">{{session('success')}}</div>
                         @endif
->>>>>>> e59803acfe42f79fc19d6243b2576c61c70c41ab
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>

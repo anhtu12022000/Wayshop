@@ -22,18 +22,19 @@ class AdminController extends Controller
             $email = $request->input('email');
             $password = $request->input('password');
             $remember_token = $request->input('remember_token');
-                if (Auth::attempt(['email' => $email, 'password' => $password], $remember_token)) {
-                        if (Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
-                            return redirect('admin/dashboard');
-                        } else {
-                            return view('wayshop.404'); 
-                        }                  
-                } else {
-                    return redirect('/admin')->with('status', 'Invalid Email or Password')->withInput();
-                }
-            } else if (!Auth::viaRemember() | Auth::check() && Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
-                return redirect('admin/dashboard');
+            if (Auth::attempt(['email' => $email, 'password' => $password], $remember_token)) {
+                    if (Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
+                        return redirect('admin/dashboard');
+                    } else {
+                        return view('wayshop.404'); 
+                    }                  
+            } else {
+                return redirect('/admin')->with('status', 'Invalid Email or Password')->withInput();
             }
+        } 
+        else if (Auth::check() && Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
+            return redirect('admin/dashboard');
+        }
         
         return view('admin.admin_login');
     }
