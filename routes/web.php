@@ -10,13 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// use Spatie\Permission\Traits\HasRoles;
-// use Spatie\Permission\Models\Role;
-// use Spatie\Permission\Models\Permission;
-// Route::get('quyen', function() {
-//     Role::create(['name' => 'Administrator']);
-//     Auth::user()->assignRole('Administrator');
-// });
+
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+Route::get('quyen', function() {
+    // Role::create(['name' => 'Administrator']);
+    Auth::user()->assignRole('Administrator');
+});
 
 
 Auth::routes();
@@ -97,16 +98,16 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::group(['prefix' => 'bills'], function() {
             Route::get('/', 'BillController@index');
-            Route::get('/edit-product/{id}', 'BillController@showEditProduct');
-            Route::post('/edit-product/{id}', 'BillController@EditProduct');
-            Route::delete('/del-product/{id}', 'BillController@DeleteProduct');
+            Route::get('/edit-bill/{id}', 'BillController@showEditBill');
+            Route::post('/edit-bill/{id}', 'BillController@EditBill');
+            Route::delete('/del-bill/{id}', 'BillController@DeleteBill');
         });
 
         Route::group(['prefix' => 'contacts'], function() {
             Route::get('/', 'ContactController@index');
-            Route::get('/edit-product/{id}', 'ContactController@showEditProduct');
-            Route::post('/edit-product/{id}', 'ContactController@EditProduct');
-            Route::delete('/del-product/{id}', 'ContactController@DeleteProduct');
+            Route::get('/edit-contact/{id}', 'ContactController@showEditContact');
+            Route::post('/edit-contact/{id}', 'ContactController@EditContact');
+            Route::delete('/del-contact/{id}', 'ContactController@DeleteContact');
         });
 
         Route::group(['prefix' => 'cate'], function() {

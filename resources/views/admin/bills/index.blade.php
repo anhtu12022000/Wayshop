@@ -29,7 +29,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/products/add-product') }}" class="btn btn-info float-right">Thêm</a>
+                        <h3 class="card-title">DataTable with default features</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -53,13 +53,17 @@
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td>{{ $value['name'] }}</td>
-                                        <td><img src="{{ $value['image'] }}" width="60" alt=""></td>
+                                        <td>{{ $value['phone'] }}</td>
                                         <td>{{ number_format($value['price']) }} VNĐ</td>
-                                        <td>{{ number_format($value['sale'])}} VNĐ</td>
+                                        <td>{{ $value['status'] }} </td>
                                         <td class="text-center">
                                             <a href="{{ url('admin/products/edit',$value->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
                                             <a href="{{ url('admin/products/edit-product',$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <a href="{{ url('admin/products/del-product',$value['id']) }}" onclick="return confirm('Bạn có muốn xóa không?');" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                            <form method="POST" action="{{ url('admin/bills/del-bill/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete bill by: {{ $value['name'] }}')">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                            </form>                                        
                                         </td>
                                     </tr>
                                     @php $i++; @endphp

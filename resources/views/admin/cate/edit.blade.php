@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12 text-center">
-                                <button type="submit" class="btn btn-info">Add Cate</button>
+                                <button type="submit" class="btn btn-info">Update Cate</button>
                                 <button type="reset" class="btn btn-warning">Reset</button>
                                 <a href="{{ url('admin/cate/') }}" class="btn btn-danger">Hủy</a>
                             </div>

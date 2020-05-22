@@ -29,7 +29,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/posts/add') }}" class="btn btn-info float-right">Thêm</a>
+                        <h3 class="card-title">DataTable with default features</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -38,45 +38,39 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Tên</th>
-                                <th>Ảnh</th>
-                                <th>Giá</th>
-                                <th>Giá KM</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Creared</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Iphone</td>
-                                    <td>ảnh</td>
-                                    <td>2000</td>
-                                    <td>1000</td>
-                                    <td></td>
-                                </tr>
-                                {{-- @php $i = 1; @endphp
-                                @foreach ($product as $value)
+                                @php $i = 1; @endphp
+                                @foreach ($data as $value)
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td>{{ $value['product_name'] }}</td>
-                                        <td><img src="{{ $value['product_img'] }}" width="60" alt=""></td>
-                                        <td>{{ number_format($value['product_price']) }} VNĐ</td>
-                                        <td>{{ number_format($value['product_sale'])}} VNĐ</td>
+                                        <td>{{ $value['name'] }}</td>
+                                        <td>{{ $value['email'] }}</td>
+                                        <td>{{ $value['subject'] }}</td>
+                                        <td>{{ $value['created_at'] }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('admin.products.edit',$value->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ route('admin.products.edit',$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <a href="{{ route('admin.products.delete',$value['id']) }}" onclick="return confirm('Bạn có muốn xóa không?');" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                            <form method="POST" action="{{ url('admin/contacts/del-contact/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete contact by: {{ $value['name'] }}')">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                            </form>                                         
                                         </td>
                                     </tr>
                                     @php $i++; @endphp
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
                                 <th>STT</th>
                                 <th>Tên</th>
-                                <th>Ảnh</th>
-                                <th>Giá</th>
-                                <th>Giá KM</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Creared</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </tfoot>

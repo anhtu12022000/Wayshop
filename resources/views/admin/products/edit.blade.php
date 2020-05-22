@@ -34,7 +34,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="col-lg-12 row" id="myForm" action="{{url('admin/products/add-product/'.$data['Product']->id)}}" method="POST" enctype="multipart/form-data">
+                        <form class="col-lg-12 row" id="myForm" action="{{url('admin/products/edit-product/'.$data['Product']->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -88,6 +88,37 @@
                                 <div class="form-group preview-img mt-5 text-center">
                                     <img src="{{$data['Product']['image']}}" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
                                 </div>
+                                <div class="form-group">
+                                    <label>Image Detail</label>
+                                    <input type="file" class="form-control" id="imageDetail" name="imageDetail[]" multiple onchange="previewImg(event);" />
+                                    <div class="box-preview-img">
+                                        {{-- @foreach(json_decode($data['Product']['imageDetai']) as $imageDetail)
+                                        <img style="border: 1px solid #000; padding: 3px;" width="20%" src="{{$imageDetail}}" class="+i+">
+                                        @endforeach --}}
+                                    </div>
+                                </div>
+                                <script>
+                                    function previewImg(event) {
+                                        // Gán giá trị các file vào biến files
+                                        var files = document.getElementById('imageDetail').files; 
+                                    
+                                        // Show khung chứa ảnh xem trước
+                                        $('.form-group .box-preview-img').show();
+                                    
+                                        // Thêm chữ "Xem trước" vào khung
+                                        $('.form-group .box-preview-img').html('<p>Xem trước</p>');
+                                    
+                                        // Dùng vòng lặp for để thêm các thẻ img vào khung chứa ảnh xem trước
+                                        for (i = 0; i < files.length; i++)
+                                        {
+                                            // Thêm thẻ img theo i
+                                            $('.form-group .box-preview-img').append('<img style="border: 1px solid #000; padding: 3px;" width="20%" src="" class="+i+">');
+                                    
+                                            // Thêm src vào mỗi thẻ img theo id = i
+                                            $('.form-group .box-preview-img img:eq('+i+')').attr('src', window.webkitURL.createObjectURL(event.target.files[i]));
+                                        }   
+                                    }
+                                </script>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -97,9 +128,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-12 text-center">
-                                <button type="submit" class="btn btn-info">Add Product</button>
+                                <button type="submit" class="btn btn-info">Update Product</button>
                                 <button type="reset" class="btn btn-warning">Reset</button>
-                                <a href="{{ url('admin/pots/add') }}" class="btn btn-danger">Hủy</a>
+                                <a href="{{ url('admin/products') }}" class="btn btn-danger">Hủy</a>
                             </div>
                         </form>
                     </div>

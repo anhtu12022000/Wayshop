@@ -14,8 +14,11 @@ class CateAndProductTableSeeder extends Seeder
     public function run()
     {
         DB::table('cate')->insert([
-            ['id'=>1,'name'=>'Men Fashion','slug'=>Str::slug('men-fashion')],
-            ['id'=>2,'name'=>'Women Fashion','slug'=>Str::slug('women-fashion')]
+            ['id'=>1,'name'=>"Men's Fashion",'slug'=>Str::slug('men-fashion')],
+            ['id'=>2,'name'=>"Women's Fashion",'slug'=>Str::slug('women-fashion')],
+            ['id'=>3,'name'=>"Kid's Fashion",'slug'=>Str::slug('kid-fashion')],
+            ['id'=>4,'name'=>'Shoes Fashion','slug'=>Str::slug('shoes')],
+            ['id'=>5,'name'=>'Bags Fashion','slug'=>Str::slug('bags')]
         ]);
         DB::table('products')->insert([
             ['name'=>'Bộ thể thao','slug'=>Str::slug('Bộ thể thao'),'image'=>'https://cf.shopee.vn/file/e60adb2002b1f247840e45c9d8d0c2b6','description'=>'mô tả','price'=>100000,'sale'=>0,'detail'=>'nội dung chi tiết','quantity'=>10,'status'=>1,'slide_id'=>1,'cate_id'=>1],
