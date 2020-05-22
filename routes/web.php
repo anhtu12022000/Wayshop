@@ -50,12 +50,13 @@ Route::namespace('Frontend')->group(function () {
         Route::post('/change-information/{id}', 'AccountController@changeInformation');
         Route::get('/logout', 'AccountController@logout');
     });
+
+    Route::post('add-cart', 'CartController@addCart');
 });
 
 Route::get('/404','IndexController@notFound')->name('404');
 
 //Back-End
-
 Route::group(['prefix' => 'admin'], function () {
     Route::match(['get','post'], '/', 'AdminController@index')->name('/admin');
     Route::match(['get','post'], '/dashboard', 'AdminController@dashboard')->middleware('auth');
@@ -91,6 +92,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/edit-product/{id}', 'ProductController@showEditProduct');
             Route::post('/edit-product/{id}', 'ProductController@EditProduct');
             Route::delete('/del-product/{id}', 'ProductController@DeleteProduct');
+            Route::post('update-status', 'ProductController@updateStatusProduct');
         });
 
         Route::group(['prefix' => 'bills'], function() {

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Frontend\DataController;
 use App\Models\Contact;
+use App\Models\Cart;
+use Session;
 
 class IndexController extends Controller
 {
@@ -43,7 +45,14 @@ class IndexController extends Controller
 
     public function cart()
     {
-    	return view('wayshop.cart');
+        $session_id = Session::get('session_id');
+        $userCart = Cart::where('session_id',$session_id)->get();
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider,
+            'userCart' => $userCart,
+        );
+    	return view('wayshop.cart')->with('data',$data);
     }
 
     public function checkout()

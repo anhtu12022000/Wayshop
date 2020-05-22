@@ -36,14 +36,18 @@
                         @if (session('success'))
                             <div class="alert alert-success">{{session('success')}}</div>
                         @endif
+                        <div id="messageEn" style="display: none;" class="alert alert-success">Status Enabled</div>
+                        <div id="messageDi" style="display: none;" class="alert alert-success">Status Disabled</div>
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Tên</th>
-                                <th>Ảnh</th>
-                                <th>Giá</th>
-                                <th>Giá KM</th>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Promotion price</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
@@ -56,6 +60,11 @@
                                         <td><img src="{{ $value['image'] }}" width="60" alt=""></td>
                                         <td>{{ number_format($value['price']) }} VNĐ</td>
                                         <td>{{ number_format($value['sale'])}} VNĐ</td>
+                                        <td>{{ $value['quantity'] }}</td>
+                                        <td><input type="checkbox" class="ProductStatus btn btn-success" rel="{{ $value['id'] }}" data-toggle="toggle" data-on="Enabled" data-of="Disabled" data-onstyle="success" data-offstyle="danger" @if ($value['status'] == 1)
+                                            checked="" 
+                                        @endif/>
+                                    </td>
                                         <td class="text-center">
                                             <a href="{{ url('admin/products/edit',$value->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
                                             <a href="{{ url('admin/products/edit-product',$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -68,10 +77,12 @@
                             <tfoot>
                             <tr>
                                 <th>STT</th>
-                                <th>Tên</th>
-                                <th>Ảnh</th>
-                                <th>Giá</th>
-                                <th>Giá KM</th>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Promotion price</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </tfoot>
@@ -104,5 +115,59 @@
                 "autoWidth": false,
             });
         });
+
+
+        
+            $('.ProductStatus').change(function () {
+                let id = $(this).attr('rel');
+                if ($(this).prop("checked") == true) {
+                    $.ajax({
+                        header: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'post',
+                        url: 'admin/products/update-status',
+                        data: {
+                            _token: '{!! csrf_token() !!}',
+                            status: 0,
+                            id: id
+                        },
+                        success: function (data) {
+                            $('#messageEn').show();
+                            setTimeout(function() {
+                                $('#messageEn').fadeOut('slow');
+                            }, 2000);
+                        },
+                        error: function () {
+                            alert('Error, Please try again!');
+                        }
+
+                    })
+                } else {
+                    $.ajax({
+                        header: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'post',
+                        url: 'admin/products/update-status',
+                        data: {
+                            _token: '{!! csrf_token() !!}',
+                            status: 1,
+                            id: id
+                        },
+                        success: function (data) {
+                            $('#messageDi').show();
+                            setTimeout(function() {
+                                $('#messageDi').fadeOut('slow');
+                            }, 2000);
+                        },
+                        error: function () {
+                            alert('Error, Please try again!');
+                        }
+
+                    })
+                }
+            });
+    
     </script>
 @endsection

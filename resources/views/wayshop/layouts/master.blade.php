@@ -72,6 +72,6 @@
   <!-- Custom js -->
   <script src="{{ asset('front_assets/js/custom.js') }}"></script>
   <script src="{{ asset('front_assets/js/allscript.js') }}"></script> 
-
+  @yield('script')
   </body>
 </html>

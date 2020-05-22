@@ -4,6 +4,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
       <title>Admin | Dashboard DaiLy Shop</title>
       <base href="{{asset('')}}">
       <!-- Font Awesome Icons -->
@@ -56,11 +57,13 @@
       <script src="admin_assets/plugins/jquery-mapael/jquery.mapael.min.js"></script>
       <script src="admin_assets/plugins/jquery-mapael/maps/usa_states.min.js"></script>
       <!-- page script -->
-      @yield('script')
       <!-- end page script -->
       <!-- ChartJS -->
       <script src="admin_assets/plugins/chart.js/Chart.min.js"></script>
       <!-- PAGE SCRIPTS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.css">
       <script src="admin_assets/dist/js/pages/dashboard2.js"></script>
+      @yield('script')
    </body>
 </html>

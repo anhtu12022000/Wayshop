@@ -76,7 +76,7 @@ class ProductController extends Controller
             'detail' => 'required|string',
             'quantity' => 'required|min:1' 
         ]);
-        $product = Products::find($id);
+        $product = Product::find($id);
         $slug = Str::slug($request->title, '-');
             if ($request->hasFile('image')) {
                 if($product->image != '' && file_exists(public_path('front_assets/img/product/'.$product->image)))
@@ -112,5 +112,12 @@ class ProductController extends Controller
             unlink(public_path('front_assets/img/product/'.$product->image));
         }
         return redirect('admin/products')->with('success','Delete Successfully.');
+    }
+
+    public function updateStatusProduct(Request $request)
+    {
+        $data = $request->all();
+        $mess = Product::where('id','=',$data['id'])->update(['status' => $data['status']]);
+        return $mess;
     }
 }

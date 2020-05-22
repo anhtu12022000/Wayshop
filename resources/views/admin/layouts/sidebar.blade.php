@@ -131,18 +131,6 @@
                                  <p>List Product</p>
                               </a>
                            </li>
-                           <li class="nav-item">
-                              <a href="{{ url('admin/cate') }}" class="nav-link">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Add Cate</p>
-                              </a>
-                           </li>
-                           <li class="nav-item">
-                              <a href="{{ url('admin/cate/add-cate') }}" class="nav-link">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>List Cate</p>
-                              </a>
-                           </li>
                         </ul>
                      </li>
                      <li class="nav-item has-treeview">
