@@ -90,7 +90,7 @@
                     <!-- Start men product category -->
                     <div class="tab-pane fade in active" id="men">
                       <ul class="aa-product-catg">
-                        @foreach($dataProduct as $item)
+                        @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
                             <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -120,7 +120,7 @@
                     <!-- start women product category -->
                     <div class="tab-pane fade" id="women">
                       <ul class="aa-product-catg">
-                        @foreach($dataProduct as $item)
+                        @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
                             <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -149,7 +149,7 @@
                     <!-- start electronic product category -->
                     <div class="tab-pane fade" id="electronics">
                        <ul class="aa-product-catg">
-                        @foreach($dataProduct as $item)
+                        @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
                             <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -298,7 +298,7 @@
                 <!-- Start men popular category -->
                 <div class="tab-pane fade in active" id="popular">
                   <ul class="aa-product-catg aa-popular-slider">
-                    @foreach($dataProduct as $item)
+                    @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
                             <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -329,7 +329,7 @@
                 <!-- start featured product category -->
                 <div class="tab-pane fade" id="featured">
                  <ul class="aa-product-catg aa-featured-slider">
-                  @foreach($dataProduct as $item)
+                  @foreach($data['MenProducts'] as $item)
                   <li>
                     <figure>
                       <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -360,7 +360,7 @@
                 <!-- start latest product category -->
                 <div class="tab-pane fade" id="latest">
                   <ul class="aa-product-catg aa-latest-slider">
-                    @foreach($dataProduct as $item)
+                    @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
                             <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
@@ -472,7 +472,7 @@
             <h2>LATEST BLOG</h2>
             <div class="row">
               <!-- single latest blog -->
-              @foreach ($dataPosts as $value)
+              @foreach ($data['Posts'] as $value)
               <div class="col-md-4 col-sm-4">
                 <div class="aa-latest-blog-single">
                   <figure class="aa-blog-img">                    

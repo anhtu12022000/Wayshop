@@ -70,7 +70,8 @@
   <!-- Price picker slider -->
   <script type="text/javascript" src="{{ asset('front_assets/js/nouislider.js') }}"></script>
   <!-- Custom js -->
-  <script src="{{ asset('front_assets/js/custom.js') }}"></script> 
+  <script src="{{ asset('front_assets/js/custom.js') }}"></script>
+  <script src="{{ asset('front_assets/js/allscript.js') }}"></script> 
 
   </body>
 </html>

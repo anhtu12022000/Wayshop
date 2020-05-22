@@ -12,7 +12,7 @@
       <div class="aa-catg-head-banner-content">
         <h2>Cart Page</h2>
         <ol class="breadcrumb">
-          <li><a href="index.html">Home</a></li>                   
+          <li><a href="{{ url('/') }}">Home</a></li>                   
           <li class="active">Cart</li>
         </ol>
       </div>
