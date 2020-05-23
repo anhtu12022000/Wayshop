@@ -49,7 +49,7 @@
                         <td><a href="#"><img src="{{ asset('front_assets/img/product/'.$item->product_image) }}" alt="img"></a></td>
                         <td><a class="aa-cart-title" href="#">{{ $item->product_name }}</a></td>
                         <td>${{ $item->product_price }}</td>
-                        <td><input class="aa-cart-quantity" type="number" data-id="{{ $item->id }}" value="{{ $item->product_quantity }}"></td>
+                        <td><input class="aa-cart-quantity" type="number" min="1" data-id="{{ $item->id }}" value="{{ $item->product_quantity }}"></td>
                         <td class="total-product{{ $item->id }}">${{ $item->product_price * $item->product_quantity}}</td>
                       </tr>
                       @endforeach

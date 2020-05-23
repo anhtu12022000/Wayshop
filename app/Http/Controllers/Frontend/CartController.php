@@ -17,20 +17,28 @@ class CartController extends Controller
     	if (!Auth::check()) {
     		$user_email = '';
     	}
+ 
+        $check = Cart::where('product_name',$dataProduct->name)->first();
 
-    	$session_id = str_random(40);
-    	Session::put('session_id',$session_id);
-    	$cart = new Cart();
-    	$cart->product_name = $dataProduct->name;
-    	$cart->product_image = $dataProduct->image;
-    	$cart->product_price = $dataProduct->price;
-    	$cart->product_quantity = 1;
-        $cart->user_email = $user_email;
-        $cart->session_id = $session_id;
-        $cart->product_id = $dataProduct->id;
-        $cart->cate_id = $dataProduct->cate_id;
-        $cart->save();
-        return $cart->product_name;
+        if ($check) {
+            $check->product_quantity = $check->product_quantity + 1;
+            $check->save();
+            return $check->product_name;
+        } else {
+            $session_id = str_random(40);
+            Session::put('session_id',$session_id);
+            $cart = new Cart();
+            $cart->product_name = $dataProduct->name;
+            $cart->product_image = $dataProduct->image;
+            $cart->product_price = $dataProduct->price;
+            $cart->product_quantity = 1;
+            $cart->user_email = $user_email;
+            $cart->session_id = $session_id;
+            $cart->product_id = $dataProduct->id;
+            $cart->cate_id = $dataProduct->cate_id;
+            $cart->save();
+            return $cart->product_name;
+        }
     }
 
     public function updateCart($id,Request $request)
