@@ -123,14 +123,14 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close">&times;</button>
         <h4 class="modal-title">Notification</h4>
       </div>
       <div class="modal-body">
         <p>Product added to cart!</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" class="close">Close</button>
       </div>
     </div>
 

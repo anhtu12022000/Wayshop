@@ -93,7 +93,7 @@
                         @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug']) }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn addCart" rel="{{$item['id']}}" href="javascrip:void(0)"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                               <figcaption>
                               <h4 class="aa-product-title"><a href="#">{{$item['name']}}</a></h4>
@@ -549,6 +549,11 @@
     @endsection
     @section('script')
     <script>
+
+      $('.close').click(function () {
+          $('#myModal').hide();
+      });
+        
       $('.addCart').click(function () {
         let id = $(this).attr('rel');
         $.ajax({
@@ -557,6 +562,33 @@
           },
           type: 'post',
           url: 'add-cart',
+          data: {
+            _token: '{!! csrf_token() !!}',
+            id: id
+          },
+          success: function (data) {
+            $('#myModal').fadeIn();
+
+            $('.modal-body').html(`<p>Added ${data} to cart!</p>`);
+            setTimeout(function() {
+              $('#myModal').hide();
+            }, 2000);
+            dataCart();
+          },
+          error: function () {
+            alert('Error, Please try again!');
+          }
+
+        })
+      });
+
+      let dataCart = () => {
+          $.ajax({
+          header: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          url: 'get-cart',
           data: {
             _token: '{!! csrf_token() !!}',
             id: id
@@ -575,11 +607,6 @@
           }
 
         })
-      });
-
-      let dataCart = () => {
-        
       }
-
     </script>
     @endsection

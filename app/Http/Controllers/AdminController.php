@@ -22,31 +22,17 @@ class AdminController extends Controller
             $email = $request->input('email');
             $password = $request->input('password');
             $remember_token = $request->input('remember_token');
-<<<<<<< HEAD
+
             if (Auth::attempt(['email' => $email, 'password' => $password], $remember_token)) {
-                    if (Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
-                        return redirect('admin/dashboard');
-                    } else {
-                        return view('wayshop.404'); 
-                    }                  
+                if (Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
+                    return redirect('admin/dashboard');
+                } else {
+                    return view('wayshop.404'); 
+                }                  
             } else {
                 return redirect('/admin')->with('status', 'Invalid Email or Password')->withInput();
-=======
-                if (Auth::attempt(['email' => $email, 'password' => $password], $remember_token)) {
-                        if (Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
-                            return redirect('admin/dashboard');
-                        } else {
-                            return view('wayshop.404'); 
-                        }                  
-                } else {
-                    return redirect('/admin')->with('status', 'Invalid Email or Password')->withInput();
-                }
-            } else if (Auth::check() && Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
-                return redirect('admin/dashboard');
->>>>>>> ef44c26874c99ae7082f0c859d49f1664f82e06f
             }
-        } 
-        else if (Auth::check() && Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
+        } else if (Auth::check() && Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
             return redirect('admin/dashboard');
         }
         

@@ -11,13 +11,13 @@
 |
 */
 
-use Spatie\Permission\Traits\HasRoles;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-Route::get('quyen', function() {
-    // Role::create(['name' => 'Administrator']);
-    Auth::user()->assignRole('Administrator');
-});
+// use Spatie\Permission\Traits\HasRoles;
+// use Spatie\Permission\Models\Role;
+// use Spatie\Permission\Models\Permission;
+// Route::get('quyen', function() {
+//     // Role::create(['name' => 'Administrator']);
+//     Auth::user()->assignRole('Administrator');
+// });
 
 
 Auth::routes();
@@ -33,7 +33,7 @@ Route::match(['get','post'], '/wishlist', 'IndexController@wishlist');
 Route::match(['get','post'], '/service', 'IndexController@service');
 Route::match(['get','post'], '/contact-us', 'IndexController@contact');
 Route::match(['get','post'], '/shop', 'IndexController@shop');
-Route::get('product-detail/{id}', 'IndexController@productDetail');
+Route::get('product-detail/{slug}', 'IndexController@productDetail');
 Route::get('post-detail/{slug}', 'IndexController@postDetail');
 
 
@@ -53,6 +53,9 @@ Route::namespace('Frontend')->group(function () {
     });
 
     Route::post('add-cart', 'CartController@addCart');
+    Route::post('get-cart', 'CartController@getCart');
+    Route::post('delete-cart/{id}', 'CartController@deleteCart');
+    Route::post('update-cart/{id}', 'CartController@updateCart');
 });
 
 Route::get('/404','IndexController@notFound')->name('404');

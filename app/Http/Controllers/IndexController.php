@@ -3,15 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 
-use App\Models\Cate;
-use App\Models\Product;
-use App\Models\Posts;
-
-
-=======
->>>>>>> ef44c26874c99ae7082f0c859d49f1664f82e06f
 use App\Http\Controllers\Frontend\DataController;
 use App\Models\Contact;
 use App\Models\Cart;
@@ -39,15 +31,9 @@ class IndexController extends Controller
     public function index()
     {
         $data = Array(
-<<<<<<< HEAD
-            'Cate' => Cate::all(),
-            'Slides' => Product::orderBy('id','desc')->take(2)->get(),
-            'MenProducts' => Product::orderBy('id','desc')->take(8)->get(),
-=======
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
             'MenProducts' => $this->dataProduct,
->>>>>>> ef44c26874c99ae7082f0c859d49f1664f82e06f
             'Posts' => $this->dataPosts
         );
     	return view('wayshop.home')->with('data',$data);
@@ -72,22 +58,29 @@ class IndexController extends Controller
 
     public function checkout()
     {
-        return view('wayshop.checkout');
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider
+        );
+        return view('wayshop.checkout')->with('data',$data);
     }
 
-    public function productDetail($id)
+    public function productDetail(Request $request)
     {
+        $Data = new DataController;
         $data = Array(
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
-            'Product' => $Data->productDetail($id),
-            'productRelated' => $Data->productRelated($id)
+            'Product' => $Data->productDetail($request->slug),
+            'productRelated' => $Data->productRelated($request->slug)
         );
+
         return view('wayshop.product-detail')->with('data',$data);
     }
 
     public function postDetail($slug)
     {
+        $Data = new DataController;
         $data = Array(
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,

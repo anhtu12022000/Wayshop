@@ -27,14 +27,15 @@
      <div class="row">
        <div class="col-md-12">
          <div class="cart-view-area">
+          <div class="mess"></div>
            <div class="cart-view-table">
              <form action="">
                <div class="table-responsive">
                   <table class="table">
                     <thead>
                       <tr>
-                        <th></th>
-                        <th></th>
+                        <th>Action</th>
+                        <th>Image</th>
                         <th>Product</th>
                         <th>Price</th>
                         <th>Quantity</th>
@@ -42,14 +43,16 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="{{ asset('front_assets/img/man/polo-shirt-1.png') }}" alt="img"></a></td>
-                        <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                        <td>$250</td>
-                        <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                        <td>$250</td>
+                      @foreach($data['userCart'] as $item)
+                      <tr class="cart{{ $item->id }}">
+                        <td><a class="remove" href="javascript:void(0)" rel="{{ $item->id }}"><fa class="fa fa-close"></fa></a></td>
+                        <td><a href="#"><img src="{{ asset('front_assets/img/product/'.$item->product_image) }}" alt="img"></a></td>
+                        <td><a class="aa-cart-title" href="#">{{ $item->product_name }}</a></td>
+                        <td>${{ $item->product_price }}</td>
+                        <td><input class="aa-cart-quantity" type="number" data-id="{{ $item->id }}" value="{{ $item->product_quantity }}"></td>
+                        <td class="total-product{{ $item->id }}">${{ $item->product_price * $item->product_quantity}}</td>
                       </tr>
+                      @endforeach
                       <tr>
                         <td colspan="6" class="aa-cart-view-bottom">
                           <div class="aa-cart-coupon">
@@ -107,5 +110,56 @@
     </div>
   </section>
   <!-- / Subscribe section -->
+@endsection
 
+@section('scriptcart')
+   <script>
+
+    $('.aa-cart-quantity').change(function () {
+        let id = $(this).attr('data-id');
+        let quantity = $(this).val();
+        $.ajax({
+          header: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          url: `update-cart/${id}`,
+          data: {
+            _token: '{!! csrf_token() !!}',
+            quantity: quantity
+          },
+          success: function (data) {
+            $(this).val(quantity);  
+            $('.total-product'+id).text(`$${data.product_price * data.product_quantity}`);
+            $('.mess').html('<span class="alert alert-success">Update Quantity Cart Success</span>');
+          },
+          error: function () {
+            alert('Error, Please try again!');
+          }
+
+        })
+      });
+
+    $('.remove').click(function () {
+        let id = $(this).attr('rel');
+        $.ajax({
+          header: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          url: `delete-cart/${id}`,
+          data: {
+            _token: '{!! csrf_token() !!}',
+          },
+          success: function (data) {
+            $('.cart'+id).html('');  
+            $('.mess').html('<span class="alert alert-success">Delete Cart Success</span>');
+          },
+          error: function () {
+            alert('Error, Please try again!');
+          }
+
+        })
+      });
+  </script>
 @endsection

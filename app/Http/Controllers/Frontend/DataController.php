@@ -43,9 +43,9 @@ class DataController extends Controller
  		return $dataCate;
  	}
 
- 	public function productDetail($id)
+ 	public function productDetail($slug)
  	{
- 		$proDtail = Product::find($id);
+ 		$proDtail = Product::where('slug','like',$slug)->first();
  		return $proDtail;
  	}
 
@@ -57,7 +57,7 @@ class DataController extends Controller
 
  	public function postDetail($slug)
  	{
- 		$postDetail = Posts::where('slug',$slug)->first();
+ 		$postDetail = Posts::where('slug','like',$slug)->first();
  		return $postDetail;
  	}
 }

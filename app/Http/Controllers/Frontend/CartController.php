@@ -24,12 +24,26 @@ class CartController extends Controller
     	$cart->product_name = $dataProduct->name;
     	$cart->product_image = $dataProduct->image;
     	$cart->product_price = $dataProduct->price;
-    	$cart->product_quantity = $dataProduct->quantity;
+    	$cart->product_quantity = 1;
         $cart->user_email = $user_email;
         $cart->session_id = $session_id;
         $cart->product_id = $dataProduct->id;
         $cart->cate_id = $dataProduct->cate_id;
         $cart->save();
         return $cart->product_name;
+    }
+
+    public function updateCart($id,Request $request)
+    {
+        $cart = Cart::find($id);
+        $cart->product_quantity = $request->quantity;
+        $cart->save();
+        return $cart;
+    }
+
+    public function deleteCart($id)
+    {
+        $deleteProduct = Cart::find($id)->delete();
+        return;
     }
 }

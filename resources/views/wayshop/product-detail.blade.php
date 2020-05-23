@@ -33,9 +33,10 @@
                   </div>
                 </div>
                 <!-- Modal view content -->
+
                 <div class="col-md-7 col-sm-7 col-xs-12">
                   <div class="aa-product-view-content">
-                    <h3>{{$data['Product']->name}}</h3>
+                    <h3>{{ $data['Product']->name }}</h3>
                     <div class="aa-price-block">
                       <span class="aa-product-view-price">${{number_format($data['Product']->price,0,'.',',')}}</span>
                       <p class="aa-product-avilability">Avilability: 
@@ -47,7 +48,7 @@
                       </p>
                     </div>
                     <p>
-                      {{$data['Product']->description}}
+                      {{ $data['Product']->description }}
                     </p>
                     <h4>Size</h4>
                     <div class="aa-prod-view-size">

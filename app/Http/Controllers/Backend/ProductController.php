@@ -86,7 +86,7 @@ class ProductController extends Controller
             'quantity' => 'required|min:1' 
         ]);
         $product = Product::find($id);
-<<<<<<< HEAD
+
         $slug = Str::slug($request->title, '-');
             if ($request->hasFile('image')) {
                 if($product->image != '' && file_exists(public_path('front_assets/img/product/'.$product->image)))
@@ -98,19 +98,7 @@ class ProductController extends Controller
                 $image =  $slug.'.'.$file->getClientOriginalExtension();
                 $file->move(public_path().'/front_assets/img/product', $image);   
                 $product->image = $image;         
-=======
-        $slug = $product->slug;
-        if ($request->hasFile('image')) {
-            if($product->image != '' && file_exists(public_path('front_assets/img/product/'.$product->image)))
-            {
-                unlink(public_path('front_assets/img/product/'.$product->image));
-            }
-            $file = $request->image;
-            //Lấy Tên files 
-            $image =  $slug.'.'.$file->getClientOriginalExtension();
-            //$file->move(public_path().'/front_assets/img/product', $image);   
-            $product->image = $image;         
->>>>>>> 9845f77c423c03a5a78a2a4a906bb018af6bbf80
+
         }
 
         if($request->hasFile('imageDetail')){
