@@ -62,14 +62,38 @@ class IndexController extends Controller
         $request->validate([
             'coupon_code' => 'required|string',
         ]);
-        $coupon = Coupons::where('coupon_code',$request->coupon_code)->count();
+        $coupon = Coupons::where(['coupon_code' => $request->coupon_code, 'status' => 1])->count();
         if ($coupon == 0) {
-            return back()->with('mess','Coupon does not exit!');
+            return back()->with('mess','Coupon does not exit or Coupon has not been activated!');
         } else {
             $couponDetail = Coupons::where('coupon_code',$request->coupon_code)->first();
             if ($couponDetail->status == 0) {
                 return back()->with('mess','Coupon code is not active!');
             }
+
+            $expiry_date = $couponDetail->expiry_date;
+            $current = date('Y-m-d');
+            if ($expiry_date < $current) {
+                return back()->with('mess','Coupon code is Expiryed!');
+            }
+
+            $session_id = Session::get('session_id');
+            $userCart = Cart::where('session_id',$session_id)->get();
+            $total_amount = 0;
+
+            foreach ($userCart as $value) {
+                $total_amount += $value->product_price * $value->product_quantity;
+            }
+       
+            if ($couponDetail->amount_type == 'fixed' ) {
+                $couponAmount = $couponDetail->amount;
+            } else {
+                $couponAmount = $total_amount * ($couponDetail->amount/100);
+            }
+
+            Session::put('couponAmount', $couponAmount);
+            Session::put('couponCode', $request->coupon_code);
+            return back()->with('mess','Coupon code is Successfully Applied. You are Availing Discount');
         }
     }
 

@@ -83,15 +83,30 @@
                  <tbody>
                    <tr>
                      <th>Subtotal</th>
-                     <td>{{ $total }} + $5 Shipper</td>
+                     <td class="Subtotal">${{ $total }}</td>
+                   </tr>
+                   @if (!empty(Session::get('couponAmount')))
+                   <tr>
+                     <th>Coupon Discode</th>
+                     <td>${{ Session::get('couponAmount') }}</td>
                    </tr>
                    <tr>
                      <th>Total</th>
-                     <td>${{ $total+5 }}</td>
+                     <td class="Total">${{ $total - Session::get('couponAmount') }}</td>
                    </tr>
+                   @else
+                    <tr>
+                     <th>Coupon Discode</th>
+                     <td>$0</td>
+                   </tr>
+                   <tr>
+                     <th>Total</th>
+                     <td class="Total">${{ $total }}</td>
+                   </tr>
+                   @endif
                  </tbody>
                </table>
-               <a href="#" class="aa-cart-view-btn">Proced to Checkout</a>
+               <a href="{{ url('check-out') }}" class="aa-cart-view-btn">Proced to Checkout</a>
              </div>
            </div>
          </div>
@@ -141,6 +156,8 @@
           success: function (data) {
             $(this).val(quantity);  
             $('.total-product'+id).text(`$${data.product_price * data.product_quantity}`);
+            $('.Subtotal').text(`$${data.product_price * data.product_quantity}`);
+            $('.Total').text(`$${data.product_price * data.product_quantity -@if(!empty(Session::get('couponAmount'))){{ Session::get('couponAmount') }} @else 0 @endif}`);
             $('.mess').html('<span class="alert alert-success">Update Quantity Cart Success</span>');
           },
           error: function () {

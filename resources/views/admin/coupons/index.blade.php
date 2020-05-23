@@ -57,7 +57,12 @@
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td>{{ $value['coupon_code'] }}</td>
-                                        <td>{{ $value['amount'] }}</td>
+                                        <td>@if ($value['amount_type'] == 'percentage')
+                                            {{ $value['amount'] }}%
+                                        @else
+                                            ${{ $value['amount'] }}
+                                        @endif
+                                        </td>
                                         <td>{{ $value['amount_type'] }}</td>
                                         <td>{{ $value['expiry_date'] }}</td>
                                         <td>{{ $value['created_at'] }}</td>
