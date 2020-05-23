@@ -111,7 +111,8 @@ class IndexController extends Controller
     {
         $data = Array(
             'Cate' => $this->dataCate,
-            'Slides' => $this->dataSlider
+            'Slides' => $this->dataSlider,
+            'userCart' => $this->getCarts()
         );
         return view('wayshop.checkout')->with('data',$data);
     }
@@ -121,6 +122,7 @@ class IndexController extends Controller
         $Data = new DataController;
         $data = Array(
             'Cate' => $this->dataCate,
+            'userCart' => $this->getCarts(),
             'Slides' => $this->dataSlider,
             'Product' => $Data->productDetail($request->slug),
             'productRelated' => $Data->productRelated($request->slug)
@@ -135,6 +137,7 @@ class IndexController extends Controller
         $data = Array(
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
+            'userCart' => $this->getCarts(),
             'Post' => $Data->postDetail($slug),
             'PostComment' => $Data->postDetail($slug),
             'postRelated' => $this->dataPosts
@@ -146,7 +149,8 @@ class IndexController extends Controller
     {
         $data = Array(
             'Cate' => $this->dataCate,
-            'Slides' => $this->dataSlider
+            'Slides' => $this->dataSlider,
+            'userCart' => $this->getCarts()
         );
         return view('wayshop.my-account')->with('data',$data);
     }
@@ -161,7 +165,8 @@ class IndexController extends Controller
         $data = Array(
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
-            'Products' =>  $this->dataProducts
+            'Products' =>  $this->dataProducts,
+            'userCart' => $this->getCarts()
         );
         return view('wayshop.shop')->with('data',$data);
     }
@@ -186,14 +191,20 @@ class IndexController extends Controller
             $contact->save();
             return back()->with('success','Send contact Successfully.');
         }
-        return view('wayshop.contact')->with('dataSlider',$this->dataSlider);
+        $data = Array(
+            'Slides' => $this->dataSlider,
+            'Cate' => $this->dataCate,
+            'userCart' => $this->getCarts()
+        );
+        return view('wayshop.contact')->with('data',$data);
     }
 
     public function notFound()
     {
         $data = Array(
             'Cate' => $this->dataCate,
-            'Slides' => $this->dataSlider
+            'Slides' => $this->dataSlider,
+            'userCart' => $this->getCarts()
         );
         return view('wayshop.404')->with('data',$data);
     }

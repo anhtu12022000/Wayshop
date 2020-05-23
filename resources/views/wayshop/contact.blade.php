@@ -43,13 +43,6 @@
              <div class="row">
                <div class="col-md-8">
                  <div class="aa-contact-address-left">
-<<<<<<< HEAD:resources/views/wayshop/contact-us.blade.php
-                   <form class="comments-form contact-form" action="{{url('/contact-send')}}">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">                        
-                          <input type="text" name="name" placeholder="Your Name" class="form-control">
-=======
                    <form class="comments-form contact-form" action="{{ url('/contact') }}" method="post">
                     @csrf
                     <div class="row">
@@ -59,42 +52,29 @@
                           @error('name')
                             <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
->>>>>>> f22d974bce51e86035b9b32c22227c4fd8f57615:resources/views/wayshop/contact.blade.php
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">                        
-<<<<<<< HEAD:resources/views/wayshop/contact-us.blade.php
-                          <input type="email" name="email" placeholder="Email" class="form-control">
-=======
                           <input type="email" placeholder="Email" name="email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror">
                           @error('name')
                             <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
->>>>>>> f22d974bce51e86035b9b32c22227c4fd8f57615:resources/views/wayshop/contact.blade.php
                         </div>
                       </div>
                     </div>
                      <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">                        
-<<<<<<< HEAD:resources/views/wayshop/contact-us.blade.php
-                          <input type="text" name="title" placeholder="Subject" class="form-control">
-=======
                           <input type="text" placeholder="Subject" name="subject" value="{{old('subject')}}" class="form-control @error('subject') is-invalid @enderror">
                           @error('subject')
                             <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
->>>>>>> f22d974bce51e86035b9b32c22227c4fd8f57615:resources/views/wayshop/contact.blade.php
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">                        
-<<<<<<< HEAD:resources/views/wayshop/contact-us.blade.php
-                          <input type="text" name="body" placeholder="Company" class="form-control">
-=======
                           <input type="text" placeholder="Company" name="company" class="form-control">
->>>>>>> f22d974bce51e86035b9b32c22227c4fd8f57615:resources/views/wayshop/contact.blade.php
                         </div>
                       </div>
                     </div>                  
