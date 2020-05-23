@@ -29,7 +29,8 @@
          <div class="cart-view-area">
           <div class="mess"></div>
            <div class="cart-view-table">
-             <form action="">
+             <form action="{{ url('cart/apply-coupons') }}" method="post">
+              @csrf
                <div class="table-responsive">
                   <table class="table">
                     <thead>
@@ -43,6 +44,9 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <?php
+                          $total = 0;
+                      ?>
                       @foreach($data['userCart'] as $item)
                       <tr class="cart{{ $item->id }}">
                         <td><a class="remove" href="javascript:void(0)" rel="{{ $item->id }}"><fa class="fa fa-close"></fa></a></td>
@@ -52,14 +56,20 @@
                         <td><input class="aa-cart-quantity" type="number" min="1" data-id="{{ $item->id }}" value="{{ $item->product_quantity }}"></td>
                         <td class="total-product{{ $item->id }}">${{ $item->product_price * $item->product_quantity}}</td>
                       </tr>
+                      <?php
+                          $total += $item->product_price * $item->product_quantity;
+                      ?>
                       @endforeach
                       <tr>
                         <td colspan="6" class="aa-cart-view-bottom">
-                          <div class="aa-cart-coupon">
-                            <input class="aa-coupon-code" type="text" placeholder="Coupon">
-                            <input class="aa-cart-view-btn" type="submit" value="Apply Coupon">
-                          </div>
-                          <input class="aa-cart-view-btn" type="submit" value="Update Cart">
+                          @if (session('mess'))
+                            <div class="alert alert-danger">{{session('mess')}}</div>
+                          @endif
+                            <div class="aa-cart-coupon">
+                              <input class="aa-coupon-code" required="" type="text" name="coupon_code" placeholder="Coupon">
+                              <input class="aa-cart-view-btn" type="submit" value="Apply Coupon">
+                            </div>
+                            {{-- <input class="aa-cart-view-btn" type="submit" value="Update Cart"> --}}
                         </td>
                       </tr>
                       </tbody>
@@ -73,11 +83,11 @@
                  <tbody>
                    <tr>
                      <th>Subtotal</th>
-                     <td>$450</td>
+                     <td>{{ $total }} + $5 Shipper</td>
                    </tr>
                    <tr>
                      <th>Total</th>
-                     <td>$450</td>
+                     <td>${{ $total+5 }}</td>
                    </tr>
                  </tbody>
                </table>

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('css')
-   <link rel="stylesheet" href="admin_assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-   <link rel="stylesheet" href="admin_assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="admin_assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="admin_assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -15,7 +15,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">user</li>
+                <li class="breadcrumb-item active">DataTables</li>
                 </ol>
             </div>
             </div>
@@ -29,12 +29,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/user/add') }}" class="btn btn-info float-right">Add</a>
+                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/coupons/add') }}" class="btn btn-info float-right">Add</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         @if (session('success'))
-                        <div class="alert alert-danger">{{session('success')}}</div>
+                            <div class="alert alert-success">{{session('success')}}</div>
                         @endif
                         <div id="messageEn" style="display: none;" class="alert alert-success">Status Enabled</div>
                         <div id="messageDi" style="display: none;" class="alert alert-success">Status Disabled</div>
@@ -42,37 +42,33 @@
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Name</th>
-                                <th width="20%">Image</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Address</th>
+                                <th>Coupon code</th>
+                                <th>Amount</th>
+                                <th>Amount type</th>
+                                <th>Expiry date</th>
+                                <th>Created at</th>
                                 <th>Status</th>
-                                <th>Permission</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @php $i = 0; @endphp
+                                @php $i = 1; @endphp
                                 @foreach ($data as $value)
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td>{{ $value['name'] }}</td>
-                                        <td><img width="100%" src="{{ asset('/front_assets/img/user/'.$value['image']) }}" width="60" alt=""></td>
-                                        <td>{{ $value['email'] }}</td>
-                                        <td>{{ $value['phone'] }}</td>
-                                        <td>{{ $value['address'] }}</td>
-                                        <td>   
+                                        <td>{{ $value['coupon_code'] }}</td>
+                                        <td>{{ $value['amount'] }}</td>
+                                        <td>{{ $value['amount_type'] }}</td>
+                                        <td>{{ $value['expiry_date'] }}</td>
+                                        <td>{{ $value['created_at'] }}</td>
+                                        <td>                                                
                                             <input type="checkbox" class="CouponsStatus btn btn-success" rel="{{ $value['id'] }}" data-toggle="toggle" data-on="Enabled" data-of="Disabled" data-onstyle="success" data-offstyle="danger" @if ($value['status'] == 1)
                                             checked="" 
                                             @endif/>
                                         </td>
-                                    <td>@if (isset($value['roles'][0]->name))
-                                        {{ $value['roles'][0]->name }}
-                                    @endif</td>
                                         <td class="text-center">
-                                            <a href="{{ url('admin/user/edit-user/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form method="POST" action="{{ url('admin/post/del-user/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete post: {{ $value['title'] }}')">
+                                            <a href="{{ url('admin/coupons/edit-coupons/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <form method="POST" action="{{ url('admin/coupons/del-coupons/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete code: {{ $value['coupon_code'] }}')">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -85,13 +81,12 @@
                             <tfoot>
                             <tr>
                                 <th>STT</th>
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Address</th>
+                                <th>Coupon code</th>
+                                <th>Amount</th>
+                                <th>Amount type</th>
+                                <th>Expiry date</th>
+                                <th>Created at</th>
                                 <th>Status</th>
-                                <th>Address</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </tfoot>
@@ -133,7 +128,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'post',
-                        url: 'admin/user/update-status',
+                        url: 'admin/coupons/update-status',
                         data: {
                             _token: '{!! csrf_token() !!}',
                             status: 1,
@@ -156,7 +151,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'post',
-                        url: 'admin/user/update-status',
+                        url: 'admin/coupons/update-status',
                         data: {
                             _token: '{!! csrf_token() !!}',
                             status: 0,

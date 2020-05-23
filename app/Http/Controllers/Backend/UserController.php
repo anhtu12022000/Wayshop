@@ -82,4 +82,12 @@ class UserController extends Controller
     	$user->delete();
         return redirect('/admin/user')->with('success','Delete Successfully.');
     }
+
+    public function updateStatusUser(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->status = $request->status;
+         $user->save();
+        return $user;
+    }
 }

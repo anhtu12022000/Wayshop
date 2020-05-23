@@ -25,7 +25,6 @@ Auth::routes();
 Route::match(['get','post'], '/', 'IndexController@index');
 // Route::match(['get','post'], 'shop', 'IndexController@shop');
 Route::match(['get','post'], '/aboutus', 'IndexController@aboutus');
-Route::match(['get','post'], '/cart', 'IndexController@cart');
 Route::match(['get','post'], '/checkout', 'IndexController@checkout');
 Route::match(['get','post'], '/shop-detail', 'IndexController@detail');
 Route::match(['get','post'], '/my-account', 'IndexController@account');
@@ -36,7 +35,10 @@ Route::match(['get','post'], '/shop', 'IndexController@shop');
 Route::get('product-detail/{slug}', 'IndexController@productDetail');
 Route::get('post-detail/{slug}', 'IndexController@postDetail');
 
-
+Route::group(['prefix' => 'cart'], function() {
+    Route::match(['get','post'], '/', 'IndexController@cart');
+    Route::post('apply-coupons', 'IndexController@applyCoupons');
+});
 
 Route::get('search/{keyword}', 'IndexController@search');
 
@@ -52,10 +54,10 @@ Route::namespace('Frontend')->group(function () {
         Route::get('/logout', 'AccountController@logout');
     });
 
-    Route::post('add-cart', 'CartController@addCart');
-    Route::post('get-cart', 'CartController@getCart');
-    Route::post('delete-cart/{id}', 'CartController@deleteCart');
-    Route::post('update-cart/{id}', 'CartController@updateCart');
+    Route::post('/add-cart', 'CartController@addCart');
+    Route::post('/get-cart', 'CartController@getCart');
+    Route::post('/delete-cart/{id}', 'CartController@deleteCart');
+    Route::post('/update-cart/{id}', 'CartController@updateCart');
 });
 
 Route::get('/404','IndexController@notFound')->name('404');
@@ -72,6 +74,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/edit-user/{id}', 'UserController@showEditUser');
             Route::post('/edit-user/{id}', 'UserController@EditUser');
             Route::delete('/del-user/{id}', 'UserController@DeleteUser');
+            Route::post('update-status', 'UserController@updateStatusUser');
         });
 
         Route::group(['prefix' => 'post'], function() {
@@ -99,13 +102,6 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('update-status', 'ProductController@updateStatusProduct');
         });
 
-        Route::group(['prefix' => 'bills'], function() {
-            Route::get('/', 'BillController@index');
-            Route::get('/edit-bill/{id}', 'BillController@showEditBill');
-            Route::post('/edit-bill/{id}', 'BillController@EditBill');
-            Route::delete('/del-bill/{id}', 'BillController@DeleteBill');
-        });
-
         Route::group(['prefix' => 'contacts'], function() {
             Route::get('/', 'ContactController@index');
             Route::get('/edit-contact/{id}', 'ContactController@showEditContact');
@@ -119,6 +115,15 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/edit-cate/{id}', 'CateController@showEditCate');
             Route::post('/edit-cate/{id}', 'CateController@EditCate');
             Route::delete('/del-cate/{id}', 'CateController@DeleteCate');
+        });
+
+        Route::group(['prefix' => 'coupons'], function() {
+            Route::get('/', 'CouponsController@index');
+            Route::match(['get','post'], '/add-coupons', 'CouponsController@addCoupons');
+            Route::get('/edit-coupons/{id}', 'CouponsController@showEditCoupons');
+            Route::post('/edit-coupons/{id}', 'CouponsController@EditCoupons');
+            Route::delete('/del-coupons/{id}', 'CouponsController@DeleteCoupons');
+            Route::post('update-status', 'CouponsController@updateStatusCoupons');
         });
     });
 });

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Frontend\DataController;
 use App\Models\Contact;
 use App\Models\Cart;
+use App\Models\Coupons;
 use Session;
 
 class IndexController extends Controller
@@ -54,6 +55,22 @@ class IndexController extends Controller
             'userCart' => $userCart,
         );
     	return view('wayshop.cart')->with('data',$data);
+    }
+
+    public function applyCoupons(Request $request)
+    {
+        $request->validate([
+            'coupon_code' => 'required|string',
+        ]);
+        $coupon = Coupons::where('coupon_code',$request->coupon_code)->count();
+        if ($coupon == 0) {
+            return back()->with('mess','Coupon does not exit!');
+        } else {
+            $couponDetail = Coupons::where('coupon_code',$request->coupon_code)->first();
+            if ($couponDetail->status == 0) {
+                return back()->with('mess','Coupon code is not active!');
+            }
+        }
     }
 
     public function checkout()
@@ -140,6 +157,10 @@ class IndexController extends Controller
 
     public function notFound()
     {
-        return view('wayshop.404')->with('dataSlider',$this->dataSlider);
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider
+        );
+        return view('wayshop.404')->with('data',$data);
     }
 }

@@ -133,7 +133,7 @@
                         url: 'admin/products/update-status',
                         data: {
                             _token: '{!! csrf_token() !!}',
-                            status: 0,
+                            status: 1,
                             id: id
                         },
                         success: function (data) {
@@ -156,7 +156,7 @@
                         url: 'admin/products/update-status',
                         data: {
                             _token: '{!! csrf_token() !!}',
-                            status: 1,
+                            status: 0,
                             id: id
                         },
                         success: function (data) {

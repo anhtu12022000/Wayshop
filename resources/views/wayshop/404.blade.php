@@ -1,4 +1,8 @@
 @extends('wayshop.layouts.master')
+@section('title')
+404 - Not Found
+@endsection
+
 @section('content')
  
   
