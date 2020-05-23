@@ -93,7 +93,11 @@ class IndexController extends Controller
 
     public function account()
     {
-        return view('wayshop.my-account')->with('dataSlider',$this->dataSlider);
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider
+        );
+        return view('wayshop.my-account')->with('data',$data);
     }
 
     public function wishlist()
