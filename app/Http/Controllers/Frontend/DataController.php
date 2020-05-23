@@ -8,7 +8,8 @@ use App\Models\Posts;
 use App\Models\Slides;
 use App\Models\Product;
 use App\Models\Cate;
-
+use App\Models\Cart;
+use Session;
 
 class DataController extends Controller
 {
@@ -59,5 +60,15 @@ class DataController extends Controller
  	{
  		$postDetail = Posts::where('slug','like',$slug)->first();
  		return $postDetail;
+ 	}
+
+ 	public function getCarts()
+ 	{
+ 		$session_id = Session::get('session_id');
+ 		
+        $userCart = Cart::where('session_id',$session_id)->get();
+        $totalCart = Cart::where('session_id',$session_id)->count();
+        Session::put('totalcart', $totalCart);
+        return $userCart;
  	}
 }

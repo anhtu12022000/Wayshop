@@ -29,19 +29,18 @@ class CartController extends Controller
                 $session_id = str_random(40);
                 Session::put('session_id',$session_id);
             } else {
-
+                $cart = new Cart();
+                $cart->product_name = $dataProduct->name;
+                $cart->product_image = $dataProduct->image;
+                $cart->product_price = $dataProduct->price;
+                $cart->product_quantity = 1;
+                $cart->user_email = $user_email;
+                $cart->session_id = Session::get('session_id');
+                $cart->product_id = $dataProduct->id;
+                $cart->cate_id = $dataProduct->cate_id;
+                $cart->save();
+                return $cart->product_name;
             }
-            $cart = new Cart();
-            $cart->product_name = $dataProduct->name;
-            $cart->product_image = $dataProduct->image;
-            $cart->product_price = $dataProduct->price;
-            $cart->product_quantity = 1;
-            $cart->user_email = $user_email;
-            $cart->session_id = Session::get('session_id');
-            $cart->product_id = $dataProduct->id;
-            $cart->cate_id = $dataProduct->cate_id;
-            $cart->save();
-            return $cart->product_name;
         }
     }
 

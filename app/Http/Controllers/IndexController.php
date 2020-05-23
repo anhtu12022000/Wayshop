@@ -18,6 +18,7 @@ class IndexController extends Controller
     private $dataCate;
     private $dataProduct;
     private $dataProducts;
+    private $userCart;
 
     public function __construct()
     {
@@ -27,6 +28,7 @@ class IndexController extends Controller
         $this->dataProduct = $Data->getProduct();
         $this->dataCate = $Data->getAllCategory();
         $this->dataProducts = $Data->getAllProduct();
+        $this->userCart = $Data->getCarts();
     }
 
     public function index()
@@ -35,8 +37,11 @@ class IndexController extends Controller
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
             'MenProducts' => $this->dataProduct,
-            'Posts' => $this->dataPosts
+            'Posts' => $this->dataPosts,
+            'userCart' => $this->userCart
         );
+
+        
     	return view('wayshop.home')->with('data',$data);
     }
 
@@ -47,12 +52,10 @@ class IndexController extends Controller
 
     public function cart()
     {
-        $session_id = Session::get('session_id');
-        $userCart = Cart::where('session_id',$session_id)->get();
         $data = Array(
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
-            'userCart' => $userCart,
+            'userCart' => $this->userCart
         );
     	return view('wayshop.cart')->with('data',$data);
     }
