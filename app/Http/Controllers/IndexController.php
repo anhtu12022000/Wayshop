@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Frontend\DataController;
 use App\Models\Contact;
 use App\Models\Cart;
+use Auth;
 use App\Models\Coupons;
+use App\User;
 use Session;
 
 class IndexController extends Controller
@@ -112,8 +114,9 @@ class IndexController extends Controller
         $data = Array(
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
-            'userCart' => $this->getCarts()
-        );
+            'userCart' => $this->getCarts(),
+        );     
+
         return view('wayshop.checkout')->with('data',$data);
     }
 

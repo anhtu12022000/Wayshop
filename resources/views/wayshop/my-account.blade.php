@@ -76,14 +76,40 @@
                     <input type="text" name="email" value="{{ Auth::user()->email }}" placeholder="Email address">
                     <label for="">Address<span>*</span></label>
                     <input type="text" name="address" value="{{ Auth::user()->address }}" placeholder="Your Address">
+                    <label for="">City<span>*</span></label>
+                    <input type="text" name="city" value="{{ Auth::user()->city }}" placeholder="Your Country">
+                    <label for="">Country<span>*</span></label>
+                    <select name="country" class="form-control">
+                      <option value="0">Select Your Country</option>
+                      <option value="1">Australia</option>
+                      <option value="2">Afganistan</option>
+                      <option value="3">Bangladesh</option>
+                      <option value="4">Belgium</option>
+                      <option value="5">Brazil</option>
+                      <option value="6">Canada</option>
+                      <option value="7">China</option>
+                      <option value="8">Denmark</option>
+                      <option value="9">Egypt</option>
+                      <option value="10">India</option>
+                      <option value="11">Iran</option>
+                      <option value="12">Israel</option>
+                      <option value="13">Mexico</option>
+                      <option value="14">UAE</option>
+                      <option value="15">UK</option>
+                      <option value="16">USA</option>
+                      <option value="17">Vietnam</option>
+                    </select>
                     <label for="">Phone<span>*</span></label>
                     <input type="text" name="phone" value="{{ Auth::user()->phone }}" placeholder="Your Phone">
                     <label for="">Gender<span>*</span></label>
-                    <select name="gender" id="">
+                    <select name="gender" id="" class="form-control">
                       <option value="male">Male</option>
                       <option @if (Auth::user()->gender == 'famale')
                         selected="" 
                       @endif value="famale">Famale</option>
+                      <option @if (Auth::user()->gender == 'orther')
+                        selected="" 
+                      @endif value="orther">Orther</option>
                     </select><br>
                     <button type="submit" class="aa-browse-btn">Change</button>                    
                   </form>
@@ -147,12 +173,36 @@
                     <input type="text" name="email" value="{{ old('email') }}" placeholder="Email address">
                     <label for="">Address<span>*</span></label>
                     <input type="text" name="address" value="{{ old('address') }}" placeholder="Your Address">
+                    <label for="">City / Town*<span>*</span></label>
+                    <input type="text" name="city" value="{{ old('city') }}" placeholder="Your Country">
+                    <label for="">Country<span>*</span></label>
+                    <select name="country" class="form-control">
+                      <option value="0">Select Your Country</option>
+                      <option value="1">Australia</option>
+                      <option value="2">Afganistan</option>
+                      <option value="3">Bangladesh</option>
+                      <option value="4">Belgium</option>
+                      <option value="5">Brazil</option>
+                      <option value="6">Canada</option>
+                      <option value="7">China</option>
+                      <option value="8">Denmark</option>
+                      <option value="9">Egypt</option>
+                      <option value="10">India</option>
+                      <option value="11">Iran</option>
+                      <option value="12">Israel</option>
+                      <option value="13">Mexico</option>
+                      <option value="14">UAE</option>
+                      <option value="15">UK</option>
+                      <option value="16">USA</option>
+                      <option value="17">Vietnam</option>
+                    </select>
                     <label for="">Phone<span>*</span></label>
                     <input type="text" name="phone" value="{{ old('phone') }}" placeholder="Your Phone">
                     <label for="">Gender<span>*</span></label>
-                    <select name="gender" id="">
+                    <select name="gender" id="" class="form-control">
                       <option value="male">Male</option>
                       <option value="famale">Famale</option>
+                      <option value="orther">Orther</option>
                     </select><br>
                     <label for="">Password<span>*</span></label>
                     <input type="password" name="password" value="{{ old('password') }}" placeholder="Password">
