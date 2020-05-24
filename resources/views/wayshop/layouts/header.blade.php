@@ -103,22 +103,21 @@
                   @endif</span>
                 </a>
                 <div class="aa-cartbox-summary">
-                  <ul>
+                  <ul class="list-cart">
                     @php
                         $total = 0;
                     @endphp
                     @foreach ($data['userCart'] as $item)
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img src="{{ asset('front_assets/img/product'.$item->product_image) }}" alt="img"></a>
+                    <li class="cart{{ $item->id }}">
+                      <a class="aa-cartbox-img" href="{{ url('product-detail/'.$item['slug']) }}"><img src="{{ asset('front_assets/img/product'.$item->product_image) }}" alt="img"></a>
                       <div class="aa-cartbox-info">
-                        <h4><a href="#">{{ $item->product_name }}</a></h4>
+                        <h4><a href="{{ url('product-detail/'.$item['slug']) }}">{{ $item->product_name }}</a></h4>
                         <p>{{ $item->product_quantity }} x ${{ $item->product_quantity * $item->product_price }}</p>
                       </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
+                      <a class="aa-remove-product"><span rel="{{ $item->id }}" class="remove fa fa-times"></span></a>
                     </li>
                     @php
                       $total += $item->product_price * $item->product_quantity;
-
                     @endphp
                     @endforeach
 

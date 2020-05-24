@@ -136,3 +136,107 @@
 
   </div>
 </div>
+@section('script')
+  <script>
+
+      $('.close').click(function () {
+          $('#myModal').hide();
+      });
+        
+      $('.addCart').click(function () {
+        let id = $(this).attr('rel');
+        $.ajax({
+          header: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          url: 'add-cart',
+          data: {
+            _token: '{!! csrf_token() !!}',
+            id: id
+          },
+          success: function (data) {
+            $('#myModal').fadeIn();
+
+            $('.modal-body').html(`<p>Added ${data} to cart!</p>`);
+            setTimeout(function() {
+              $('#myModal').hide();
+            }, 2000);
+            dataCart(id);
+          },
+          error: function () {
+            alert('Error, Please try again!');
+          }
+
+        })
+      });
+
+      $('.remove').click(function () {
+      let id = $(this).attr('rel');
+      $.ajax({
+        header: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'post',
+        url: `delete-cart/${id}`,
+        data: {
+          _token: '{!! csrf_token() !!}',
+        },
+        success: function (data) { 
+          dataCart(id);
+          $('.cart'+id).html('');
+        },
+        error: function () {
+          alert('Error, Please try again!');
+        }
+
+      })
+    });
+
+      let dataCart = (id) => {
+          $.ajax({
+          header: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'post',
+          url: 'cart/get-cart',
+          data: {
+            _token: '{!! csrf_token() !!}',
+            id: id
+          },
+          success: function (data) {
+            let html = '';
+            let total = 0;
+            let quantity = 0;
+            data.map(item => {
+              quantity += 1;
+              total += item.product_price * item.product_quantity;
+              html += `<li class="cart${item.id}">
+                      <a class="aa-cartbox-img" href="product-detail/${item.product_slug}"><img src="front_assets/img/product/${item.product_image}'" alt="img"></a>
+                      <div class="aa-cartbox-info">
+                        <h4><a href="product-detail/${item.product_slug}">${item.product_name}</a></h4>
+                        <p>${item.product_quantity} x ${item.product_quantity * item.product_price}</p>
+                      </div>
+                      <a class="aa-remove-product remove" rel="${item.id}"><span class="fa fa-times"></span></a>
+                    </li>`;
+            })
+            html += `<li>
+                      <span class="aa-cartbox-total-title">
+                        Total
+                      </span>
+                      <span class="aa-cartbox-total-price">
+                        ${ total }
+                      </span>
+                    </li>`;
+            $('.aa-cart-notify').text(quantity);        
+            $('.list-cart').html(html);
+          },
+          error: function () {
+            alert('Error, Please try again!');
+          }
+
+        })
+      }
+
+  </script>
+@endsection

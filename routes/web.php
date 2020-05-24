@@ -37,7 +37,8 @@ Route::get('post-detail/{slug}', 'IndexController@postDetail');
 
 Route::group(['prefix' => 'cart'], function() {
     Route::match(['get','post'], '/', 'IndexController@cart');
-    Route::post('apply-coupons', 'IndexController@applyCoupons');
+    Route::post('/get-cart', 'IndexController@getCarts');
+    Route::post('/apply-coupons', 'IndexController@applyCoupons');
 });
 
 Route::get('search/{keyword}', 'IndexController@search');
@@ -54,8 +55,8 @@ Route::namespace('Frontend')->group(function () {
         Route::get('/logout', 'AccountController@logout');
     });
 
+    //Ajax
     Route::post('/add-cart', 'CartController@addCart');
-    Route::post('/get-cart', 'CartController@getCart');
     Route::post('/delete-cart/{id}', 'CartController@deleteCart');
     Route::post('/update-cart/{id}', 'CartController@updateCart');
 });
