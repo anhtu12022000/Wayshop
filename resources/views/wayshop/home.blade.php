@@ -93,10 +93,10 @@
                         @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug']) }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug'].'.html') }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn addCart" rel="{{$item['id']}}" href="javascrip:void(0)"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                               <figcaption>
-                              <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug']) }}">{{$item['name']}}</a></h4>
+                              <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug'].'.html') }}">{{$item['name']}}</a></h4>
                               @if ($item['sale'] == 0)
                                 <span class="aa-product-price">${{number_format($item['price'],0,',','.')}}</span>
                               @else
@@ -123,10 +123,10 @@
                         @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug']) }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug'].'.html') }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn addCart" rel="{{$item['id']}}" href="javascrip:void(0)"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                               <figcaption>
-                              <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug']) }}">{{$item['name']}}</a></h4>
+                              <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug'].'.html') }}">{{$item['name']}}</a></h4>
                               @if ($item['sale'] == 0)
                                 <span class="aa-product-price">${{number_format($item['price'],0,',','.')}}</span>
                               @else
@@ -152,10 +152,10 @@
                         @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug']) }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug'].'.html') }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn addCart" rel="{{$item['id']}}" href="javascrip:void(0)"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                               <figcaption>
-                              <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug']) }}">{{$item['name']}}</a></h4>
+                              <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug'].'.html') }}">{{$item['name']}}</a></h4>
                               @if ($item['sale'] == 0)
                                 <span class="aa-product-price">${{number_format($item['price'],0,',','.')}}</span>
                               @else
@@ -301,10 +301,10 @@
                     @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug']) }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug'].'.html') }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                               <figcaption>
-                              <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug']) }}">{{$item['name']}}</a></h4>
+                              <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug'].'.html') }}">{{$item['name']}}</a></h4>
                               @if ($item['sale'] == 0)
                                 <span class="aa-product-price">${{number_format($item['price'],0,',','.')}}</span>
                               @else
@@ -332,10 +332,10 @@
                   @foreach($data['MenProducts'] as $item)
                   <li>
                     <figure>
-                      <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug']) }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
+                      <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug'].'.html') }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
                       <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                         <figcaption>
-                        <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug']) }}">{{$item['name']}}</a></h4>
+                        <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug'].'.html') }}">{{$item['name']}}</a></h4>
                         @if ($item['sale'] == 0)
                           <span class="aa-product-price">${{number_format($item['price'],0,',','.')}}</span>
                         @else
@@ -363,10 +363,10 @@
                     @foreach($data['MenProducts'] as $item)
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug']) }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
+                            <a class="aa-product-img" href="{{ url('product-detail/'.$item['slug'].'.html') }}"><img src="{{ asset('front_assets/img/man/polo-shirt-2.png') }}" alt="polo shirt img"></a>
                             <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                               <figcaption>
-                              <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug']) }}">{{$item['name']}}</a></h4>
+                              <h4 class="aa-product-title"><a href="{{ url('product-detail/'.$item['slug'].'.html') }}">{{$item['name']}}</a></h4>
                               @if ($item['sale'] == 0)
                                 <span class="aa-product-price">${{number_format($item['price'],0,',','.')}}</span>
                               @else
@@ -476,7 +476,7 @@
               <div class="col-md-4 col-sm-4">
                 <div class="aa-latest-blog-single">
                   <figure class="aa-blog-img">                    
-                    <a href="{{ url('post-detail/'.$value['slug']) }}"><img src="{{ asset('/front_assets/img/post/'.$value['image']) }}" alt="img"></a>
+                    <a href="{{ url('post-detail/'.$value['slug'].'.html') }}"><img src="{{ asset('/front_assets/img/post/'.$value['image'].'.html') }}" alt="img"></a>
                       <figcaption class="aa-blog-img-caption">
                       <span href="#"><i class="fa fa-eye"></i>5K</span>
                       <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use App\Mail;
 
 class AccountController extends Controller
 {
@@ -33,6 +34,7 @@ class AccountController extends Controller
     	$user->password = bcrypt($request->password);
     	if ($user->save()) {
     		if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                Mail::to('vungoctu.dev@gmail.com')->send(new WelcomeMail());
 	            return redirect('/');
 	        }	
     	}

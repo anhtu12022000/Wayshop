@@ -32,8 +32,8 @@ Route::match(['get','post'], '/wishlist', 'IndexController@wishlist');
 Route::match(['get','post'], '/service', 'IndexController@service');
 Route::match(['get','post'], '/contact-us', 'IndexController@contact');
 Route::match(['get','post'], '/shop', 'IndexController@shop');
-Route::get('/product-detail/{slug}', 'IndexController@productDetail');
-Route::get('/post-detail/{slug}', 'IndexController@postDetail');
+Route::get('/product-detail/{slug}.html', 'IndexController@productDetail');
+Route::get('/post-detail/{slug}.html', 'IndexController@postDetail');
 
 Route::group(['prefix' => 'cart'], function() {
     Route::match(['get','post'], '/', 'IndexController@cart');
@@ -44,7 +44,6 @@ Route::group(['prefix' => 'cart'], function() {
 Route::get('/search/{keyword}', 'IndexController@search')->where(['keyword' => '[A-Za-z0-9]']);
 
 Route::match(['get','post'], '/contact', 'IndexController@contact');
-
 
 Route::namespace('Frontend')->group(function () {
     Route::group(['prefix' => 'user'], function() {
