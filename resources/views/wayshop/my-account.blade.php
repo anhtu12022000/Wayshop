@@ -81,23 +81,33 @@
                     <label for="">Country<span>*</span></label>
                     <select name="country" class="form-control">
                       <option value="0">Select Your Country</option>
-                      <option value="1">Australia</option>
-                      <option value="2">Afganistan</option>
-                      <option value="3">Bangladesh</option>
-                      <option value="4">Belgium</option>
-                      <option value="5">Brazil</option>
-                      <option value="6">Canada</option>
-                      <option value="7">China</option>
-                      <option value="8">Denmark</option>
-                      <option value="9">Egypt</option>
-                      <option value="10">India</option>
-                      <option value="11">Iran</option>
-                      <option value="12">Israel</option>
-                      <option value="13">Mexico</option>
-                      <option value="14">UAE</option>
-                      <option value="15">UK</option>
-                      <option value="16">USA</option>
-                      <option value="17">Vietnam</option>
+                      <option @if (Auth::user()->country == 'Australia')
+                        selected="" 
+                      @endif value="Australia">Australia</option>
+                      <option @if (Auth::user()->country == 'Afganistan')
+                        selected="" 
+                      @endif value="Afganistan">Afganistan</option>
+                      <option @if (Auth::user()->country == 'Bangladesh')
+                        selected="" 
+                      @endif value="Bangladesh">Bangladesh</option>
+                      <option @if (Auth::user()->country == 'Belgium')
+                        selected="" 
+                      @endif value="Belgium">Belgium</option>
+                      <option @if (Auth::user()->country == 'Brazil')
+                        selected="" 
+                      @endif value="Brazil">Brazil</option>
+                      <option @if (Auth::user()->country == 'Canada')
+                        selected="" 
+                      @endif value="Canada">Canada</option>
+                      <option @if (Auth::user()->country == 'China')
+                        selected="" 
+                      @endif value="China">China</option>
+                      <option @if (Auth::user()->country == 'Denmark')
+                        selected="" 
+                      @endif value="Denmark">Denmark</option>
+                      <option @if (Auth::user()->country == 'Vietnam')
+                        selected="" 
+                      @endif value="Vietnam">Vietnam</option>
                     </select>
                     <label for="">Phone<span>*</span></label>
                     <input type="text" name="phone" value="{{ Auth::user()->phone }}" placeholder="Your Phone">
@@ -178,23 +188,16 @@
                     <label for="">Country<span>*</span></label>
                     <select name="country" class="form-control">
                       <option value="0">Select Your Country</option>
-                      <option value="1">Australia</option>
-                      <option value="2">Afganistan</option>
-                      <option value="3">Bangladesh</option>
-                      <option value="4">Belgium</option>
-                      <option value="5">Brazil</option>
-                      <option value="6">Canada</option>
-                      <option value="7">China</option>
-                      <option value="8">Denmark</option>
-                      <option value="9">Egypt</option>
-                      <option value="10">India</option>
-                      <option value="11">Iran</option>
-                      <option value="12">Israel</option>
-                      <option value="13">Mexico</option>
-                      <option value="14">UAE</option>
-                      <option value="15">UK</option>
-                      <option value="16">USA</option>
-                      <option value="17">Vietnam</option>
+                      <option value="Australia">Australia</option>
+                      <option value="Afganistan">Afganistan</option>
+                      <option value="Bangladesh">Bangladesh</option>
+                      <option value="Belgium">Belgium</option>
+                      <option value="Brazil">Brazil</option>
+                      <option value="Canada">Canada</option>
+                      <option value="China">China</option>
+                      <option value="Denmark">Denmark</option>
+                      <option value="Egypt">Egypt</option>
+                      <option value="Vietnam">Vietnam</option>
                     </select>
                     <label for="">Phone<span>*</span></label>
                     <input type="text" name="phone" value="{{ old('phone') }}" placeholder="Your Phone">

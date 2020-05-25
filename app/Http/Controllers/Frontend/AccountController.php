@@ -14,7 +14,9 @@ class AccountController extends Controller
     {
     	$request->validate([
     		'email' => 'required|max:255|string|email',
-    		'address' => 'string',
+    		'address' => 'required|string',
+            'city' => 'required|string',
+            'pincode' => 'required|numeric',
     		'phone' => 'min:11|numeric',
     		'password' => 'required|confirmed'
     	]);
@@ -23,6 +25,9 @@ class AccountController extends Controller
         $user->name = $request->name;
     	$user->email = $request->email;
     	$user->address = $request->address;
+        $user->city = $request->city;
+        $user->country = $request->country;
+        $user->pincode = $request->pincode;
     	$user->phone = $request->phone;
         $user->gender = $request->gender;
     	$user->password = bcrypt($request->password);
@@ -64,13 +69,18 @@ class AccountController extends Controller
     {
         $request->validate([
             'email' => 'required|max:255|string|email',
-            'address' => 'string',
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'pincode' => 'required|numeric',
             'phone' => 'min:10|max:10|numeric',
         ]);
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->address = $request->address;
+        $user->city = $request->city;
+        $user->country = $request->country;
+        $user->pincode = $request->pincode;
         $user->phone = $request->phone;
         $user->gender = $request->gender;
         $user->save();

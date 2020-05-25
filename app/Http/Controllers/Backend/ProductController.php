@@ -78,7 +78,7 @@ class ProductController extends Controller
     public function EditProduct($id, Request $request)
     {
         $request->validate([
-            // 'name' => 'required|max:120|unique:products,name|string',
+            'name' => 'required|max:120|string',
             'description' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
             'price' => 'required|min:1',

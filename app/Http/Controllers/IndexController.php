@@ -9,6 +9,7 @@ use App\Models\Contact;
 use App\Models\Cart;
 use Auth;
 use App\Models\Coupons;
+use App\Models\DeliveryAddress;
 use App\User;
 use Session;
 
@@ -109,14 +110,79 @@ class IndexController extends Controller
         }
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
+
         $data = Array(
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
             'userCart' => $this->getCarts(),
-        );     
+        ); 
 
+        $user_id = Auth::user()->id;
+        $shippingDetail = DeliveryAddress::where('user_id', $user_id)->first();
+        $shippingCount = DeliveryAddress::where('user_id', $user_id)->count();
+        $shippingDetail = array();
+
+        if ($shippingCount > 0) {
+            $shippingDetail = DeliveryAddress::where('user_id', $user_id)->first();
+        }
+
+        if ($request->isMethod('post')) {
+            if (!Auth::user()) {
+                return view('wayshop.checkout')->with('data',$data)->width('mess', 'You need to login to pay');
+            } else {
+                if ($shippingCount > 0) {
+                    $deliveryAddress = DeliveryAddress::where('user_id', $user_id);
+                    if ($request->billtoship != null) {
+                        $deliveryAddress->user_email = $request->shipemail;
+                        $deliveryAddress->name = $request->shipname;
+                        $deliveryAddress->address = $request->shipaddress;
+                        $deliveryAddress->city = $request->shipcity;
+                        $deliveryAddress->country = $request->shipcountry;
+                        $deliveryAddress->pincode = $request->shippincode;
+                        $deliveryAddress->phone = $request->shipphone;
+                        $deliveryAddress->note = $request->shipnote;
+                        $deliveryAddress->save();
+                    } else {
+                        $deliveryAddress->user_email = $request->email;
+                        $deliveryAddress->name = $request->name;
+                        $deliveryAddress->address = $request->address;
+                        $deliveryAddress->city = $request->city;
+                        $deliveryAddress->country = $request->country;
+                        $deliveryAddress->pincode = $request->pincode;
+                        $deliveryAddress->phone = $request->phone;
+                        $deliveryAddress->note = '';
+                        $deliveryAddress->save();
+                    }
+                } else {
+                    $deliveryAddress = new DeliveryAddress;
+                    if ($request->billtoship != null) {
+                    $deliveryAddress->user_id = $user_id;
+                    $deliveryAddress->user_email = $request->shipemail;
+                    $deliveryAddress->name = $request->shipname;
+                    $deliveryAddress->address = $request->shipaddress;
+                    $deliveryAddress->city = $request->shipcity;
+                    $deliveryAddress->country = $request->shipcountry;
+                    $deliveryAddress->pincode = $request->shippincode;
+                    $deliveryAddress->phone = $request->shipphone;
+                    $deliveryAddress->note = $request->shipnote;
+                    $deliveryAddress->save();
+                } else {
+                    $deliveryAddress->user_id = $user_id;
+                    $deliveryAddress->user_email = $request->email;
+                    $deliveryAddress->name = $request->name;
+                    $deliveryAddress->address = $request->address;
+                    $deliveryAddress->city = $request->city;
+                    $deliveryAddress->country = $request->country;
+                    $deliveryAddress->pincode = $request->pincode;
+                    $deliveryAddress->phone = $request->phone;
+                    $deliveryAddress->note = '';
+                    $deliveryAddress->save();
+                }
+            }
+        }    
+    }
         return view('wayshop.checkout')->with('data',$data);
     }
 

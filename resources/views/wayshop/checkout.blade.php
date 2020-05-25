@@ -23,11 +23,15 @@
 
  <!-- Cart view section -->
  <section id="checkout">
+  @if (session('mess'))
+    <div class="alert alert-danger">{{session('mess')}}</div>
+  @endif
    <div class="container">
      <div class="row">
        <div class="col-md-12">
         <div class="checkout-area">
-          <form action="">
+          <form action="{{ url('/checkout') }}" method="post">
+            @csrf
             <div class="row">
               <div class="col-md-8">
                 <div class="checkout-left">
@@ -88,51 +92,61 @@
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" value="{{ Auth::user()->name }}" name="name" placeholder="User Name*">
+                                <input type="text" value="{{ Auth::user()->name }}" class="name" name="name" placeholder="User Name*">
                               </div>                             
                             </div>
                           </div>   
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="email" value="{{ Auth::user()->email }}" name="email"  placeholder="Email Address*">
+                                <input type="email" value="{{ Auth::user()->email }}" class="email" name="email"  placeholder="Email Address*">
                               </div>                             
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="tel" name="phone" value="{{ Auth::user()->phone }}" placeholder="Phone*">
+                                <input type="tel" name="phone" class="phone" value="{{ Auth::user()->phone }}" placeholder="Phone*">
                               </div>
                             </div>
                           </div> 
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <textarea cols="8" name="address" rows="3">{{ Auth::user()->address }}</textarea>
+                                <textarea cols="8" name="address" class="address" rows="3">{{ Auth::user()->address }}</textarea>
                               </div>                             
                             </div>                            
                           </div>   
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <select>
+                                <select name="country" class="country">
                                   <option value="0">Select Your Country</option>
-                                  <option value="1">Australia</option>
-                                  <option value="2">Afganistan</option>
-                                  <option value="3">Bangladesh</option>
-                                  <option value="4">Belgium</option>
-                                  <option value="5">Brazil</option>
-                                  <option value="6">Canada</option>
-                                  <option value="7">China</option>
-                                  <option value="8">Denmark</option>
-                                  <option value="9">Egypt</option>
-                                  <option value="10">India</option>
-                                  <option value="11">Iran</option>
-                                  <option value="12">Israel</option>
-                                  <option value="13">Mexico</option>
-                                  <option value="14">UAE</option>
-                                  <option value="15">UK</option>
-                                  <option value="16">USA</option>
-                                  <option value="17">Vietnam</option>
+                                  <option @if (Auth::user()->country == 'Australia')
+                                      selected="" 
+                                  @endif value="Australia">Australia</option>
+                                  <option @if (Auth::user()->country == 'Afganistan')
+                                      selected="" 
+                                  @endif value="Afganistan">Afganistan</option>
+                                  <option @if (Auth::user()->country == 'Bangladesh')
+                                      selected="" 
+                                  @endif value="Bangladesh">Bangladesh</option>
+                                  <option @if (Auth::user()->country == 'Belgium')
+                                      selected="" 
+                                  @endif value="Belgium">Belgium</option>
+                                  <option @if (Auth::user()->country == 'Brazil')
+                                      selected="" 
+                                  @endif value="Brazil">Brazil</option>
+                                  <option @if (Auth::user()->country == 'Canada')
+                                      selected="" 
+                                  @endif value="Canada">Canada</option>
+                                  <option @if (Auth::user()->country == 'China')
+                                      selected="" 
+                                  @endif value="China">China</option>
+                                  <option @if (Auth::user()->country == 'Denmark')
+                                      selected="" 
+                                  @endif value="Denmark">Denmark</option>
+                                  <option @if (Auth::user()->country == 'Vietnam')
+                                      selected="" 
+                                  @endif value="Vietnam">Vietnam</option>
                                 </select>
                               </div>                             
                             </div>                            
@@ -140,12 +154,12 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" value="{{ Auth::user()->city }}" name="city" placeholder="City / Town*">
+                                <input type="text" class="city" value="{{ Auth::user()->city }}" name="city" placeholder="City / Town*">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" name="pincode" value="" placeholder="Postcode / ZIP*">
+                                <input type="text" class="pincode" name="pincode" value="{{ Auth::user()->pincode }}" placeholder="Postcode / ZIP*">
                               </div>
                             </div>
                           </div>                                      
@@ -157,51 +171,44 @@
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" value="{{ old('name') }}" name="name" placeholder="User Name*">
+                                <input type="text" value="{{ old('name') }}" class="name" name="name" placeholder="User Name*">
                               </div>                             
                             </div>
                           </div>   
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="email" value="{{ old('email') }}" name="email"  placeholder="Email Address*">
+                                <input type="email" value="{{ old('email') }}" class="email" name="email"  placeholder="Email Address*">
                               </div>                             
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="Phone*">
+                                <input type="tel" name="phone" class="phone" value="{{ old('phone') }}" placeholder="Phone*">
                               </div>
                             </div>
                           </div> 
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <textarea cols="8" name="address" rows="3">{{ old('address') }}</textarea>
+                                <textarea cols="8" name="address" class="address" rows="3">{{ old('address') }}</textarea>
                               </div>                             
                             </div>                            
                           </div>   
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <select>
+                                <select name="country" class="country">
                                   <option value="0">Select Your Country</option>
-                                  <option value="1">Australia</option>
-                                  <option value="2">Afganistan</option>
-                                  <option value="3">Bangladesh</option>
-                                  <option value="4">Belgium</option>
-                                  <option value="5">Brazil</option>
-                                  <option value="6">Canada</option>
-                                  <option value="7">China</option>
-                                  <option value="8">Denmark</option>
-                                  <option value="9">Egypt</option>
-                                  <option value="10">India</option>
-                                  <option value="11">Iran</option>
-                                  <option value="12">Israel</option>
-                                  <option value="13">Mexico</option>
-                                  <option value="14">UAE</option>
-                                  <option value="15">UK</option>
-                                  <option value="16">USA</option>
-                                  <option value="17">Vietnam</option>
+                                  <option value="Australia">Australia</option>
+                                  <option value="Afganistan">Afganistan</option>
+                                  <option value="Bangladesh">Bangladesh</option>
+                                  <option value="Belgium">Belgium</option>
+                                  <option value="Brazil">Brazil</option>
+                                  <option value="Canada">Canada</option>
+                                  <option value="China">China</option>
+                                  <option value="Denmark">Denmark</option>
+                                  <option value="Egypt">Egypt</option>
+                                  <option value="Vietnam">Vietnam</option>
                                 </select>
                               </div>                             
                             </div>                            
@@ -209,12 +216,12 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" value="{{ old('city') }}" name="city" placeholder="City / Town*">
+                                <input type="text" value="{{ old('city') }}" class="city" name="city" placeholder="City / Town*">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" name="pincode" value="{{ old('pincode') }}" placeholder="Postcode / ZIP*">
+                                <input type="text" name="pincode" class="pincode" value="{{ old('pincode') }}" placeholder="Postcode / ZIP*">
                               </div>
                             </div>
                           </div>                                      
@@ -231,64 +238,50 @@
                           </a>
                         </h4>
                       </div>
-                      @if (Auth::user())
+{{--                       @if (Auth::user())
                       <div id="collapseFour" class="panel-collapse collapse">
                         <div class="panel-body">
                          <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                 <input type="text" value="{{ Auth::user()->name }}" name="name" placeholder="User Name*">
+                                 <input type="text" value="{{ Auth::user()->name }}" name="shipname" placeholder="User Name*">
                               </div>                             
                             </div>
-                          </div> 
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" value="" name="company" placeholder="Company name">
-                              </div>                             
-                            </div>                            
                           </div>  
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="email" value="{{ Auth::user()->email }}" name="email" placeholder="Email Address*">
+                                <input type="email" value="{{ Auth::user()->email }}" name="shipemail" placeholder="Email Address*">
                               </div>                             
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="tel" value="{{ Auth::user()->phone }}" name="phone" placeholder="Phone*">
+                                <input type="tel" value="{{ Auth::user()->phone }}" name="shipphone" placeholder="Phone*">
                               </div>
                             </div>
                           </div> 
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <textarea cols="8" name="address" rows="3">{{ Auth::user()->address }}</textarea>
+                                <textarea cols="8" name="shipaddress" rows="3">{{ Auth::user()->address }}</textarea>
                               </div>                             
                             </div>                            
                           </div>   
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <select>
+                                <select name="shipcountry">
                                   <option value="0">Select Your Country</option>
-                                  <option value="1">Australia</option>
-                                  <option value="2">Afganistan</option>
-                                  <option value="3">Bangladesh</option>
-                                  <option value="4">Belgium</option>
-                                  <option value="5">Brazil</option>
-                                  <option value="6">Canada</option>
-                                  <option value="7">China</option>
-                                  <option value="8">Denmark</option>
-                                  <option value="9">Egypt</option>
-                                  <option value="10">India</option>
-                                  <option value="11">Iran</option>
-                                  <option value="12">Israel</option>
-                                  <option value="13">Mexico</option>
-                                  <option value="14">UAE</option>
-                                  <option value="15">UK</option>
-                                  <option value="16">USA</option>
-                                  <option value="17">Vietnam</option>
+                                  <option value="Australia">Australia</option>
+                                  <option value="Afganistan">Afganistan</option>
+                                  <option value="Bangladesh">Bangladesh</option>
+                                  <option value="Belgium">Belgium</option>
+                                  <option value="Brazil">Brazil</option>
+                                  <option value="Canada">Canada</option>
+                                  <option value="China">China</option>
+                                  <option value="Denmark">Denmark</option>
+                                  <option value="Egypt">Egypt</option>
+                                  <option value="Vietnam">Vietnam</option>
                                 </select>
                               </div>                             
                             </div>                            
@@ -296,82 +289,68 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" name="city" value="{{ Auth::user()->city }}" placeholder="City / Town*">
+                                <input type="text" name="shipcity" value="{{ Auth::user()->city }}" placeholder="City / Town*">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" name="pincode" value="{{ old('pincode') }}" placeholder="Postcode / ZIP*">
+                                <input type="text" name="shippincode" value="{{ Auth::user()->pincode }}" placeholder="Postcode / ZIP*">
                               </div>
                             </div>
                           </div>    
                            <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <textarea cols="8" name="note" rows="3">{{ old('note') }}</textarea>
+                                <textarea cols="8" name="shipnote" rows="3">{{ old('note') }}</textarea>
                               </div>                             
                             </div>                            
                           </div>              
                         </div>
                       </div>
-                      @else
+                      @else --}}
                       <div id="collapseFour" class="panel-collapse collapse">
                         <div class="panel-body">
                          <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                 <input type="text" value="{{ old('name') }}" name="name" placeholder="User Name*">
+                                 <input type="text" value="{{ old('name') }}" class="shipname" name="shipname" placeholder="User Name*">
                               </div>                             
                             </div>
-                          </div> 
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" value="{{ old('company') }}" name="company" placeholder="Company name">
-                              </div>                             
-                            </div>                            
-                          </div>  
+                          </div>   
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="email" value="{{ old('email') }}" name="email" placeholder="Email Address*">
+                                <input type="email" value="{{ old('email') }}" class="shipemail" name="shipemail" placeholder="Email Address*">
                               </div>                             
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="tel" value="{{ old('phone') }}" name="phone" placeholder="Phone*">
+                                <input type="tel" value="{{ old('phone') }}" class="shipphone" name="shipphone" placeholder="Phone*">
                               </div>
                             </div>
                           </div> 
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <textarea cols="8" name="address" rows="3">{{ old('address') }}</textarea>
+                                <textarea cols="8" name="shipaddress" class="shipaddress" rows="3">{{ old('address') }}</textarea>
                               </div>                             
                             </div>                            
                           </div>   
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <select>
+                                <select name="shipcountry" class="shipcountry">
                                   <option value="0">Select Your Country</option>
-                                  <option value="1">Australia</option>
-                                  <option value="2">Afganistan</option>
-                                  <option value="3">Bangladesh</option>
-                                  <option value="4">Belgium</option>
-                                  <option value="5">Brazil</option>
-                                  <option value="6">Canada</option>
-                                  <option value="7">China</option>
-                                  <option value="8">Denmark</option>
-                                  <option value="9">Egypt</option>
-                                  <option value="10">India</option>
-                                  <option value="11">Iran</option>
-                                  <option value="12">Israel</option>
-                                  <option value="13">Mexico</option>
-                                  <option value="14">UAE</option>
-                                  <option value="15">UK</option>
-                                  <option value="16">USA</option>
-                                  <option value="17">Vietnam</option>
+                                  <option value="Australia">Australia</option>
+                                  <option value="Afganistan">Afganistan</option>
+                                  <option value="Bangladesh">Bangladesh</option>
+                                  <option value="Belgium">Belgium</option>
+                                  <option value="Brazil">Brazil</option>
+                                  <option value="Canada">Canada</option>
+                                  <option value="China">China</option>
+                                  <option value="Denmark">Denmark</option>
+                                  <option value="Egypt">Egypt</option>
+                                  <option value="Vietnam">Vietnam</option>
                                 </select>
                               </div>                             
                             </div>                            
@@ -379,25 +358,25 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" name="city" value="{{ old('city') }}" placeholder="City / Town*">
+                                <input type="text" name="shipcity" class="shipcity" value="{{ old('city') }}" placeholder="City / Town*">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" name="pincode" value="{{ old('pincode') }}" placeholder="Postcode / ZIP*">
+                                <input type="text" name="shippincode" class="shippincode" value="{{ old('pincode') }}" placeholder="Postcode / ZIP*">
                               </div>
                             </div>
                           </div>    
                            <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <textarea cols="8" name="note" rows="3">{{ old('note') }}</textarea>
+                                <textarea cols="8" name="shipnote" rows="3">{{ old('note') }}</textarea>
                               </div>                             
                             </div>                            
                           </div>              
                         </div>
                       </div>
-                          @endif
+{{--                           @endif --}}
                     </div>
                   </div>
                 </div>
@@ -414,41 +393,58 @@
                         </tr>
                       </thead>
                       <tbody>
+                        @php
+                          $total = 0;
+                        @endphp
+                        @foreach($data['userCart'] as $item)
                         <tr>
-                          <td>T-Shirt <strong> x  1</strong></td>
-                          <td>$150</td>
+                          <td>{{ $item->product_name }} <strong> x  {{ $item->product_quantity }}</strong></td>
+                          <td>${{ $item->product_price * $item->product_quantity}}</td>
                         </tr>
-                        <tr>
-                          <td>Polo T-Shirt <strong> x  1</strong></td>
-                          <td>$250</td>
-                        </tr>
-                        <tr>
-                          <td>Shoes <strong> x  1</strong></td>
-                          <td>$350</td>
-                        </tr>
+                        @php
+                           $total += $item->product_price * $item->product_quantity;
+                        @endphp
+                        @endforeach
                       </tbody>
                       <tfoot>
                         <tr>
                           <th>Subtotal</th>
-                          <td>$750</td>
+                          <td>${{ $total }}</td>
+                        </tr>
+                        <tr>
+                          <th>Coupon Discode</th>
+                          <td>@if (!empty(Session::get('couponAmount')))
+                            ${{ Session::get('couponAmount') }}
+                          @else
+                            $0
+                          @endif
+                        </td>
                         </tr>
                          <tr>
                           <th>Tax</th>
-                          <td>$35</td>
+                          <td>$10</td>
                         </tr>
                          <tr>
                           <th>Total</th>
-                          <td>$785</td>
+                          <td>$ @if ($total)
+                            {{ $total + 10 - Session::get('couponAmount') }}
+                          @else
+                            {{ $total }}
+                          @endif
+                        </td>
                         </tr>
                       </tfoot>
                     </table>
                   </div>
                   <h4>Payment Method</h4>
                   <div class="aa-payment-method">                    
-                    <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
-                    <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked> Via Paypal </label>
-                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg') }}" border="0" alt="PayPal Acceptance Mark">    
+                    <label for="cashdelivery"><input type="radio" id="cashdelivery" value="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
+                    <label for="paypal"><input type="radio" id="paypal" value="paypal" name="optionsRadios" checked> Via Paypal </label>
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">    
                     <input type="submit" value="Place Order" class="aa-browse-btn">                
+                  </div>
+                  <div id="billtoship">
+                      <input type="checkbox" class="billtoship" value="billtoship" name="billtoship" class="form-check"> Shipping Address Same As Billing Address
                   </div>
                 </div>
               </div>
@@ -460,4 +456,5 @@
    </div>
  </section>
  <!-- / Cart view section -->
+
 @endsection

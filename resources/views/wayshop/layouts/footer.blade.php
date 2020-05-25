@@ -138,7 +138,7 @@
 </div>
 @section('script')
   <script>
-
+  $(document).ready(function () {
       $('.close').click(function () {
           $('#myModal').hide();
       });
@@ -236,7 +236,37 @@
           }
 
         })
-      }
+      };
+
+        $('.billtoship').click(function () {
+          if (this.checked) {
+            $('.shipname').val($('.name').val());
+            $('.shipemail').val($('.email').val());
+            $('.shipphone').val($('.phone').val());
+            $('.shipaddress').val($('.address').val());
+            $('.shipcountry').html(`<option value="${$('.country').val()}">${$('.country').val()}</option>`);
+            $('.shipcity').val($('.city').val());
+            $('.shippincode').val($('.pincode').val());
+          } else {
+            $('.shipname').val('');
+            $('.shipemail').val('');
+            $('.shipphone').val('');
+            $('.shipaddress').val('');
+            $('.shipcountry').html(`<option value="0">Select Your Country</option>
+                                  <option value="Australia">Australia</option>
+                                  <option value="Afganistan">Afganistan</option>
+                                  <option value="Bangladesh">Bangladesh</option>
+                                  <option value="Belgium">Belgium</option>
+                                  <option value="Brazil">Brazil</option>
+                                  <option value="Canada">Canada</option>
+                                  <option value="China">China</option>
+                                  <option value="Denmark">Denmark</option>
+                                  <option value="Vietnam">Vietnam</option>`);
+            $('.shipcity').val('');
+            $('.shippincode').val('');
+          };
+       })
+      })
 
   </script>
 @endsection

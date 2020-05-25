@@ -32,8 +32,8 @@ Route::match(['get','post'], '/wishlist', 'IndexController@wishlist');
 Route::match(['get','post'], '/service', 'IndexController@service');
 Route::match(['get','post'], '/contact-us', 'IndexController@contact');
 Route::match(['get','post'], '/shop', 'IndexController@shop');
-Route::get('product-detail/{slug}', 'IndexController@productDetail');
-Route::get('post-detail/{slug}', 'IndexController@postDetail');
+Route::get('/product-detail/{slug}', 'IndexController@productDetail');
+Route::get('/post-detail/{slug}', 'IndexController@postDetail');
 
 Route::group(['prefix' => 'cart'], function() {
     Route::match(['get','post'], '/', 'IndexController@cart');
@@ -41,7 +41,7 @@ Route::group(['prefix' => 'cart'], function() {
     Route::post('/apply-coupons', 'IndexController@applyCoupons');
 });
 
-Route::get('search/{keyword}', 'IndexController@search');
+Route::get('/search/{keyword}', 'IndexController@search')->where(['keyword' => '[A-Za-z0-9]']);
 
 Route::match(['get','post'], '/contact', 'IndexController@contact');
 
@@ -50,15 +50,15 @@ Route::namespace('Frontend')->group(function () {
     Route::group(['prefix' => 'user'], function() {
         Route::post('/register', 'AccountController@register');
         Route::post('/login', 'AccountController@login');
-        Route::post('/change-password/{id}', 'AccountController@changePassword');
-        Route::post('/change-information/{id}', 'AccountController@changeInformation');
+        Route::post('/change-password/{id}', 'AccountController@changePassword')->where(['id' => '[0-9]+']);
+        Route::post('/change-information/{id}', 'AccountController@changeInformation')->where(['id' => '[0-9]+']);
         Route::get('/logout', 'AccountController@logout');
     });
 
     //Ajax
     Route::post('/add-cart', 'CartController@addCart');
-    Route::post('/delete-cart/{id}', 'CartController@deleteCart');
-    Route::post('/update-cart/{id}', 'CartController@updateCart');
+    Route::post('/delete-cart/{id}', 'CartController@deleteCart')->where(['id' => '[0-9]+']);
+    Route::post('/update-cart/{id}', 'CartController@updateCart')->where(['id' => '[0-9]+']);
 });
 
 Route::get('/404','IndexController@notFound')->name('404');
@@ -72,59 +72,59 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::group(['prefix' => 'user'], function() {
             Route::get('/', 'UserController@index');
-            Route::get('/edit-user/{id}', 'UserController@showEditUser');
-            Route::post('/edit-user/{id}', 'UserController@EditUser');
-            Route::delete('/del-user/{id}', 'UserController@DeleteUser');
-            Route::post('update-status', 'UserController@updateStatusUser');
+            Route::get('/edit-user/{id}', 'UserController@showEditUser')->where(['id' => '[0-9]+']);
+            Route::post('/edit-user/{id}', 'UserController@EditUser')->where(['id' => '[0-9]+']);
+            Route::delete('/del-user/{id}', 'UserController@DeleteUser')->where(['id' => '[0-9]+']);
+            Route::post('/update-status', 'UserController@updateStatusUser');
         });
 
         Route::group(['prefix' => 'post'], function() {
             Route::get('/', 'PostController@index');
             Route::match(['get','post'], '/add-post', 'PostController@addPost');
-            Route::get('/edit-post/{id}', 'PostController@showEditPost');
-            Route::post('/edit-post/{id}', 'PostController@EditPost');
-            Route::delete('/del-post/{id}', 'PostController@DeletePost');
+            Route::get('/edit-post/{id}', 'PostController@showEditPost')->where(['id' => '[0-9]+']);
+            Route::post('/edit-post/{id}', 'PostController@EditPost')->where(['id' => '[0-9]+']);
+            Route::delete('/del-post/{id}', 'PostController@DeletePost')->where(['id' => '[0-9]+']);
         });
 
         Route::group(['prefix' => 'slides'], function() {
             Route::get('/', 'SlidesController@index');
             Route::match(['get','post'], '/add-slides', 'SlidesController@addSlides');
-            Route::get('/edit-slides/{id}', 'SlidesController@showEditSlides');
-            Route::post('/edit-slides/{id}', 'SlidesController@EditSlides');
-            Route::delete('/del-slides/{id}', 'SlidesController@DeleteSlides');
+            Route::get('/edit-slides/{id}', 'SlidesController@showEditSlides')->where(['id' => '[0-9]+']);
+            Route::post('/edit-slides/{id}', 'SlidesController@EditSlides')->where(['id' => '[0-9]+']);
+            Route::delete('/del-slides/{id}', 'SlidesController@DeleteSlides')->where(['id' => '[0-9]+']);
         });
 
         Route::group(['prefix' => 'products'], function() {
             Route::get('/', 'ProductController@index');
             Route::match(['get','post'], '/add-product', 'ProductController@addProduct');
-            Route::get('/edit-product/{id}', 'ProductController@showEditProduct');
-            Route::post('/edit-product/{id}', 'ProductController@EditProduct');
-            Route::delete('/del-product/{id}', 'ProductController@DeleteProduct');
-            Route::post('update-status', 'ProductController@updateStatusProduct');
+            Route::get('/edit-product/{id}', 'ProductController@showEditProduct')->where(['id' => '[0-9]+']);
+            Route::post('/edit-product/{id}', 'ProductController@EditProduct')->where(['id' => '[0-9]+']);
+            Route::delete('/del-product/{id}', 'ProductController@DeleteProduct')->where(['id' => '[0-9]+']);
+            Route::post('/update-status', 'ProductController@updateStatusProduct');
         });
 
         Route::group(['prefix' => 'contacts'], function() {
             Route::get('/', 'ContactController@index');
-            Route::get('/edit-contact/{id}', 'ContactController@showEditContact');
-            Route::post('/edit-contact/{id}', 'ContactController@EditContact');
-            Route::delete('/del-contact/{id}', 'ContactController@DeleteContact');
+            Route::get('/edit-contact/{id}', 'ContactController@showEditContact')->where(['id' => '[0-9]+']);
+            Route::post('/edit-contact/{id}', 'ContactController@EditContact')->where(['id' => '[0-9]+']);
+            Route::delete('/del-contact/{id}', 'ContactController@DeleteContact')->where(['id' => '[0-9]+']);
         });
 
         Route::group(['prefix' => 'cate'], function() {
             Route::get('/', 'CateController@index');
             Route::match(['get','post'], '/add-cate', 'CateController@addCate');
-            Route::get('/edit-cate/{id}', 'CateController@showEditCate');
-            Route::post('/edit-cate/{id}', 'CateController@EditCate');
-            Route::delete('/del-cate/{id}', 'CateController@DeleteCate');
+            Route::get('/edit-cate/{id}', 'CateController@showEditCate')->where(['id' => '[0-9]+']);
+            Route::post('/edit-cate/{id}', 'CateController@EditCate')->where(['id' => '[0-9]+']);
+            Route::delete('/del-cate/{id}', 'CateController@DeleteCate')->where(['id' => '[0-9]+']);
         });
 
         Route::group(['prefix' => 'coupons'], function() {
             Route::get('/', 'CouponsController@index');
             Route::match(['get','post'], '/add-coupons', 'CouponsController@addCoupons');
-            Route::get('/edit-coupons/{id}', 'CouponsController@showEditCoupons');
-            Route::post('/edit-coupons/{id}', 'CouponsController@EditCoupons');
-            Route::delete('/del-coupons/{id}', 'CouponsController@DeleteCoupons');
-            Route::post('update-status', 'CouponsController@updateStatusCoupons');
+            Route::get('/edit-coupons/{id}', 'CouponsController@showEditCoupons')->where(['id' => '[0-9]+']);
+            Route::post('/edit-coupons/{id}', 'CouponsController@EditCoupons')->where(['id' => '[0-9]+']);
+            Route::delete('/del-coupons/{id}', 'CouponsController@DeleteCoupons')->where(['id' => '[0-9]+']);
+            Route::post('/update-status', 'CouponsController@updateStatusCoupons');
         });
     });
 });
