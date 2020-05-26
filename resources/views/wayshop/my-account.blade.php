@@ -109,6 +109,8 @@
                         selected="" 
                       @endif value="Vietnam">Vietnam</option>
                     </select>
+                    <label for="">Postcode / ZIP<span>*</span></label>
+                    <input type="text" name="pincode" value="{{ Auth::user()->pincode }}" placeholder="Your Postcode / ZIP">
                     <label for="">Phone<span>*</span></label>
                     <input type="text" name="phone" value="{{ Auth::user()->phone }}" placeholder="Your Phone">
                     <label for="">Gender<span>*</span></label>
@@ -199,6 +201,8 @@
                       <option value="Egypt">Egypt</option>
                       <option value="Vietnam">Vietnam</option>
                     </select>
+                    <label for="">Postcode / ZIP<span>*</span></label>
+                    <input type="text" name="pincode" value="{{ old('pincode') }}" placeholder="Your Postcode / ZIP">
                     <label for="">Phone<span>*</span></label>
                     <input type="text" name="phone" value="{{ old('phone') }}" placeholder="Your Phone">
                     <label for="">Gender<span>*</span></label>

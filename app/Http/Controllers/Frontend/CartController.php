@@ -16,7 +16,9 @@ class CartController extends Controller
     	$dataProduct = Product::find($request->id);
     	if (!Auth::check()) {
     		$user_email = '';
-    	}
+    	} else {
+            $user_email = Auth::user()->email;
+        }
  
         $check = Cart::where('product_name',$dataProduct->name)->first();
 

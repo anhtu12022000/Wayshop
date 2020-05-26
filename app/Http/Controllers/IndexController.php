@@ -8,6 +8,8 @@ use App\Http\Controllers\Frontend\DataController;
 use App\Models\Contact;
 use App\Models\Cart;
 use Auth;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Coupons;
 use App\Models\DeliveryAddress;
 use App\User;
@@ -33,7 +35,7 @@ class IndexController extends Controller
         $this->dataProducts = $Data->getAllProduct();
 
     }
-
+    
     public function index()
     {
         $data = Array(
@@ -44,6 +46,15 @@ class IndexController extends Controller
             'userCart' => $this->getCarts()
         );
     	return view('wayshop.home')->with('data',$data);
+    }
+
+    public function verify()
+    {
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider
+        );
+        return view('auth.verify')->with('data',$data);
     }
 
     public function getCarts()
@@ -119,19 +130,18 @@ class IndexController extends Controller
             'userCart' => $this->getCarts(),
         ); 
 
-        $user_id = Auth::user()->id;
-        $shippingDetail = DeliveryAddress::where('user_id', $user_id)->first();
-        $shippingCount = DeliveryAddress::where('user_id', $user_id)->count();
-        $shippingDetail = array();
-
-        if ($shippingCount > 0) {
-            $shippingDetail = DeliveryAddress::where('user_id', $user_id)->first();
-        }
-
         if ($request->isMethod('post')) {
             if (!Auth::user()) {
                 return view('wayshop.checkout')->with('data',$data)->width('mess', 'You need to login to pay');
             } else {
+                $user_id = Auth::user()->id;
+                $shippingDetail = DeliveryAddress::where('user_id', $user_id)->first();
+                $shippingCount = DeliveryAddress::where('user_id', $user_id)->count();
+                $shippingDetail = array();
+
+                if ($shippingCount > 0) {
+                    $shippingDetail = DeliveryAddress::where('user_id', $user_id)->first();
+                }
                 if ($shippingCount > 0) {
                     $deliveryAddress = DeliveryAddress::where('user_id', $user_id);
                     if ($request->billtoship != null) {

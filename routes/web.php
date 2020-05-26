@@ -20,9 +20,10 @@
 // });
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 // Front-End
 Route::match(['get','post'], '/', 'IndexController@index');
+Route::get('/home', 'HomeController@index')->middleware(['auth','verified']);
 // Route::match(['get','post'], 'shop', 'IndexController@shop');
 Route::match(['get','post'], '/aboutus', 'IndexController@aboutus');
 Route::match(['get','post'], '/checkout', 'IndexController@checkout');
@@ -40,6 +41,7 @@ Route::group(['prefix' => 'cart'], function() {
     Route::post('/get-cart', 'IndexController@getCarts');
     Route::post('/apply-coupons', 'IndexController@applyCoupons');
 });
+
 
 Route::get('/search/{keyword}', 'IndexController@search')->where(['keyword' => '[A-Za-z0-9]']);
 

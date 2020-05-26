@@ -1,13 +1,13 @@
 @component('mail::message')
-<h1>Welcome to Dailyshop</h1>
+<h1>{{ $details['title'] }}</h1>
 
-<p>Tại đây, bạn có thể mua sắm thỏa thích với đầy những ưu đãi từ Dailyshop!</p>
+<p>{{ $details['body'] }}</p>
 
 <div>
 	<img src="{{ asset('front_assets/img/testimonial-bg-1.jpg') }}" alt="">
 </div>
 
-@component('mail::button', ['url' => '/'])
+@component('mail::button', ['url' => 'http://theway.com/'])
 Back to the site
 @endcomponent
 

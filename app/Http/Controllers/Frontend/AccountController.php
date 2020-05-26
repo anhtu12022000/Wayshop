@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
-use App\Mail;
+use App\Mail\WelcomeMail;
 
 class AccountController extends Controller
 {
@@ -14,7 +14,7 @@ class AccountController extends Controller
     public function register(Request $request)
     {
     	$request->validate([
-    		'email' => 'required|max:255|string|email',
+    		'email' => 'required|max:255|string|email|unique:users',
     		'address' => 'required|string',
             'city' => 'required|string',
             'pincode' => 'required|numeric',
@@ -34,8 +34,12 @@ class AccountController extends Controller
     	$user->password = bcrypt($request->password);
     	if ($user->save()) {
     		if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-                Mail::to('vungoctu.dev@gmail.com')->send(new WelcomeMail());
-	            return redirect('/');
+                $details = [
+                    'title' => "Welcome to Dailyshop",
+                    'body' => "Here, you can shop as much as you like with Dailyshop's offers!"
+                ];
+                \Mail::to('tuvnph08581@fpt.edu.vn')->send(new WelcomeMail($details));
+	            return redirect('/home');
 	        }	
     	}
     }
