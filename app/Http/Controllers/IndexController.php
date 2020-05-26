@@ -48,15 +48,6 @@ class IndexController extends Controller
     	return view('wayshop.home')->with('data',$data);
     }
 
-    public function verify()
-    {
-        $data = Array(
-            'Cate' => $this->dataCate,
-            'Slides' => $this->dataSlider
-        );
-        return view('auth.verify')->with('data',$data);
-    }
-
     public function getCarts()
     {
         $session_id = Session::get('session_id');
