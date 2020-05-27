@@ -4188,3 +4188,6 @@ img {
   }
 }
 
+.order_review input{
+  cursor: not-allowed;
+}

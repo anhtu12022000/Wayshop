@@ -54,7 +54,7 @@ class AccountController extends Controller
         $password = $request->input('password');
         $remember_token = $request->input('remember_token');
         if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1], $remember_token)) {
-                return redirect('/');
+                return back();
         } else {
             return redirect('/my-account')->with('danger', 'Invalid Email or Password')->withInput();
         }

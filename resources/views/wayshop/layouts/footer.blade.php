@@ -150,7 +150,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           type: 'post',
-          url: 'admin/slidepdf/update/',
+          url: 'add-cart',
           data: {
             _token: '{!! csrf_token() !!}',
             id: id

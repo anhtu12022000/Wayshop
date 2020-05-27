@@ -121,6 +121,13 @@ class IndexController extends Controller
             'userCart' => $this->getCarts(),
         ); 
 
+        if (Auth::user()) {
+            $session_id = Session::get('session_id');
+            Cart::where('session_id',$session_id)->update([
+                'user_email' => Auth::user()->email
+            ]);
+        }
+
         if ($request->isMethod('post')) {
             if (!Auth::user()) {
                 return view('wayshop.checkout')->with('data',$data)->width('mess', 'You need to login to pay');
@@ -182,9 +189,26 @@ class IndexController extends Controller
                     $deliveryAddress->save();
                 }
             }
+            return redirect()->action('/order-review');
         }    
     }
         return view('wayshop.checkout')->with('data',$data);
+    }
+
+    public function orderReview()
+    {
+        $user_id = Auth::user()->id;
+        $shipping = DeliveryAddress::where('user_id', $user_id)->first();
+        if (!isset($shipping) || !Auth::user()) {
+            return route('home');
+        }
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'userCart' => $this->getCarts(),
+            'Slides' => $this->dataSlider,
+            'shipping' => $shipping
+        );
+        return view('wayshop.order-review')->with('data',$data);
     }
 
     public function productDetail(Request $request)

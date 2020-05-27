@@ -22,11 +22,12 @@
 
 Auth::routes(['verify' => true]);
 // Front-End
-Route::match(['get','post'], '/', 'IndexController@index');
+Route::match(['get','post'], '/', 'IndexController@index')->name('home');
 Route::get('/home', 'HomeController@index')->middleware(['auth','verified']);
 // Route::match(['get','post'], 'shop', 'IndexController@shop');
 Route::match(['get','post'], '/aboutus', 'IndexController@aboutus');
 Route::match(['get','post'], '/checkout', 'IndexController@checkout');
+Route::match(['get','post'], '/order-review', 'IndexController@orderReview')->middleware('auth');
 Route::match(['get','post'], '/shop-detail', 'IndexController@detail');
 Route::match(['get','post'], '/my-account', 'IndexController@account');
 Route::match(['get','post'], '/wishlist', 'IndexController@wishlist');

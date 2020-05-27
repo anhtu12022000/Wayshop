@@ -26,12 +26,20 @@
   @if (session('mess'))
     <div class="alert alert-danger">{{session('mess')}}</div>
   @endif
+  @if ($errors->any())
+  <div class="alert alert-danger">
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif   
    <div class="container">
      <div class="row">
        <div class="col-md-12">
         <div class="checkout-area">
-          <form action="{{ url('/checkout') }}" method="post">
-            @csrf
+         
             <div class="row">
               <div class="col-md-8">
                 <div class="checkout-left">
@@ -67,15 +75,20 @@
                       <div id="collapseTwo" class="panel-collapse collapse">
                         <div class="panel-body">
                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat voluptatibus modi pariatur qui reprehenderit asperiores fugiat deleniti praesentium enim incidunt.</p>
-                          <input type="text" placeholder="Username or email">
-                          <input type="password" placeholder="Password">
-                          <button type="submit" class="aa-browse-btn">Login</button>
-                          <label for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+                          <form action="{{ url('user/login') }}" method="post">
+                            @csrf
+                            <input type="text" name="email" value="{{ old('email') }}" placeholder="Email">
+                            <input type="password" name="password" value="{{ old('password') }}" placeholder="Password">
+                            <button type="submit" class="aa-browse-btn">Login</button>
+                            <label for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+                          </form>
                           <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
                         </div>
                       </div>
                     </div>
                     @endif
+                  <form action="{{ url('/checkout') }}" method="post">
+                    @csrf
                     <!-- Billing Details -->
                     <div class="panel panel-default aa-checkout-billaddress">
                       <div class="panel-heading">
