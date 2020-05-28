@@ -273,16 +273,6 @@ class IndexController extends Controller
         return route('home');
     }
 
-    public function getOrdersCarts()
-    {
-        $data = Array(
-            'Cate' => $this->dataCate,
-            'userCart' => $this->getCarts(),
-            'Slides' => $this->dataSlider
-        );
-        
-    }
-
     public function productDetail(Request $request)
     {
         $Data = new DataController;
