@@ -28,12 +28,14 @@
    <div class="container">
      <div class="row">
        <div class="col-md-12">
-        <div class="checkout-area">
-         
+        <div class="checkout-area">     
+        <form action="{{ url('/place-order') }}" method="post">
+            @csrf
             <div class="row">
               <div class="col-md-8">
                 <div class="checkout-left">
                   <div class="panel-group" id="accordion">
+                    
                     <!-- Billing Details -->
                     <div class="panel panel-default aa-checkout-billaddress">
                       <div class="panel-heading">
@@ -131,6 +133,7 @@
                         </div>
                       </div>
                     </div>
+
                     <!-- Shipping Address -->
                     <div class="panel panel-default aa-checkout-billaddress">
                       <div class="panel-heading">
@@ -230,6 +233,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="col-md-4">
                 <div class="checkout-right">
                   <h4>Order Summary</h4>
@@ -286,11 +290,16 @@
                     </table>
                   </div>
                   <h4>Payment Method</h4>
-                  <div class="aa-payment-method">                    
-                    <label for="cashdelivery"><input type="radio" id="cashdelivery" value="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
-                    <label for="paypal"><input type="radio" id="paypal" value="paypal" name="optionsRadios" checked> Via Paypal </label>
-                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">    
-                    <input type="submit" value="Place Order" class="aa-browse-btn">                
+                  <div class="aa-payment-method">  
+					<input type="hidden" name="grand_total" value="@if ($total)
+                            {{ $total + 10 - Session::get('couponAmount') }}
+                          @else
+                            {{ $total }}
+                          @endif">                 
+                    <label for="cashdelivery"><input type="radio" id="cashdelivery" value="cashdelivery" name="payment_method"> Cash on Delivery </label>
+                    <label for="paypal"><input type="radio" id="paypal" value="paypal" name="payment_method" checked> Via Paypal </label>
+                  <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">   
+                  <input type="submit" value="Place Order" onsubmit="return selectPayment()" class="aa-browse-btn">                
                   </div>
                 </div>
               </div>

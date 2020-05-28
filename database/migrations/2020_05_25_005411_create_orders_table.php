@@ -22,11 +22,9 @@ class CreateOrdersTable extends Migration
             $table->string('country');
             $table->string('pincode');
             $table->integer('phone');
-            $table->integer('phone');
-            $table->float('shipping_changes', 8, 2);
-            $table->string('coupou_code');
-            $table->integer('coupou_amount');
-            $table->integer('order_status');
+            $table->string('coupou_code')->default(null);
+            $table->integer('coupou_amount')->default(null);
+            $table->integer('order_status')->default('New');
             $table->string('payment_method');
             $table->float('grand_total');
             $table->unsignedBigInteger('user_id')->nullable();

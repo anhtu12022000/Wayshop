@@ -22,7 +22,7 @@ class CreateDeliveryAddressTable extends Migration
             $table->string('country');
             $table->string('pincode');
             $table->string('phone');
-            $table->string('note');
+            $table->string('note')->default(null);
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

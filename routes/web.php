@@ -27,7 +27,13 @@ Route::get('/home', 'HomeController@index')->middleware(['auth','verified']);
 // Route::match(['get','post'], 'shop', 'IndexController@shop');
 Route::match(['get','post'], '/aboutus', 'IndexController@aboutus');
 Route::match(['get','post'], '/checkout', 'IndexController@checkout');
-Route::match(['get','post'], '/order-review', 'IndexController@orderReview')->middleware('auth');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::match(['get','post'], '/order-review', 'IndexController@orderReview');
+    Route::post('/place-order', 'IndexController@placeOrder');
+    Route::get('/thanks', 'IndexController@thanks');
+});
+
 Route::match(['get','post'], '/shop-detail', 'IndexController@detail');
 Route::match(['get','post'], '/my-account', 'IndexController@account');
 Route::match(['get','post'], '/wishlist', 'IndexController@wishlist');
@@ -40,6 +46,7 @@ Route::get('/post-detail/{slug}.html', 'IndexController@postDetail');
 Route::group(['prefix' => 'cart'], function() {
     Route::match(['get','post'], '/', 'IndexController@cart');
     Route::post('/get-cart', 'IndexController@getCarts');
+    Route::post('/orders-cart', 'IndexController@getOrdersCarts');
     Route::post('/apply-coupons', 'IndexController@applyCoupons');
 });
 

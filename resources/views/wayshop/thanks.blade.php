@@ -1,6 +1,6 @@
 @extends('wayshop.layouts.master')
 @section('title')
-404 - Not Found
+Thanks 
 @endsection
 
 @section('content')
@@ -12,9 +12,12 @@
       <div class="row">
         <div class="col-md-12">
           <div class="aa-error-area">
-            <h2>404</h2>
-            <span>Sorry! Page Not Found</span>
-            <p>Sorry this content has been moved Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, amet perferendis, nemo facere excepturi quis.</p>
+            <h1>Thanks for Purchasing With Us!</h1>
+            <h3>YOUR COD ORDER HAS BEEN PLACED</h3>
+            <span>Your Order Number is 1 and total payable about is $@if (Session::get('total'))
+              {{ Session::get('total') }}
+            @endif</span>
+            <p>If you see quality products, please recommend us to your friends! thanks.</p>
             <a href="{{ route('home') }}"> Go to Homepage</a>
           </div>
         </div>

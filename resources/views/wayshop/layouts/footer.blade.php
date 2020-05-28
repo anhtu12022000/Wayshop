@@ -268,5 +268,14 @@
        })
       })
 
+    function selectPayment () {
+      if ($('#cashdelivery').is(':checked') || $('#paypal').is(':checked')) {
+        return true;    
+      } else {
+        alert('Please select a Payment method!');
+        return false;
+      };
+    }
+
   </script>
 @endsection

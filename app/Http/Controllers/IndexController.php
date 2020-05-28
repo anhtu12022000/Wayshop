@@ -8,9 +8,12 @@ use App\Http\Controllers\Frontend\DataController;
 use App\Models\Contact;
 use App\Models\Cart;
 use Auth;
+use DB;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Coupons;
+use App\Models\Order;
+use App\Models\OrdersProduct;
 use App\Models\DeliveryAddress;
 use App\User;
 use Session;
@@ -50,9 +53,14 @@ class IndexController extends Controller
 
     public function getCarts()
     {
-        $session_id = Session::get('session_id');
-        $userCart = Cart::where('session_id',$session_id)->get();
-        $totalCart = Cart::where('session_id',$session_id)->count();
+        if (!Auth::check()) {
+            $session_id = Session::get('session_id');
+            $userCart = Cart::where('session_id',$session_id)->get();
+            $totalCart = Cart::where('session_id',$session_id)->count();
+        } else {
+            $userCart = Cart::where('user_email', Auth::user()->email)->get();
+            $totalCart = Cart::where('user_email', Auth::user()->email)->count();
+        }
         Session::put('totalcart', $totalCart);
         return $userCart;
     }
@@ -133,15 +141,10 @@ class IndexController extends Controller
                 return view('wayshop.checkout')->with('data',$data)->width('mess', 'You need to login to pay');
             } else {
                 $user_id = Auth::user()->id;
-                $shippingDetail = DeliveryAddress::where('user_id', $user_id)->first();
                 $shippingCount = DeliveryAddress::where('user_id', $user_id)->count();
-                $shippingDetail = array();
-
+      
                 if ($shippingCount > 0) {
-                    $shippingDetail = DeliveryAddress::where('user_id', $user_id)->first();
-                }
-                if ($shippingCount > 0) {
-                    $deliveryAddress = DeliveryAddress::where('user_id', $user_id);
+                    $deliveryAddress = DeliveryAddress::where('user_id', $user_id)->first();
                     if ($request->billtoship != null) {
                         $deliveryAddress->user_email = $request->shipemail;
                         $deliveryAddress->name = $request->shipname;
@@ -189,7 +192,7 @@ class IndexController extends Controller
                     $deliveryAddress->save();
                 }
             }
-            return redirect()->action('/order-review');
+            return redirect('/order-review');
         }    
     }
         return view('wayshop.checkout')->with('data',$data);
@@ -209,6 +212,75 @@ class IndexController extends Controller
             'shipping' => $shipping
         );
         return view('wayshop.order-review')->with('data',$data);
+    }
+
+    public function placeOrder(Request $request)
+    {
+        $shipDetails = DeliveryAddress::where('user_email', Auth::user()->email)->first();
+        if (Session::get('couponCode')) {
+           $couponCode = Session::get('couponCode');
+           $couponAmount = Session::get('couponAmount');
+        } else {
+           $couponCode = '';
+           $couponAmount = 0; 
+        }
+        $order = new Order;
+        $order->user_id = Auth::user()->id;
+        $order->user_email = Auth::user()->email;
+        $order->name = $shipDetails->name;
+        $order->address = $shipDetails->address;
+        $order->city = $shipDetails->city;
+        $order->country = $shipDetails->country;
+        $order->pincode = $shipDetails->pincode;
+        $order->phone = $shipDetails->phone;
+        $order->coupou_code = $couponCode;
+        $order->coupou_amount = $couponAmount;
+        $order->order_status = "New";
+        $order->payment_method = $request->payment_method;
+        $order->grand_total = $request->grand_total;  
+        $order->save();
+
+        $order_id = DB::getPdo()->lastinsertID();
+
+        $catProduct = Cart::where('user_email', Auth::user()->email)->get();
+
+        foreach ($catProduct as $pro) {
+            $catPro = new OrdersProduct;
+            $catPro->order_id = $order_id;
+            $catPro->user_id = Auth::user()->id;
+            $catPro->product_name = $pro->product_name;
+            $catPro->product_price = $pro->product_price;
+            $catPro->product_quantity = $pro->product_quantity;
+            $catPro->total = $pro->product_price * $pro->product_quantity;
+            $catPro->save();
+        }
+        Session::put('thanks', 'Thanks you!');
+        Session::put('total', $request->grand_total);
+        return redirect('/thanks');
+    }
+
+    public function thanks()
+    {
+        if (Session::get('thanks')) {
+            Cart::where('session_id', Session::get('session_id'))->delete();
+            $data = Array(
+                'Cate' => $this->dataCate,
+                'userCart' => $this->getCarts(),
+                'Slides' => $this->dataSlider
+            );
+             return view('wayshop.thanks')->with('data',$data);
+        }
+        return route('home');
+    }
+
+    public function getOrdersCarts()
+    {
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'userCart' => $this->getCarts(),
+            'Slides' => $this->dataSlider
+        );
+        
     }
 
     public function productDetail(Request $request)

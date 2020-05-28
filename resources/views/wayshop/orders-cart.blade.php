@@ -60,18 +60,6 @@
                           $total += $item->product_price * $item->product_quantity;
                       ?>
                       @endforeach
-                      <tr>
-                        <td colspan="6" class="aa-cart-view-bottom">
-                          @if (session('mess'))
-                            <div class="alert alert-danger">{{session('mess')}}</div>
-                          @endif
-                            <div class="aa-cart-coupon">
-                              <input class="aa-coupon-code" required="" type="text" name="coupon_code" placeholder="Coupon">
-                              <input class="aa-cart-view-btn" type="submit" value="Apply Coupon">
-                            </div>
-                            {{-- <input class="aa-cart-view-btn" type="submit" value="Update Cart"> --}}
-                        </td>
-                      </tr>
                       </tbody>
                   </table>
                 </div>
@@ -106,7 +94,6 @@
                    @endif
                  </tbody>
                </table>
-               <a href="{{ url('checkout') }}" class="aa-cart-view-btn">Proced to Checkout</a>
              </div>
            </div>
          </div>

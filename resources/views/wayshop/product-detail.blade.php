@@ -57,14 +57,6 @@
                       <a href="#">L</a>
                       <a href="#">XL</a>
                     </div>
-                    <h4>Color</h4>
-                    <div class="aa-color-tag">
-                      <a href="#" class="aa-color-green"></a>
-                      <a href="#" class="aa-color-yellow"></a>
-                      <a href="#" class="aa-color-pink"></a>                      
-                      <a href="#" class="aa-color-black"></a>
-                      <a href="#" class="aa-color-white"></a>                      
-                    </div>
                     <div class="aa-prod-quantity">
                       <form action="">
                         <select id="" name="">
@@ -73,7 +65,6 @@
                           <option value="2">3</option>
                           <option value="3">4</option>
                           <option value="4">5</option>
-                          <option value="5">6</option>
                         </select>
                       </form>
                       <p class="aa-prod-category">
