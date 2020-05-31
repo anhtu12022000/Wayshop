@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Coupons;
 use App\Models\Order;
 use App\Models\OrdersProduct;
+use App\Models\Cate;
+use App\Models\Product;
 use App\Models\DeliveryAddress;
 use App\User;
 use Session;
@@ -41,11 +43,22 @@ class IndexController extends Controller
     
     public function index()
     {
+        $cate = Cate::orderBy('created_at')->take(5)->get();
+        $arr = [];
+        for ($i = 0; $i < count($cate); $i++) { 
+
+            $arr[$i] = [
+                'name' => $cate[$i]->name,
+                'image' => Product::where('cate_id', $cate[$i]->id)->limit(1)->get()
+            ];
+        };
+
         $data = Array(
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
             'MenProducts' => $this->dataProduct,
             'Posts' => $this->dataPosts,
+            'cate' => $arr,
             'userCart' => $this->getCarts()
         );
     	return view('wayshop.home')->with('data',$data);
@@ -224,6 +237,7 @@ class IndexController extends Controller
            $couponCode = '';
            $couponAmount = 0; 
         }
+
         $order = new Order;
         $order->user_id = Auth::user()->id;
         $order->user_email = Auth::user()->email;
@@ -239,8 +253,12 @@ class IndexController extends Controller
         $order->payment_method = $request->payment_method;
         $order->grand_total = $request->grand_total;  
         $order->save();
-
+        
         $order_id = DB::getPdo()->lastinsertID();
+
+        if ($request->payment_method == 'paypal') {
+            return redirect()->route('paypal.checkout', $order_id);
+        }
 
         $catProduct = Cart::where('user_email', Auth::user()->email)->get();
 
@@ -252,6 +270,7 @@ class IndexController extends Controller
             $catPro->product_price = $pro->product_price;
             $catPro->product_quantity = $pro->product_quantity;
             $catPro->total = $pro->product_price * $pro->product_quantity;
+            $catPro->status = "Pending";
             $catPro->save();
         }
         Session::put('thanks', 'Thanks you!');
@@ -271,6 +290,18 @@ class IndexController extends Controller
              return view('wayshop.thanks')->with('data',$data);
         }
         return route('home');
+    }
+
+    public function getOrdersCarts()
+    {
+        $yourOrder = Order::with('ordersPro')->where(['user_id' => Auth::user()->id, 'order_status' => 'New'])->get();
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'userCart' => $this->getCarts(),
+            'yourOrder' => $yourOrder,
+            'Slides' => $this->dataSlider,
+        );
+        return view('wayshop.orders-cart')->with('data',$data);
     }
 
     public function productDetail(Request $request)

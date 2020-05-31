@@ -86,7 +86,7 @@
                                     <span class="text-danger"> {{$errors->first('img')}} </span>
                                 </div>
                                 <div class="form-group preview-img mt-5 text-center">
-                                    <img src="images/default.jpg" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
+                                    <img src="{{ asset('front_assets/img/electronic/electronic-2.png') }}" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
                                 </div>
                                 <div class="form-group">
                                     <label>Image Detail</label>

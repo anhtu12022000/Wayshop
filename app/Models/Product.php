@@ -12,5 +12,8 @@ class Product extends Model
     ];
     public $timestamp = true;
 
-
+    public function cate()
+    {
+    	return $this->hasOne('App\Models\Cate', 'id');
+    }
 }

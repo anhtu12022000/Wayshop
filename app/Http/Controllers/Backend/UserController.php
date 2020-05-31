@@ -23,7 +23,8 @@ class UserController extends Controller
     public function index()
     {
         $data = User::with('roles')->get();
-    	return view('admin.users.index')->with('data', $data);
+        $role = Role::all();
+    	return view('admin.users.index',compact('data','role'));
     }
 
     public function showEditUser($id)
@@ -90,4 +91,29 @@ class UserController extends Controller
          $user->save();
         return $user;
     }
+
+    public function addRole(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'name' => 'required|max:120|unique:roles|string',
+            ]);
+            $role = Role::create(['name' => $request->name]);
+            if ($role) {
+                return view('admin.role.add')->with('success', 'Add role Successfully!');
+            } else {
+                return view('admin.role.add')->with('danger', 'Add role not Success, Please try again!');
+            }
+        }
+        return view('admin.role.add');
+    }
+
+    public function editRole(Request $request)
+    {
+        $user = User::find($request->id);
+        $remove = $user->removeRole($request->oldRole);
+        $user->assignRole($request->newRole);
+        return $user;
+    }
+
 }

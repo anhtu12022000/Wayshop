@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\Cate;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use DB;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $data = Product::all();
+        $data =  DB::table('products')->join('cate', 'products.cate_id', '=', 'cate.id')
+            ->select('products.*', 'cate.name as namecate')
+            ->get();
     	return view('admin.products.index')->with('data', $data);
     }
 
@@ -87,7 +90,7 @@ class ProductController extends Controller
         ]);
         $product = Product::find($id);
 
-        $slug = Str::slug($request->title, '-');
+        $slug = Str::slug($request->name, '-');
             if ($request->hasFile('image')) {
                 if($product->image != '' && file_exists(public_path('front_assets/img/product/'.$product->image)))
                 {
@@ -96,6 +99,7 @@ class ProductController extends Controller
                 $file = $request->image;
                 //Lấy Tên files 
                 $image =  $slug.'.'.$file->getClientOriginalExtension();
+
                 $file->move(public_path().'/front_assets/img/product', $image);   
                 $product->image = $image;         
 

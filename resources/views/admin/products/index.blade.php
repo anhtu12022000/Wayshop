@@ -47,28 +47,33 @@
                                 <th>Price</th>
                                 <th>Promotion price</th>
                                 <th>Quantity</th>
+                                <th>Category</th>
                                 <th>Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
+                               {{--  @php
+                                    echo count($data);die();
+                                @endphp --}}
                                 @php $i = 1; @endphp
                                 @foreach ($data as $value)
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td>{{ $value['name'] }}</td>
-                                        <td><img src="{{ $value['image'] }}" width="60" alt=""></td>
-                                        <td>{{ number_format($value['price']) }} VNĐ</td>
-                                        <td>{{ number_format($value['sale'])}} VNĐ</td>
-                                        <td>{{ $value['quantity'] }}</td>
-                                        <td><input type="checkbox" class="ProductStatus btn btn-success" rel="{{ $value['id'] }}" data-toggle="toggle" data-on="Enabled" data-of="Disabled" data-onstyle="success" data-offstyle="danger" @if ($value['status'] == 1)
+                                        <td>{{ $value->name }}</td>
+                                        <td><img src="{{ asset('front_assets/img/product/'.$value->image ) }}" width="60" alt=""></td>
+                                        <td>{{ number_format($value->price) }} VNĐ</td>
+                                        <td>{{ number_format($value->sale)}} VNĐ</td>
+                                        <td>{{ $value->quantity }}</td>
+                                        <td>{{ $value->namecate }}</td>
+                                        <td><input type="checkbox" class="ProductStatus btn btn-success" rel="{{ $value->id }}" data-toggle="toggle" data-on="Enabled" data-of="Disabled" data-onstyle="success" data-offstyle="danger" @if ($value->status == 1)
                                             checked="" 
                                         @endif/>
                                     </td>
                                         <td class="text-center">
                                             <a href="{{ url('admin/products/edit',$value->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ url('admin/products/edit-product',$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form method="POST" action="{{ url('admin/products/del-product/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete product: {{ $value['name'] }}')">
+                                            <a href="{{ url('admin/products/edit-product',$value->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <form method="POST" action="{{ url('admin/products/del-product/'.$value->id) }}" onsubmit="return confirm('Are you sure delete product: {{ $value->name }}')">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>

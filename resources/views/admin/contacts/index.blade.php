@@ -37,10 +37,12 @@
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Tên</th>
+                                <th>Name</th>
                                 <th>Email</th>
+                                <th>Company</th>
                                 <th>Subject</th>
-                                <th>Creared</th>
+                                <th>Message</th>
+                                <th>Date</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
@@ -51,9 +53,12 @@
                                         <td>{{ $i }}</td>
                                         <td>{{ $value['name'] }}</td>
                                         <td>{{ $value['email'] }}</td>
+                                        <td>{{ $value['company'] }}</td>
                                         <td>{{ $value['subject'] }}</td>
+                                        <th>{{ $value['message'] }}</td>
                                         <td>{{ $value['created_at'] }}</td>
                                         <td class="text-center">
+                                            <a href="javascipt:void(0)" rel="{{ $value['email'] }}" class="btn btn-sm btn-warning"><i class="far fa-paper-plane"></i></a>
                                             <form method="POST" action="{{ url('admin/contacts/del-contact/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete contact by: {{ $value['name'] }}')">
                                                 @method('DELETE')
                                                 @csrf
@@ -67,10 +72,12 @@
                             <tfoot>
                             <tr>
                                 <th>STT</th>
-                                <th>Tên</th>
+                                <th>Name</th>
                                 <th>Email</th>
+                                <th>Company</th>
                                 <th>Subject</th>
-                                <th>Creared</th>
+                                <th>Message</th>
+                                <th>Date</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </tfoot>

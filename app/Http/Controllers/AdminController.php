@@ -7,6 +7,8 @@ use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Auth;
+use App\Models\Order;
+use App\Models\Product;
 
 class AdminController extends Controller
 {
@@ -14,6 +16,7 @@ class AdminController extends Controller
     use HasRoles;
     public function index(Request $request)
     {
+        
         if ($request->isMethod('post')) {
             $request->validate([
                 'email' => 'required|max:255|string|email',
@@ -41,8 +44,12 @@ class AdminController extends Controller
 
     public function dashboard()
     {    
+        $data = [
+            'lastOrder' => Order::with('ordersPro')->orderBy('created_at', 'desc')->limit(5)->get(),
+            'product' => Product::orderBy('created_at', 'desc')->limit(5)->get()
+        ];
         if (!Auth::viaRemember() || Auth::check() && Auth::user()->hasAnyRole('Administrator','Author','Editor','SEO')) {
-            return view('admin.dashboard');
+            return view('admin.dashboard')->with('data', $data);
         } else {
             return redirect('404');
         }    

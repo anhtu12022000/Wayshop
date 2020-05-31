@@ -13,11 +13,12 @@
               <!-- promo left -->
               <div class="col-md-5 no-padding">                
                 <div class="aa-promo-left">
-                  <div class="aa-promo-banner">                    
-                    <img src="{{ asset('front_assets/img/promo-banner-1.jpg') }}" alt="img">                    
+                  <div class="aa-promo-banner">    
+        
+                    <img src="{{ asset('front_assets/img/product/'.$data['cate'][0]['image'][0]->image) }}" alt="img">                    
                     <div class="aa-prom-content">
                       <span>75% Off</span>
-                      <h4><a href="#">For Women</a></h4>                      
+                      <h4><a href="#">{{ $data['cate'][0]['name'] }}</a></h4>                      
                     </div>
                   </div>
                 </div>
@@ -25,42 +26,47 @@
               <!-- promo right -->
               <div class="col-md-7 no-padding">
                 <div class="aa-promo-right">
+
                   <div class="aa-single-promo-right">
                     <div class="aa-promo-banner">                      
-                      <img src="{{ asset('front_assets/img/promo-banner-3.jpg') }}" alt="img">                      
+                      <img src="{{ asset('front_assets/img/product/'.$data['cate'][1]['image'][0]->image) }}" alt="img">                      
                       <div class="aa-prom-content">
                         <span>Exclusive Item</span>
-                        <h4><a href="#">For Men</a></h4>                        
+                        <h4><a href="#">{{ $data['cate'][1]['name'] }}</a></h4>                        
                       </div>
                     </div>
                   </div>
+
                   <div class="aa-single-promo-right">
                     <div class="aa-promo-banner">                      
-                      <img src="{{ asset('front_assets/img/promo-banner-2.jpg') }}" alt="img">                      
-                      <div class="aa-prom-content">
-                        <span>Sale Off</span>
-                        <h4><a href="#">On Shoes</a></h4>                        
-                      </div>
-                    </div>
-                  </div>
-                  <div class="aa-single-promo-right">
-                    <div class="aa-promo-banner">                      
-                      <img src="{{ asset('front_assets/img/promo-banner-4.jpg') }}" alt="img">                      
+                      <img src="{{ asset('front_assets/img/product/'.$data['cate'][2]['image'][0]->image) }}" alt="img">                      
                       <div class="aa-prom-content">
                         <span>New Arrivals</span>
-                        <h4><a href="#">For Kids</a></h4>                        
+                        <h4><a href="#">{{ $data['cate'][2]['name'] }}</a></h4>                        
                       </div>
                     </div>
                   </div>
+  
                   <div class="aa-single-promo-right">
                     <div class="aa-promo-banner">                      
-                      <img src="{{ asset('front_assets/img/promo-banner-5.jpg') }}" alt="img">                      
+                      <img src="{{ asset('front_assets/img/product/'.$data['cate'][3]['image'][0]->image) }}" alt="img">                      
                       <div class="aa-prom-content">
                         <span>25% Off</span>
-                        <h4><a href="#">For Bags</a></h4>                        
+                        <h4><a href="#">{{ $data['cate'][3]['name'] }}</a></h4>                        
                       </div>
                     </div>
                   </div>
+
+                  <div class="aa-single-promo-right">
+                    <div class="aa-promo-banner">                      
+                      <img src="{{ asset('front_assets/img/product/'.$data['cate'][4]['image'][0]->image) }}" alt="img">                      
+                      <div class="aa-prom-content">
+                        <span>Sale Off</span>
+                        <h4><a href="#">{{ $data['cate'][4]['name'] }}</a></h4>                        
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>

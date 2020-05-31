@@ -65,5 +65,37 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.css">
       <script src="admin_assets/dist/js/pages/dashboard2.js"></script>
       @yield('script')
+
+      <script>
+      $(document).ready(function () {        
+         $('#dataOrders').click(function () {
+           let id = $(this).attr('rel');
+           $.ajax({
+             header: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             },
+             type: 'post',
+             url: 'add-cart',
+             data: {
+               _token: '{!! csrf_token() !!}',
+               id: id
+             },
+             success: function (data) {
+               $('#myModal').fadeIn();
+
+               $('.modal-body').html(`<p>Added ${data} to cart!</p>`);
+               setTimeout(function() {
+                 $('#myModal').hide();
+               }, 2000);
+               dataCart(id);
+             },
+             error: function () {
+               alert('Error, Please try again!');
+             }
+
+           })
+         });
+      });  
+      </script>
    </body>
 </html>

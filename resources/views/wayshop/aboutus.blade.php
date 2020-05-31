@@ -4,22 +4,6 @@
 @endsection
 @section('content')
 
-    <!-- Start All Title Box -->
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>ABOUT US</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                        <li class="breadcrumb-item active">ABOUT US</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End All Title Box -->
-
     <!-- Start About Page  -->
     <div class="about-box-main">
         <div class="container">

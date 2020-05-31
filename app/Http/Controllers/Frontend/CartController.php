@@ -59,4 +59,5 @@ class CartController extends Controller
         $deleteProduct = Cart::find($id)->delete();
         return;
     }
+
 }

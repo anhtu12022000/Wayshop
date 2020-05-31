@@ -4,23 +4,6 @@
 @endsection
 @section('content')
 
-    <!-- catg header banner section -->
-  <section id="aa-catg-head-banner">
-   <img src="{{ asset('img/fashion/fashion-header-bg-8.jpg') }}" alt="fashion img">
-   <div class="aa-catg-head-banner-area">
-     <div class="container">
-      <div class="aa-catg-head-banner-content">
-        <h2>Cart Page</h2>
-        <ol class="breadcrumb">
-          <li><a href="{{ url('/') }}">Home</a></li>                   
-          <li class="active">Cart</li>
-        </ol>
-      </div>
-     </div>
-   </div>
-  </section>
-  <!-- / catg header banner section -->
-
  <!-- Cart view section -->
  <section id="cart-view">
    <div class="container">
@@ -29,17 +12,14 @@
          <div class="cart-view-area">
           <div class="mess"></div>
            <div class="cart-view-table">
-             <form action="{{ url('cart/apply-coupons') }}" method="post">
-              @csrf
                <div class="table-responsive">
                   <table class="table">
                     <thead>
                       <tr>
                         <th>Action</th>
-                        <th>Image</th>
                         <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
+                        <th>Payment method</th>
+                        <th>Date</th>
                         <th>Total</th>
                       </tr>
                     </thead>
@@ -47,54 +27,25 @@
                       <?php
                           $total = 0;
                       ?>
-                      @foreach($data['userCart'] as $item)
+                      @foreach($data['yourOrder'] as $item)
                       <tr class="cart{{ $item->id }}">
                         <td><a class="remove" href="javascript:void(0)" rel="{{ $item->id }}"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="{{ asset('front_assets/img/product/'.$item->product_image) }}" alt="img"></a></td>
-                        <td><a class="aa-cart-title" href="#">{{ $item->product_name }}</a></td>
-                        <td>${{ $item->product_price }}</td>
-                        <td><input class="aa-cart-quantity" type="number" min="1" data-id="{{ $item->id }}" value="{{ $item->product_quantity }}"></td>
-                        <td class="total-product{{ $item->id }}">${{ $item->product_price * $item->product_quantity}}</td>
+                        <td><a class="aa-cart-title" href="#">@foreach ($item->ordersPro as $pro)
+                          {{ $pro->product_name }}|
+                          ${{ $pro->product_price }}|
+                          {{ $pro->product_quantity }} item
+                        @endforeach</a></td>
+                        <td>
+                          <a href="#">{{ $item->payment_method }}</a>
+                        </td>
+                        <td>{{ $item->created_at }}</td>
+                        <td class="total-product{{ $item->id }}">${{ $item->grand_total }}</td>
                       </tr>
-                      <?php
-                          $total += $item->product_price * $item->product_quantity;
-                      ?>
                       @endforeach
                       </tbody>
                   </table>
                 </div>
-             </form>
-             <!-- Cart Total view -->
-             <div class="cart-view-total">
-               <h4>Cart Totals</h4>
-               <table class="aa-totals-table">
-                 <tbody>
-                   <tr>
-                     <th>Subtotal</th>
-                     <td class="Subtotal">${{ $total }}</td>
-                   </tr>
-                   @if (!empty(Session::get('couponAmount')))
-                   <tr>
-                     <th>Coupon Discode</th>
-                     <td>${{ Session::get('couponAmount') }}</td>
-                   </tr>
-                   <tr>
-                     <th>Total</th>
-                     <td class="Total">${{ $total - Session::get('couponAmount') }}</td>
-                   </tr>
-                   @else
-                    <tr>
-                     <th>Coupon Discode</th>
-                     <td>$0</td>
-                   </tr>
-                   <tr>
-                     <th>Total</th>
-                     <td class="Total">${{ $total }}</td>
-                   </tr>
-                   @endif
-                 </tbody>
-               </table>
-             </div>
+             
            </div>
          </div>
        </div>

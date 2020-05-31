@@ -63,7 +63,7 @@
                   <li class="hidden-xs"><a href="{{ url('/cart') }}">My Cart</a></li>
                   <li class="hidden-xs"><a href="{{ url('/checkout') }}">Checkout</a></li>
                   @if (Auth::user())
-                    <li class="hidden-xs"><a href="{{ url('/orders-cart') }}">Orders Cart</a></li>
+                    <li class="hidden-xs"><a href="{{ route('cart/orderscart') }}">Orders Cart</a></li>
                     <li><a href="{{ url('user/logout') }}">Logout <span>({{ Auth::user()->name }})</span></a></li>
                   @else
                     <li><a href="" data-toggle="modal" data-target="#login-modal">Login</span></a></li>

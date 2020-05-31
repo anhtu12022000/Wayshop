@@ -38,6 +38,7 @@
                         @endif
                         <div id="messageEn" style="display: none;" class="alert alert-success">Status Enabled</div>
                         <div id="messageDi" style="display: none;" class="alert alert-success">Status Disabled</div>
+                        <div id="messChangeRole" style="display: none;" class="alert alert-success">Change Role Successfully</div>
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
@@ -67,9 +68,15 @@
                                             checked="" 
                                             @endif/>
                                         </td>
-                                    <td>@if (isset($value['roles'][0]->name))
-                                        {{ $value['roles'][0]->name }}
-                                    @endif</td>
+                                    <td>
+                                        <select name="roles" data-id="{{ $value['id'] }}" data-name="{{ $value['roles'][0]->name }}" class="form-control" id="changeRole">
+                                            @foreach ($role as $item)
+                                                <option @if ($value['roles'][0]->name == $item->name)
+                                                    selected="" 
+                                                @endif value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach 
+                                        </select>
+                                    </td>
                                         <td class="text-center">
                                             <a href="{{ url('admin/user/edit-user/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form method="POST" action="{{ url('admin/post/del-user/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete post: {{ $value['title'] }}')">
@@ -125,6 +132,36 @@
             });
         });
 
+        $('#changeRole').change(function () {
+            let id = $(this).attr('data-id');
+            let oldRole = $(this).attr('data-name');
+            let newRole = $(this).val();
+            $.ajax({
+                header: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                url: 'admin/role/edit-role-user',
+                data: {
+                    _token: '{!! csrf_token() !!}',
+                    oldRole: oldRole,
+                    newRole: newRole,
+                    id: id
+                },
+                success: function (data) {
+                    $('#messChangeRole').show();
+                    $('#changeRole').attr('data-name', newRole);
+                    setTimeout(function() {
+                        $('#messChangeRole').fadeOut('slow');
+                    }, 2000);
+                },
+                error: function () {
+                    alert('Error, Please try again!');
+                }
+
+            });
+        });    
+
         $('.CouponsStatus').change(function () {
                 let id = $(this).attr('rel');
                 if ($(this).prop("checked") == true) {
@@ -137,7 +174,8 @@
                         data: {
                             _token: '{!! csrf_token() !!}',
                             status: 1,
-                            id: id
+                            id: id,
+                            
                         },
                         success: function (data) {
                             $('#messageEn').show();

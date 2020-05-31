@@ -32,6 +32,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::match(['get','post'], '/order-review', 'IndexController@orderReview');
     Route::post('/place-order', 'IndexController@placeOrder');
     Route::get('/thanks', 'IndexController@thanks');
+
+    //Paypan
+    Route::group(['prefix' => 'paypal'], function() {
+        Route::get('/checkout', 'PaypalController@paypalCheckout');
+        Route::get('/checkout-success', 'PaypalController@paypalCheckoutSuccess');
+    });
 });
 
 Route::match(['get','post'], '/shop-detail', 'IndexController@detail');
@@ -46,9 +52,10 @@ Route::get('/post-detail/{slug}.html', 'IndexController@postDetail');
 Route::group(['prefix' => 'cart'], function() {
     Route::match(['get','post'], '/', 'IndexController@cart');
     Route::post('/get-cart', 'IndexController@getCarts');
-    Route::post('/orders-cart', 'IndexController@getOrdersCarts');
+    Route::get('/orders-cart', 'IndexController@getOrdersCarts')->name('cart/orderscart');
     Route::post('/apply-coupons', 'IndexController@applyCoupons');
 });
+
 
 
 Route::get('/search/{keyword}', 'IndexController@search')->where(['keyword' => '[A-Za-z0-9]']);
@@ -68,6 +75,15 @@ Route::namespace('Frontend')->group(function () {
     Route::post('/add-cart', 'CartController@addCart');
     Route::post('/delete-cart/{id}', 'CartController@deleteCart')->where(['id' => '[0-9]+']);
     Route::post('/update-cart/{id}', 'CartController@updateCart')->where(['id' => '[0-9]+']);
+
+    Route::group(['middleware' => 'auth'], function() {
+        //Paypan
+        Route::group(['prefix' => 'paypal'], function() {
+            Route::get('/checkout/{order_id}', 'PaypalController@getExpressCheckout')->name('paypal.checkout');
+            Route::get('/checkout-success/{order_id}', 'PaypalController@paypalCheckoutSuccess')->name('paypal.success');
+            Route::get('/checkout-cancel', 'PaypalController@cancelPage')->name('paypal.cancel');
+        });
+    });
 });
 
 Route::get('/404','IndexController@notFound')->name('404');
@@ -85,6 +101,12 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/edit-user/{id}', 'UserController@EditUser')->where(['id' => '[0-9]+']);
             Route::delete('/del-user/{id}', 'UserController@DeleteUser')->where(['id' => '[0-9]+']);
             Route::post('/update-status', 'UserController@updateStatusUser');
+        });
+
+        Route::group(['prefix' => 'role'], function() {
+            Route::get('/', 'UserController@index');
+            Route::match(['get','post'], '/add-role', 'UserController@addRole')->name('addrole');
+            Route::post('/edit-role-user', 'UserController@EditRole');
         });
 
         Route::group(['prefix' => 'post'], function() {

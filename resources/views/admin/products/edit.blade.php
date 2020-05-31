@@ -41,7 +41,9 @@
                                     <label>Loại</label>
                                     <select name="cate_id" class="form-control">
                                         @foreach ($data['Cate'] as $item)
-                                            <option value="{{$item['id']}}">{{$item['name']}}</option>
+                                            <option @if ($data['Product']->cate_id == $item['id'])
+                                                selected="" 
+                                            @endif value="{{$item['id']}}">{{$item['name']}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -86,7 +88,7 @@
                                     <span class="text-danger"> {{$errors->first('img')}} </span>
                                 </div>
                                 <div class="form-group preview-img mt-5 text-center">
-                                    <img src="{{$data['Product']['image']}}" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
+                                    <img src="{{ asset('front_assets/img/product/'.$data['Product']['image']) }}" class="preview-image img-fluid" alt="Ảnh đại diện sản phẩm">
                                 </div>
                                 <div class="form-group">
                                     <label>Image Detail</label>

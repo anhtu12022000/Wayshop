@@ -34,11 +34,12 @@ class AccountController extends Controller
     	$user->password = bcrypt($request->password);
     	if ($user->save()) {
     		if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                Auth::user()->assignRole('User');
                 $details = [
                     'title' => "Welcome to Dailyshop",
                     'body' => "Here, you can shop as much as you like with Dailyshop's offers!"
                 ];
-                \Mail::to('tuvnph08581@fpt.edu.vn')->send(new WelcomeMail($details));
+                \Mail::to($request->email)->send(new WelcomeMail($details));
 	            return redirect('/home');
 	        }	
     	}
