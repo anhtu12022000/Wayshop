@@ -277,5 +277,34 @@
       };
     }
 
+    $('.removeOrder').click(function () {
+        if (confirm('Order confirmation! For any questions please contact the Daily Shop hotline')) {
+          let id = $(this).attr('rel');
+            $.ajax({
+              header: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              type: 'post',
+              url: `confirm-order/${id}`,
+              data: {
+                _token: '{!! csrf_token() !!}',
+              },
+              success: function (data) { 
+                $('.cart'+id).hide();
+                $('#messConfirmOrder').show();
+                setTimeout(function() {
+                  $('#messConfirmOrder').fadeOut('slow');
+                }, 2000);
+              },
+              error: function () {
+                alert('Error, Please try again!');
+              }
+
+            });
+        } else {
+          return false;
+        };
+    });
+
   </script>
 @endsection

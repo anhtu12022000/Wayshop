@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Contacts</h1>
+                <h1>Bills</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Contacts</li>
+                <li class="breadcrumb-item active">Bills</li>
                 </ol>
             </div>
             </div>
@@ -33,37 +33,37 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        @if (session('success'))
+                            <div class="alert alert-success">{{session('success')}}</div>
+                        @endif
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>STT</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Company</th>
-                                <th>Subject</th>
-                                <th>Message</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
                                 <th>Date</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                                 @php $i = 1; @endphp
-                                @foreach ($data as $value)
+                                @foreach ($detailOrder as $value)
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td>{{ $value['name'] }}</td>
-                                        <td>{{ $value['email'] }}</td>
-                                        <td>{{ $value['company'] }}</td>
-                                        <td>{{ $value['subject'] }}</td>
-                                        <th>{{ $value['message'] }}</td>
+                                        <td>{{ $value['product_name'] }}</td>
+                                        <td>{{ $value['product_price'] }}</td>
+                                        <td>{{ $value['product_quantity'] }}</td>
+                                        <td>{{ $value['total'] }}</td>
                                         <td>{{ $value['created_at'] }}</td>
                                         <td class="text-center">
-                                            <a href="javascipt:void(0)" rel="{{ $value['email'] }}" class="btn btn-sm btn-warning"><i class="far fa-paper-plane"></i></a>
-                                            <form method="POST" action="{{ url('admin/contacts/del-contact/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete contact by: {{ $value['name'] }}')">
+                                            <form method="POST" action="{{ url('admin/bills/del-bill/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete bill by: {{ $value['name'] }}')">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                            </form>                                         
+                                            </form>                                        
                                         </td>
                                     </tr>
                                     @php $i++; @endphp
@@ -73,10 +73,9 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Company</th>
-                                <th>Subject</th>
-                                <th>Message</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
                                 <th>Date</th>
                                 <th class="text-center">Action</th>
                             </tr>

@@ -54,6 +54,7 @@ Route::group(['prefix' => 'cart'], function() {
     Route::post('/get-cart', 'IndexController@getCarts');
     Route::get('/orders-cart', 'IndexController@getOrdersCarts')->name('cart/orderscart');
     Route::post('/apply-coupons', 'IndexController@applyCoupons');
+    Route::post('/confirm-order/{id}', 'BackEnd\BillController@confirmOrder');
 });
 
 
@@ -156,6 +157,13 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/edit-coupons/{id}', 'CouponsController@EditCoupons')->where(['id' => '[0-9]+']);
             Route::delete('/del-coupons/{id}', 'CouponsController@DeleteCoupons')->where(['id' => '[0-9]+']);
             Route::post('/update-status', 'CouponsController@updateStatusCoupons');
+        });
+
+        Route::group(['prefix' => 'bills'], function() {
+            Route::get('/', 'BillController@index');
+            Route::get('/view-details/{id}', 'BillController@viewDetailOrders')->where(['id' => '[0-9]+']);
+            Route::post('/edit-order-status/{id}', 'BillController@changeStatusOrder')->where(['id' => '[0-9]+']);
+            Route::delete('/del-user/{id}', 'BillController@DeleteUser')->where(['id' => '[0-9]+']);
         });
     });
 });
