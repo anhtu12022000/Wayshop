@@ -37,6 +37,7 @@ class UserController extends Controller
 
     public function showEditUser($id)
     {
+        $this->check();
         $obj = new Role;
         $data = User::with('roles')->find($id);
         $roles = $obj->getAllRoles();
@@ -45,6 +46,7 @@ class UserController extends Controller
 
     public function EditUser($id, Request $request)
     {
+        $this->check();
         $request->validate([
                 'name' => 'required|max:50|string',
                 'email' => 'required|string|email',
@@ -86,6 +88,7 @@ class UserController extends Controller
 
     public function DeleteUser($id)
     {
+        $this->check();
     	$user = User::with('roles')->find($id);
     	$user->removeRole($user['roles'][0]->name);
     	$user->delete();
@@ -94,6 +97,7 @@ class UserController extends Controller
 
     public function updateStatusUser(Request $request)
     {
+        $this->check();
         $user = User::find($request->id);
         $user->status = $request->status;
          $user->save();
@@ -102,6 +106,7 @@ class UserController extends Controller
 
     public function addRole(Request $request)
     {
+        $this->check();
         if ($request->isMethod('post')) {
             $request->validate([
                 'name' => 'required|max:120|unique:roles|string',
@@ -118,6 +123,7 @@ class UserController extends Controller
 
     public function editRole(Request $request)
     {
+        $this->check();
         $user = User::find($request->id);
         $remove = $user->removeRole($request->oldRole);
         $user->assignRole($request->newRole);

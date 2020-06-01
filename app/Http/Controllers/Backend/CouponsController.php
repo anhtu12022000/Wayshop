@@ -13,19 +13,25 @@ class CouponsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        if (!Auth::user()->hasRole('Administrator')) {
-            return route('404');
-        }
     }
     
+    public function check()
+    {
+        if (Auth::user()->hasRole('Administrator')) {
+            return redirect('404');
+        }
+    }
+
     public function index()
     {
+        $this->check();
         $data = Coupons::orderBy('created_at','desc')->get();
     	return view('admin.coupons.index')->with('data', $data);
     }
 
     public function addCoupons(Request $request)
     {
+        $this->check();
     	if ($request->isMethod('post')) {
             $request->validate([
                 'coupon_code' => 'required|max:30|unique:coupons|string',
@@ -45,12 +51,14 @@ class CouponsController extends Controller
 
     public function showEditCoupons($id)
     {
+         $this->check();
         $data = Coupons::find($id);
     	return view('admin.coupons.edit')->with('data', $data);
     }
 
     public function EditCoupons($id, Request $request)
     {
+         $this->check();
         $request->validate([
                 'coupon_code' => 'required|max:30|string',
                 'amount' => 'required',
@@ -69,12 +77,14 @@ class CouponsController extends Controller
 
     public function DeleteCoupons($id)
     {
+         $this->check();
         $Coupons = Coupons::find($id)->delete();
         return redirect('/admin/coupons')->with('success','Delete Successfully.');
     }
 
     public function updateStatusCoupons(Request $request)
     {
+         $this->check();
         $coupons = Coupons::find($request->id);
         $coupons->status = $request->status;
          $coupons->save();
