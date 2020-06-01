@@ -5,20 +5,6 @@
 @section('content')
 
       <!-- catg header banner section -->
-  <section id="aa-catg-head-banner">
-   <img src="{{ asset('front_assets/img/fashion/fashion-header-bg-8.jpg') }}" alt="fashion img">
-   <div class="aa-catg-head-banner-area">
-     <div class="container">
-      <div class="aa-catg-head-banner-content">
-        <h2>Fashion</h2>
-        <ol class="breadcrumb">
-          <li><a href="{{ url('/') }}">Home</a></li>         
-          <li class="active">Women</li>
-        </ol>
-      </div>
-     </div>
-   </div>
-  </section>
   <!-- / catg header banner section -->
 
   <!-- product category -->
@@ -54,32 +40,65 @@
             </div>
             <div class="aa-product-catg-body">
               <ul class="aa-product-catg">
-                @foreach($data['Products'] as $item)
-                <li>
-                  <figure>
-                    <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img src="{{ asset('front_assets/img/women/girl-1.png') }}" alt="polo shirt img"></a>
-                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                    <figcaption>
-                      <h4 class="aa-product-title"><a href="{{url('/product-detail/'.$item->id)}}">{{$item->name}}</a></h4>
-                      @if ($item->sale > 0)
-                        <span class="aa-product-price">${{number_format($item->sale,0,'.',',')}}</span><span class="aa-product-price"><del>${{number_format($item->price,0,'.',',')}}</del></span>
-                      @else
-                        <span class="aa-product-price">${{number_format($item->price,0,'.',',')}}</span>
+                @if (isset($data['Products']))
+                  @foreach($data['Products'] as $item)
+                    <li>
+                      <figure>
+                        <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img src="{{ asset('front_assets/img/women/girl-1.png') }}" alt="polo shirt img"></a>
+                        <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                        <figcaption>
+                          <h4 class="aa-product-title"><a href="{{url('/product-detail/'.$item->id)}}">{{$item->name}}</a></h4>
+                          @if ($item->sale > 0)
+                            <span class="aa-product-price">${{number_format($item->sale,0,'.',',')}}</span><span class="aa-product-price"><del>${{number_format($item->price,0,'.',',')}}</del></span>
+                          @else
+                            <span class="aa-product-price">${{number_format($item->price,0,'.',',')}}</span>
+                          @endif
+                          <p class="aa-product-descrip">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam accusamus facere iusto, autem soluta amet sapiente ratione inventore nesciunt a, maxime quasi consectetur, rerum illum.</p>
+                        </figcaption>
+                      </figure>                         
+                      <div class="aa-product-hvr-content">
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                      </div>
+                      <!-- product badge -->
+                      @if($item->sale > 0)
+                        <span class="aa-badge aa-sale" href="#">SALE!</span>
                       @endif
-                      <p class="aa-product-descrip">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam accusamus facere iusto, autem soluta amet sapiente ratione inventore nesciunt a, maxime quasi consectetur, rerum illum.</p>
-                    </figcaption>
-                  </figure>                         
-                  <div class="aa-product-hvr-content">
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
-                  </div>
-                  <!-- product badge -->
-                  @if($item->sale > 0)
-                    <span class="aa-badge aa-sale" href="#">SALE!</span>
-                  @endif
-                </li>
-                @endforeach                                        
+                    </li>
+                    @endforeach
+                @else
+                
+                  @foreach($data['dataProCate'] as $value)
+                    @foreach($value->product as $item)
+                      <li>
+                        <figure>
+                          <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img src="{{ asset('front_assets/img/women/girl-1.png') }}" alt="polo shirt img"></a>
+                          <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                          <figcaption>
+                            <h4 class="aa-product-title"><a href="{{url('/product-detail/'.$item->id)}}">{{$item->name}}</a></h4>
+                            @if ($item->sale > 0)
+                              <span class="aa-product-price">${{number_format($item->sale,0,'.',',')}}</span><span class="aa-product-price"><del>${{number_format($item->price,0,'.',',')}}</del></span>
+                            @else
+                              <span class="aa-product-price">${{number_format($item->price,0,'.',',')}}</span>
+                            @endif
+                            <p class="aa-product-descrip">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam accusamus facere iusto, autem soluta amet sapiente ratione inventore nesciunt a, maxime quasi consectetur, rerum illum.</p>
+                          </figcaption>
+                        </figure>                         
+                        <div class="aa-product-hvr-content">
+                          <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                          <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                          <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                        </div>
+                        <!-- product badge -->
+                        @if($item->sale > 0)
+                          <span class="aa-badge aa-sale" href="#">SALE!</span>
+                        @endif
+                      </li>
+                    @endforeach
+                  @endforeach
+                @endif
+                                                        
               </ul>
               <!-- quick view modal -->                  
               <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -165,25 +184,11 @@
               <!-- / quick view modal -->   
             </div>
             <div class="aa-product-catg-pagination">
-              <nav>
-                <ul class="pagination">
-                  <li>
-                    <a href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li>
-                    <a href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              @if (isset($data['Products']))
+                {{ $data['Products']->links() }}
+              @else
+                {{ $data['dataProCate']->links() }}
+              @endif
             </div>
           </div>
         </div>
@@ -193,8 +198,8 @@
             <div class="aa-sidebar-widget">
               <h3>Category</h3>
               <ul class="aa-catg-nav">
-                @foreach($data['Cate'] as $item)
-                <li><a href="#">{{$item->name}}</a></li>
+                @foreach ($data['Cate'] as $item)
+                <li><a href="{{ url('post-detail/'.$item->slug) }}">{{ $item->name }}</a></li>
                 @endforeach
               </ul>
             </div>

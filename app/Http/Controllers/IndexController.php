@@ -29,6 +29,7 @@ class IndexController extends Controller
     private $dataProduct;
     private $dataProducts;
     private $userCart;
+    private $dataPost;
 
     public function __construct()
     {
@@ -38,7 +39,7 @@ class IndexController extends Controller
         $this->dataProduct = $Data->getProduct();
         $this->dataCate = $Data->getAllCategory();
         $this->dataProducts = $Data->getAllProduct();
-
+        $this->dataPost = $Data->getAllPost();
     }
     
     public function index()
@@ -358,6 +359,18 @@ class IndexController extends Controller
         return view('wayshop.shop')->with('data',$data);
     }
 
+    public function productCate($slug)
+    {
+        $Data = new DataController;
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider,
+            'dataProCate' => $Data->getProductCate($slug),
+            'userCart' => $this->getCarts()
+        );
+        return view('wayshop.shop')->with('data',$data);
+    }
+
     public function contact(Request $request)
     {
 
@@ -384,6 +397,18 @@ class IndexController extends Controller
             'userCart' => $this->getCarts()
         );
         return view('wayshop.contact')->with('data',$data);
+    }
+
+    public function blog()
+    {
+        $data = Array(
+            'Slides' => $this->dataSlider,
+            'Cate' => $this->dataCate,
+            'dataPost' => $this->dataPost,
+            'dataPosts' => $this->dataPosts,
+            'userCart' => $this->getCarts()
+        );
+        return view('wayshop.blog-archive')->with('data',$data);
     }
 
     public function notFound()

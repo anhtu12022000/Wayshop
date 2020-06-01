@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Posts;
 use App\Models\Slides;
 use App\Models\Product;
@@ -34,7 +35,7 @@ class DataController extends Controller
 
  	public function getAllProduct()
  	{
- 		$dataProducts = Product::all();
+ 		$dataProducts = Product::paginate(9);
  		return $dataProducts;
  	}
 
@@ -60,5 +61,17 @@ class DataController extends Controller
  	{
  		$postDetail = Posts::where('slug','like',$slug)->first();
  		return $postDetail;
+ 	}
+
+ 	public function getAllPost()
+ 	{
+ 		$dataPosts = Posts::orderBy('created_at', 'desc')->paginate(6);
+ 		return $dataPosts;
+ 	}
+
+ 	public function getProductCate($slug)
+ 	{
+ 		$productCate = Cate::with('product')->where('slug','like',$slug)->paginate(9);
+ 		return $productCate;
  	}
 }

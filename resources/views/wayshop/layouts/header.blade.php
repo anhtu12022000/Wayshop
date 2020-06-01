@@ -174,7 +174,7 @@
               <li><a href="{{ url('/shop') }}">Shop <span class="caret"></span></a>
                 <ul class="dropdown-menu">   
                   @foreach($data['Cate'] as $item)             
-                  <li><a href="{{ url('/shop') }}">{{$item->name}}<span class="caret"></span></a>
+                  <li><a href="{{ url('/shop/'.$item->slug.'.html') }}">{{ $item->name }}<span class="caret"></span></a>
                       <ul class="dropdown-menu">                
                         <li><a href="#">Casual</a></li>
                         <li><a href="#">Sports</a></li>
@@ -196,14 +196,15 @@
                   @endforeach       
               </ul>
             <li><a href="{{ url('/blog') }}">Blog <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
+{{--                 <ul class="dropdown-menu">                
                   <li><a href="blog-archive.html">Blog Style 1</a></li>
                   <li><a href="blog-archive-2.html">Blog Style 2</a></li>
                   <li><a href="blog-single.html">Blog Single</a></li>                
-                </ul>
+                </ul> --}}
               </li>
 
               <li><a href="{{ url('contact') }}">Contact</a></li>
+              <li><a href="{{ url('aboutus') }}">About Us</a></li>
               <li><a href="#">Pages <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="product.html">Shop Page</a></li>

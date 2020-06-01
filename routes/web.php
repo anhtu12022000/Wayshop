@@ -45,9 +45,15 @@ Route::match(['get','post'], '/my-account', 'IndexController@account');
 Route::match(['get','post'], '/wishlist', 'IndexController@wishlist');
 Route::match(['get','post'], '/service', 'IndexController@service');
 Route::match(['get','post'], '/contact-us', 'IndexController@contact');
-Route::match(['get','post'], '/shop', 'IndexController@shop');
-Route::get('/product-detail/{slug}.html', 'IndexController@productDetail');
+Route::match(['get','post'], '/blog', 'IndexController@blog');
+
 Route::get('/post-detail/{slug}.html', 'IndexController@postDetail');
+Route::get('/product-detail/{slug}.html', 'IndexController@productDetail');
+
+Route::group(['prefix' => 'shop'], function() {
+    Route::match(['get','post'], '/', 'IndexController@shop');
+    Route::get('{slug}.html', 'IndexController@productCate');
+});
 
 Route::group(['prefix' => 'cart'], function() {
     Route::match(['get','post'], '/', 'IndexController@cart');
