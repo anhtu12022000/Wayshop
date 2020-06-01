@@ -21,6 +21,12 @@ class DataController extends Controller
  		return $dataPosts;
  	}
 
+ 	public function getPro()
+ 	{
+ 		$dataPro = Product::orderBy('created_at','desc')->where('quantity', '>',  0)->where('status', 1)->limit(3)->get();
+ 		return $dataPro;
+ 	}
+
  	public function getSlider()
  	{
  		$dataSlider = Slides::orderBy('created_at','desc')->limit(5)->get();

@@ -28,6 +28,7 @@ class IndexController extends Controller
     private $dataCate;
     private $dataProduct;
     private $dataProducts;
+    private $dataPro;
     private $userCart;
     private $dataPost;
 
@@ -37,6 +38,7 @@ class IndexController extends Controller
         $this->dataPosts = $Data->getPost();
         $this->dataSlider = $Data->getSlider();
         $this->dataProduct = $Data->getProduct();
+        $this->dataPro = $Data->getPro();
         $this->dataCate = $Data->getAllCategory();
         $this->dataProducts = $Data->getAllProduct();
         $this->dataPost = $Data->getAllPost();
@@ -319,6 +321,19 @@ class IndexController extends Controller
         return view('wayshop.product-detail')->with('data',$data);
     }
 
+    public function productComment(Request $request)
+    {
+        if($request->ajax()){
+            $comment = new ProductComment;
+            $comment->author = $request->author;
+            $comment->email = $request->email;
+            $comment->body = $request->body;
+            $comment->product_id = $request->product_id;
+            $comment->save();
+        }
+        return response()->json($comment, 200);
+    }
+
     public function postDetail($slug)
     {
         $Data = new DataController;
@@ -331,6 +346,20 @@ class IndexController extends Controller
             'postRelated' => $this->dataPosts
         );
         return view('wayshop.blog-detail')->with('data',$data);
+    }
+
+    public function postComment(Request $request)
+    {
+        if($request->ajax()){
+            $comment = new PostComment;
+            $comment->author = $request->author;
+            $comment->email = $request->email;
+            $comment->url = $request->url;
+            $comment->body = $request->body;
+            $comment->post_id = $request->post_id;
+            $comment->save();
+        }
+        return response()->json($comment, 200);
     }
 
     public function account()
@@ -354,7 +383,8 @@ class IndexController extends Controller
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
             'Products' =>  $this->dataProducts,
-            'userCart' => $this->getCarts()
+            'userCart' => $this->getCarts(),
+            'dataPro' =>  $this->dataPro
         );
         return view('wayshop.shop')->with('data',$data);
     }
@@ -366,7 +396,8 @@ class IndexController extends Controller
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
             'dataProCate' => $Data->getProductCate($slug),
-            'userCart' => $this->getCarts()
+            'userCart' => $this->getCarts(),
+            'dataPro' =>  $this->dataPro
         );
         return view('wayshop.shop')->with('data',$data);
     }

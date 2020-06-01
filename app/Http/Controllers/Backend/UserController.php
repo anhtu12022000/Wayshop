@@ -20,8 +20,16 @@ class UserController extends Controller
         $this->middleware('auth');
     }
     
+    public function check()
+    {
+        if (Auth::user()->hasRole('Administrator')) {
+            return redirect('404');
+        }
+    }
+
     public function index()
     {
+        $this->check();
         $data = User::with('roles')->get();
         $role = Role::all();
     	return view('admin.users.index',compact('data','role'));

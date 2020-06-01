@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Coupons;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
 
 class CouponsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        if (!Auth::user()->hasRole('Administrator')) {
+            return route('404');
+        }
     }
     
     public function index()

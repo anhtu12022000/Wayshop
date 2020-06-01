@@ -62,6 +62,7 @@
                     <h3>Comments (4)</h3>
                     <div class="comments">
                       <ul class="commentlist">
+                        @foreach ($data['PostComment'] as $item)
                         <li>
                           <div class="media">
                             <div class="media-left">    
@@ -75,83 +76,7 @@
                             </div>
                           </div>
                         </li>
-                        <li>
-                          <div class="media">
-                            <div class="media-left">    
-                                <img class="media-object news-img" src="{{ asset('img/testimonial-img-2.jpg') }}" alt="img">      
-                            </div>
-                            <div class="media-body">
-                             <h4 class="author-name">Charlie Balley</h4>
-                             <span class="comments-date"> March 26th 2016</span>
-                             <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
-                             <a href="#" class="reply-btn">Reply</a>
-                            </div>
-                          </div>
-                        </li>
-                        <ul class="children">
-                          <li class="author-comments">
-                            <div class="media">
-                              <div class="media-left">    
-                                  <img class="media-object news-img" src="{{ asset('img/testimonial-img-3.jpg') }}" alt="img">      
-                              </div>
-                              <div class="media-body">
-                               <h4 class="author-name">Admin</h4>
-                               <span class="comments-date"> March 26th 2016</span>
-                               <span class="author-tag">Author</span>
-                               <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
-                               <a href="#" class="reply-btn">Reply</a>
-                              </div>
-                            </div>
-                          </li>
-                          <ul class="children">
-                            <li>
-                              <div class="media">
-                                <div class="media-left">    
-                                    <img class="media-object news-img" src="{{ asset('img/testimonial-img-2.jpg') }}" alt="img">      
-                                </div>
-                                <div class="media-body">
-                                 <h4 class="author-name">Charlie Balley</h4>
-                                 <span class="comments-date"> March 26th 2016</span>
-                                 <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
-                                 <a href="#" class="reply-btn">Reply</a>
-                                </div>
-                              </div>
-                            </li>
-                          </ul>
-                        </ul>
-                        <li>
-                          <div class="media">
-                            <div class="media-left">    
-                                <img class="media-object news-img" src="{{ asset('img/testimonial-img-2.jpg') }}" alt="img">      
-                            </div>
-                            <div class="media-body">
-                             <h4 class="author-name">Charlie Balley</h4>
-                             <span class="comments-date"> March 26th 2016</span>
-                             <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
-                             <a href="#" class="reply-btn">Reply</a>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="aa-blog-archive-pagination">
-                      <nav>
-                        <ul class="pagination">
-                          <li>
-                            <a href="#" aria-label="Previous">
-                              <span aria-hidden="true">«</span>
-                            </a>
-                          </li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
-                          <li><a href="#">4</a></li>
-                          <li><a href="#">5</a></li>
-                          <li>
-                            <a href="#" aria-label="Next">
-                              <span aria-hidden="true">»</span>
-                            </a>
-                          </li>
+                        @endforeach
                         </ul>
                       </nav>
                     </div>
@@ -160,6 +85,7 @@
                   <div id="respond">
                     <h3 class="reply-title">Leave a Comment</h3>
                     <form id="commentform">
+                      <input type="hidden" name="post_id" value="{{$data['Post']->id}}">
                       <p class="comment-notes">
                         Your email address will not be published. Required fields are marked <span class="required">*</span>
                       </p>
@@ -173,14 +99,11 @@
                       </p>
                       <p class="comment-form-url">
                         <label for="url">Website</label>
-                        <input type="url" name="url" value="">
+                        <input type="text" name="url" value="">
                       </p>
                       <p class="comment-form-comment">
                         <label for="comment">Comment</label>
-                        <textarea name="comment" cols="45" rows="8" aria-required="true" required="required"></textarea>
-                      </p>
-                      <p class="form-allowed-tags">
-                        You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code>
+                        <textarea name="body" id="body" cols="45" rows="8" aria-required="true" required="required"></textarea>
                       </p>
                       <p class="form-submit">
                         <input type="submit" name="submit" class="aa-browse-btn" value="Post Comment">
@@ -258,4 +181,56 @@
     </div>
   </section>
   <!-- / Subscribe section -->
-  @endsection
+@endsection
+@section('script')
+<script>
+  $('#commentform').on('submit', function(e) {
+    e.preventDefault();
+    let author = document.querySelector("input[name='author']").value;
+    let email = document.querySelector("input[name='email']").value;
+    let url = document.querySelector("input[name='url']").value;
+    let body = document.querySelector("#body").value;
+    let post_id = document.querySelector("input[name='post_id']").value;
+    $.ajax({
+      header: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: 'post',
+      url: "{{url('/post-comment')}}",
+      data: {
+          _token: '{!! csrf_token() !!}',
+          author: author,
+          email:email,
+          url:url,
+          body:body,
+          post_id: post_id
+      },
+      success: function (data) {
+        document.getElementById("commentform").reset();
+        alert('Comment success!');
+        
+        $(".commentlist").append(`
+            <li>
+              <div class="media">
+                <div class="media-left">    
+                    <img class="media-object news-img" src="{{ asset('img/testimonial-img-3.jpg') }}" alt="img">      
+                </div>
+                <div class="media-body">
+                  <h4 class="author-name">${data.author}</h4>
+                  <span class="comments-date"> ${data.created_at}</span>
+                  <p>${data.body}</p>
+                  <a href="#" class="reply-btn">Reply</a>
+                </div>
+              </div>
+            </li>
+        `);
+      },
+      error: function () {
+          alert('Error, Please try again!');
+      }
+
+    });
+  });
+</script>
+
+@endsection

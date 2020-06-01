@@ -221,7 +221,7 @@
               <h3>Shop By Price</h3>              
               <!-- price range -->
               <div class="aa-sidebar-price-range">
-               <form action="">
+               <form action="" method="get">
                   <div id="skipstep" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
                   </div>
                   <span id="skip-value-lower" class="example-val">30.00</span>
@@ -249,61 +249,25 @@
                 <a class="aa-color-orchid" href="#"></a>
               </div>                            
             </div>
-            <!-- single sidebar -->
-            <div class="aa-sidebar-widget">
-              <h3>Recently Views</h3>
-              <div class="aa-recently-views">
-                <ul>
-                  <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="{{ asset('front_assets/img/woman-small-2.jpg') }}"></a>
-                    <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
-                    </div>                    
-                  </li>
-                  <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="{{ asset('front_assets/img/woman-small-1.jpg') }}"></a>
-                    <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
-                    </div>                    
-                  </li>
-                   <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="{{ asset('front_assets/img/woman-small-2.jpg') }}"></a>
-                    <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
-                    </div>                    
-                  </li>                                      
-                </ul>
-              </div>                            
-            </div>
-            <!-- single sidebar -->
+           
             <div class="aa-sidebar-widget">
               <h3>Top Rated Products</h3>
               <div class="aa-recently-views">
                 <ul>
-                  <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="{{ asset('front_assets/img/woman-small-2.jpg') }}"></a>
-                    <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
-                    </div>                    
-                  </li>
-                  <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="{{ asset('front_assets/img/woman-small-1.jpg') }}"></a>
-                    <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
-                    </div>                    
-                  </li>
-                   <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="{{ asset('front_assets/img/woman-small-2.jpg') }}"></a>
-                    <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
-                    </div>                    
-                  </li>                                      
+                  @foreach ($data['dataPro'] as $item)
+                    <li>
+                      <a href="#" class="aa-cartbox-img"><img alt="img" src="{{ asset('front_assets/img/product/'.$item->image) }}"></a>
+                      <div class="aa-cartbox-info">
+                        <h4><a href="#">{{ $item->name }}</a></h4>
+                        <p>1 x $@if ($item->sale > 0)
+                          {{ $item->sale }}
+                        @else
+                          {{ $item->price }}
+                        @endif
+                        </p>
+                      </div>                    
+                    </li> 
+                  @endforeach
                 </ul>
               </div>                            
             </div>

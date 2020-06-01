@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
             $table->integer('phone');
             $table->string('coupou_code')->default(null);
             $table->integer('coupou_amount')->default(null);
-            $table->integer('order_status')->default('New');
+            $table->string('order_status')->default('New');
             $table->string('payment_method');
             $table->float('grand_total');
             $table->unsignedBigInteger('user_id')->nullable();

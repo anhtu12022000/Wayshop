@@ -95,7 +95,7 @@
                  <div class="aa-product-review-area">
                    <h4>2 Reviews for T-Shirt</h4> 
                    <ul class="aa-review-nav">
-                     {{-- @foreach($data['Product']->comment as $item) --}}
+                     @foreach($data['ProductComment'] as $item)
                      <li>
                         <div class="media">
                           <div class="media-left">
@@ -104,7 +104,7 @@
                             </a>
                           </div>
                           <div class="media-body">
-                            <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
+                            <h4 class="media-heading"><strong>{{$item->author}}</strong> - <span>{{$item->created_at}}</span></h4>
                             <div class="aa-product-rating">
                               <span class="fa fa-star"></span>
                               <span class="fa fa-star"></span>
@@ -112,11 +112,11 @@
                               <span class="fa fa-star"></span>
                               <span class="fa fa-star-o"></span>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <p>{{$item->body}}</p>
                           </div>
                         </div>
                       </li>
-                      {{-- @endforeach --}}
+                      @endforeach
                    </ul>
                    <h4>Add a review</h4>
                    <div class="aa-your-rating">
@@ -128,18 +128,19 @@
                      <a href="#"><span class="fa fa-star-o"></span></a>
                    </div>
                    <!-- review form -->
-                   <form action="" class="aa-review-form">
+                   <form id="productComment" class="aa-review-form">
+                    <input type="hidden" name="product_id" value="{{$data['Product']->id}}">
                       <div class="form-group">
                         <label for="message">Your Review</label>
-                        <textarea class="form-control" rows="3" id="message"></textarea>
+                        <textarea class="form-control" rows="3" id="body" required></textarea>
                       </div>
                       <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Name">
+                        <input type="text" class="form-control" name="author" required placeholder="Name">
                       </div>  
                       <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+                        <input type="email" class="form-control" name="email" required placeholder="example@gmail.com">
                       </div>
 
                       <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
@@ -288,4 +289,60 @@
   </section>
   <!-- / Subscribe section -->
 
+@endsection
+@section('script')
+<script>
+  $('#productComment').on('submit', function(e) {
+    e.preventDefault();
+    let author = document.querySelector("input[name='author']").value;
+    let email = document.querySelector("input[name='email']").value;
+    let body = document.querySelector("#body").value;
+    let product_id = document.querySelector("input[name='product_id']").value;
+    $.ajax({
+      header: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: 'post',
+      url: "{{url('/product-comment')}}",
+      data: {
+          _token: '{!! csrf_token() !!}',
+          author: author,
+          email:email,
+          body:body,
+          product_id: product_id
+      },
+      success: function (data) {
+        document.getElementById("productComment").reset();
+        alert('Comment success!');
+        
+        $(".aa-review-nav").append(`
+          <li>
+            <div class="media">
+              <div class="media-left">
+                <a href="#">
+                  <img class="media-object" src="{{ asset('front_asset/img/testimonial-img-3.jpg') }}" alt="girl image">
+                </a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading"><strong>${data.author}</strong> - <span>${data.created_at}</span></h4>
+                <div class="aa-product-rating">
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star-o"></span>
+                </div>
+                <p>${data.body}</p>
+              </div>
+            </div>
+          </li>
+        `);
+      },
+      error: function () {
+          alert('Error, Please try again!');
+      }
+
+    });
+  });
+</script>
 @endsection

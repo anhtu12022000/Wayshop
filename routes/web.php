@@ -50,6 +50,9 @@ Route::match(['get','post'], '/blog', 'IndexController@blog');
 Route::get('/post-detail/{slug}.html', 'IndexController@postDetail');
 Route::get('/product-detail/{slug}.html', 'IndexController@productDetail');
 
+Route::post('/product-comment', 'IndexController@productComment');
+Route::post('/post-comment', 'IndexController@postComment');
+
 Route::group(['prefix' => 'shop'], function() {
     Route::match(['get','post'], '/', 'IndexController@shop');
     Route::get('{slug}.html', 'IndexController@productCate');

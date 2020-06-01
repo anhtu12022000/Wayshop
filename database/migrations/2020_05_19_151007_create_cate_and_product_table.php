@@ -38,6 +38,16 @@ class CreateCateAndProductTable extends Migration
             $table->foreign('cate_id')->references('id')->on('cate');
             $table->timestamps();
         });
+
+        Schema::create('product_comments', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('author');
+            $table->string('email');
+            $table->text('body');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -49,5 +59,6 @@ class CreateCateAndProductTable extends Migration
     {
         Schema::dropIfExists('cate');
         Schema::dropIfExists('products');
+        Schema::dropIfExists('product_comments');
     }
 }
