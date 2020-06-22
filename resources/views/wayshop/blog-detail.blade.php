@@ -24,9 +24,15 @@
                       <div class="aa-post-date">
                         {{$data['Post']->created_at}}
                       </div>
+                      <div style="clear: both; padding: 10px;">
+                        
+                      </div>
+                      <div>
+                          <p><b><i>{{ $data['Post']->description }}</i></b></p>
+                      </div>
                     </div>
                     <figure class="aa-blog-img">
-                      <a href="#"><img src="{{ asset('img/fashion/3.jpg') }}" alt="fashion img"></a>
+                      <a href="#"><img width="100%" src="{{ asset('front_assets/img/post/'.$data['Post']->image) }}" alt="fashion img"></a>
                     </figure>
                     <p>{{$data['Post']->body}}</p>
                     <div class="blog-single-bottom">
@@ -140,12 +146,12 @@
                     <h3>Recent Post</h3>
                     <div class="aa-recently-views">
                       <ul>
-                        @foreach($data['PostComment'] as $item)
+                        @foreach($data['postRelated'] as $item)
                         <li>
-                          <a class="aa-cartbox-img" href="#"><img src="{{ asset('img/woman-small-2.jpg') }}" alt="img"></a>
+                          <a class="aa-cartbox-img" href="{{ url('post-detail/'.$item->slug.'.html') }}"><img src="{{ asset('front_assets/img/post/'.$item->image) }}" alt="img"></a>
                           <div class="aa-cartbox-info">
-                            <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
-                            <p>March 26th 2016</p>
+                            <h4><a href="{{ url('post-detail/'.$item->slug.'.html') }}">{{ $item->title }}</a></h4>
+                            <p>{{ $item->created_at }}</p>
                           </div>                    
                         </li>
                         @endforeach                                      
@@ -181,56 +187,8 @@
     </div>
   </section>
   <!-- / Subscribe section -->
-@endsection
-@section('script')
-<script>
-  $('#commentform').on('submit', function(e) {
-    e.preventDefault();
-    let author = document.querySelector("input[name='author']").value;
-    let email = document.querySelector("input[name='email']").value;
-    let url = document.querySelector("input[name='url']").value;
-    let body = document.querySelector("#body").value;
-    let post_id = document.querySelector("input[name='post_id']").value;
-    $.ajax({
-      header: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      type: 'post',
-      url: "{{url('/post-comment')}}",
-      data: {
-          _token: '{!! csrf_token() !!}',
-          author: author,
-          email:email,
-          url:url,
-          body:body,
-          post_id: post_id
-      },
-      success: function (data) {
-        document.getElementById("commentform").reset();
-        alert('Comment success!');
-        
-        $(".commentlist").append(`
-            <li>
-              <div class="media">
-                <div class="media-left">    
-                    <img class="media-object news-img" src="{{ asset('img/testimonial-img-3.jpg') }}" alt="img">      
-                </div>
-                <div class="media-body">
-                  <h4 class="author-name">${data.author}</h4>
-                  <span class="comments-date"> ${data.created_at}</span>
-                  <p>${data.body}</p>
-                  <a href="#" class="reply-btn">Reply</a>
-                </div>
-              </div>
-            </li>
-        `);
-      },
-      error: function () {
-          alert('Error, Please try again!');
-      }
-
-    });
-  });
-</script>
-
+  <div id="app">
+  </div>
+  <div id="login">
+  </div> 
 @endsection

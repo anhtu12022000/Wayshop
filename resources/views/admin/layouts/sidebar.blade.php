@@ -10,10 +10,10 @@
                <!-- Sidebar user panel (optional) -->
                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                   <div class="image">
-                     <img src="admin_assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                     <img src="admin_assets/dist/img/crush.jpg" class="img-circle elevation-2" alt="User Image">
                   </div>
                   <div class="info">
-                     <a href="#" class="d-block">Alexander Pierce</a>
+                     <a href="#" class="d-block">Anh Tú K14-FPL HN</a>
                   </div>
                </div>
                <!-- Sidebar Menu -->
@@ -32,7 +32,7 @@
                      @role('Administrator')
                      <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                           <i class="nav-icon fas fa-copy"></i>
+                           <i class="nav-icon fas fa-american-sign-language-interpreting"></i>
                            <p>
                               Users
                               <i class="fas fa-angle-left right"></i>
@@ -56,7 +56,7 @@
                      </li>
                      <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                           <i class="nav-icon fas fa-copy"></i>
+                           <i class="nav-icon far fa-star"></i>
                            <p>
                               Coupons
                               <i class="fas fa-angle-left right"></i>
@@ -80,10 +80,10 @@
                      </li>
                      @endrole
 
-                     @hasanyrole('Writer|Administrator')
+                     @hasanyrole('Editor|Writer|Administrator')
                      <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                           <i class="nav-icon fas fa-copy"></i>
+                           <i class="nav-icon fas fa-eye"></i>
                            <p>
                               Posts
                               <i class="fas fa-angle-left right"></i>
@@ -109,7 +109,7 @@
                      
                      <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                           <i class="nav-icon fas fa-copy"></i>
+                           <i class="nav-icon fas fa-play"></i>
                            <p>
                               Slides
                               <i class="fas fa-angle-left right"></i>
@@ -134,7 +134,7 @@
 
                      <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                           <i class="nav-icon fas fa-copy"></i>
+                           <i class="nav-icon far fa-calendar-alt"></i>
                            <p>
                               Products
                               <i class="fas fa-angle-left right"></i>
@@ -189,9 +189,9 @@
                         </a>
                         <ul class="nav nav-treeview">
                            <li class="nav-item">
-                              <a href="pages/UI/general.html" class="nav-link">
+                              <a href="{{ route('bannerads') }}" class="nav-link">
                                  <i class="far fa-circle nav-icon"></i>
-                                 <p>General</p>
+                                 <p>Banner Advertisement</p>
                               </a>
                            </li>
                            <li class="nav-item">
@@ -273,6 +273,7 @@
                            </li>
                         </ul>
                      </li>
+                     
                      <li class="nav-item">
                         <a href="{{ url('admin/bills') }}" class="nav-link">
                            <i class="nav-icon fas fa-calendar-alt"></i>
@@ -282,13 +283,29 @@
                            </p>
                         </a>
                      </li>
-                     <li class="nav-item">
-                        <a href="{{ url('admin/contacts') }}" class="nav-link">
-                           <i class="nav-icon far fa-image"></i>
+
+                     <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                           <i class="nav-icon far fa-envelope"></i>
                            <p>
                               Contacts
+                              <i class="right fas fa-angle-left"></i>
                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                           <li class="nav-item">
+                              <a href="{{ url('admin/contacts') }}" class="nav-link">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Contact</p>
+                              </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('emailads') }}" class="nav-link">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Email Ads</p>
+                              </a>
+                           </li>
+                        </ul>   
                      </li>
                      
                   </ul>

@@ -59,11 +59,13 @@
                                         <td>{{ $value['total'] }}</td>
                                         <td>{{ $value['created_at'] }}</td>
                                         <td class="text-center">
+                                        @role('Administrator')
                                             <form method="POST" action="{{ url('admin/bills/del-bill/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete bill by: {{ $value['name'] }}')">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                            </form>                                        
+                                            </form>    
+                                        @endrole                                        
                                         </td>
                                     </tr>
                                     @php $i++; @endphp

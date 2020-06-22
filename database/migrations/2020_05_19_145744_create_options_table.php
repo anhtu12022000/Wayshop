@@ -14,10 +14,8 @@ class CreateOptionsTable extends Migration
     public function up()
     {
         Schema::create('options', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('description');
-            $table->string('email');
+            $table->string('logo');
+            $table->string('bannerads');
             $table->timestamps();
         });
     }

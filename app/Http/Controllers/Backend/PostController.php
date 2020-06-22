@@ -67,9 +67,9 @@ class PostController extends Controller
         $post = Posts::find($id);
         $slug = Str::slug($request->title, '-');
             if ($request->hasFile('image')) {
-                if($post[0]->image != '' && file_exists(public_path('front_assets/img/post/'.$post[0]->image)))
+                if($post->image != '' && file_exists(public_path('front_assets/img/post/'.$post->image)))
                 {
-                    unlink(public_path('front_assets/img/post/'.$post[0]->image));
+                    unlink(public_path('front_assets/img/post/'.$post->image));
                 }
                 $file = $request->image;
                 //Lấy Tên files 
@@ -83,7 +83,7 @@ class PostController extends Controller
             $post->body = $request->body;
             $post->save();
 
-        return back()->with('success','Update Successfully.');
+        return redirect('/admin/post')->with('success','Update Successfully.');
     }
 
     public function DeletePost($id)

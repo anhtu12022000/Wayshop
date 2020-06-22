@@ -16,3 +16,15 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Chat app sử dụng socket.io
+
+Route::namespace('Frontend')->group(function () {
+	Route::post('/login', 'AuthController@login');
+	Route::get('/users/list', 'ChatController@usersList');
+	Route::get('/auth/user/{auth_id}', 'ChatController@userAuth');
+	Route::get('/chat/list/{sender_id}/{receiver_id}', 'ChatController@adminChatList');
+	Route::get('/chat/list/{sender_id}', 'ChatController@userChatList');
+	Route::post('/send/message', 'ChatController@sendMessage');
+});
+

@@ -33,10 +33,46 @@ class DataController extends Controller
  		return $dataSlider;
  	}
 
- 	public function getProduct()
+ 	public function getProductMen()
  	{
- 		$dataProduct = Product::orderBy('id','desc')->take(8)->get();
- 		return $dataProduct;
+ 		$dataProductMen = Cate::with('product')->orderBy('created_at','desc')->where('slug', 'men-fashion')->limit(8)->get();
+ 		return $dataProductMen;
+ 	}
+
+ 	public function getProductWomen()
+ 	{
+ 		$dataProductMen = Cate::with('product')->orderBy('created_at','desc')->where('slug', 'women-fashion')->limit(8)->get();
+ 		return $dataProductMen;
+ 	}
+
+ 	public function getProductKids()
+ 	{
+ 		$dataProductMen = Cate::with('product')->orderBy('created_at','desc')->where('slug', 'for-kids')->limit(8)->get();
+ 		return $dataProductMen;
+ 	}
+
+ 	public function getProductBags()
+ 	{
+ 		$dataProductBags = Cate::with('product')->orderBy('created_at','desc')->where('slug', 'for-bags')->limit(8)->get();
+ 		return $dataProductBags;
+ 	}
+
+ 	public function getpopularProducts()
+ 	{
+ 		$dataProducts = Product::inRandomOrder()->orderBy('created_at','desc')->limit(4)->get();
+ 		return $dataProducts;
+ 	}
+
+ 	public function getfeaturedProducts()
+ 	{
+ 		$dataProducts = Product::inRandomOrder()->orderBy('created_at','desc')->limit(4)->get();
+ 		return $dataProducts;
+ 	}
+
+ 	public function getLatestProducts()
+ 	{
+ 		$dataProducts = Product::orderBy('created_at','desc')->limit(4)->get();
+ 		return $dataProducts;
  	}
 
  	public function getAllProduct()
@@ -79,5 +115,11 @@ class DataController extends Controller
  	{
  		$productCate = Cate::with('product')->where('slug','like',$slug)->paginate(9);
  		return $productCate;
+ 	}
+
+ 	public function getProductSlide($slug)
+ 	{
+ 		$productSlides = Slides::with('product')->where('slug','like',$slug)->paginate(9);
+ 		return $productSlides;
  	}
 }

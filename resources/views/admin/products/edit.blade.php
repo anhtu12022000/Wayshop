@@ -43,7 +43,7 @@
                                         @foreach ($data['Cate'] as $item)
                                             <option @if ($data['Product']->cate_id == $item['id'])
                                                 selected="" 
-                                            @endif value="{{$item['id']}}">{{$item['name']}}</option>
+                                            @endif value="{{ $item['id'] }}">{{$item['name']}}</option>
                                         @endforeach
                                     </select>
                                 </div>

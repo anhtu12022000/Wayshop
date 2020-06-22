@@ -11,9 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/wayshop/app.js', 'public/front_assets/js/allscript.js')
+   .sass('resources/sass/app.scss', 'public/css/app.css');
 
-mix.js(['resources/js/wayshop/app.js',
 
-], 'public/front_assets/js/allscript.js')
+   mix.js('resources/js/app.js', 'public/js/app.js');
+
+   mix.webpackConfig({
+
+   	resolve: {
+   		alias: {
+   			'vue$': 'vue/dist/vue.runtime.common.js'
+   		}
+   	}
+
+   });

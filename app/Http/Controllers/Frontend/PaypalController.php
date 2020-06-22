@@ -9,24 +9,26 @@ use Srmklive\PayPal\Services\ExpressCheckout;
 use Session;
 use Auth;
 use App\Mail\WelcomeMail;
+use App\Models\Cart;
 
 class PaypalController extends Controller
 {
 
 	private function checkoutData($order_id)
 	{
-		$cart = \Cart::where('session_id', Session::get('session_id'));
+		$cart = Cart::where('session_id', Session::get('session_id'))->get();
 
-    	$cartItems = array_map(function ($item)
-    	{
-    		return [
-    			'product_name' => $item['product_name'],
-    			'product_price' => $item['product_price'],
-    			'product_quantity' => $item['product_quantity'],
-    			'user_email' => $item['user_email'],
-    			'product_id' => $item['product_id'],
-    		];	
-    	},$cart->getContent()->toarray());
+        $cartItems = [];
+    	foreach ($cart as $item) {
+    		array_push($cartItems, [
+        			'product_name' => $item->product_name,
+        			'product_price' => $item->product_price,
+        			'product_quantity' => $item->product_quantity,
+        			'user_email' => $item->user_email,
+        			'product_id' => $item->product_id
+        		]
+            );
+    	};
 
     	$checkoutData = [
     		'items' => $cartItems,
@@ -34,7 +36,7 @@ class PaypalController extends Controller
     		'cancel_url' => route('paypal.cancel'),
     		'invoice_id' => uniqid(),
     		'invoice_description' => "Order description",
-    		'total' => $cart->getTotal()
+    		'total' => Session::get('grand_total')
     	];
 
     	return $checkoutData;

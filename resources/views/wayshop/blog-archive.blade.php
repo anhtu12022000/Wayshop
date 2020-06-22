@@ -34,7 +34,7 @@
                     <div class="col-md-4 col-sm-4">
                       <article class="aa-latest-blog-single">
                         <figure class="aa-blog-img">                    
-                          <a href="#"><img alt="img" src="{{ asset($item->image) }}"></a>  
+                          <a href="#"><img alt="img" src="{{ asset('front_assets/img/post/'.$item->image) }}"></a>  
                             <figcaption class="aa-blog-img-caption">
                             <span href="#"><i class="fa fa-eye"></i>5K</span>
                             <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
@@ -86,9 +86,9 @@
                       <ul>
                         @foreach ($data['dataPosts'] as $item)
                         <li>
-                          <a class="aa-cartbox-img" href="#"><img src="{{ asset($item->image) }}" alt="img"></a>
+                          <a class="aa-cartbox-img" href="{{ url('post-detail/'.$item->slug.'.html') }}"><img src="{{ asset('front_assets/img/post/'.$item->image) }}" alt="img"></a>
                           <div class="aa-cartbox-info">
-                            <h4><a href="{{ url('post-detail/'.$item->slug) }}">{{ $item->title }}</a></h4>
+                            <h4><a href="{{ url('post-detail/'.$item->slug.'.html') }}">{{ $item->title }}</a></h4>
                             <p>{{ $item->created_at }}</p>
                           </div>                    
                         </li>
@@ -126,5 +126,8 @@
     </div>
   </section>
   <!-- / Subscribe section -->
-
+<div id="app">
+  </div>
+  <div id="login">
+  </div> 
 @endsection

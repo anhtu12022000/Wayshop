@@ -292,5 +292,8 @@
    </div>
  </section>
  <!-- / Cart view section -->
-
+<div id="app">
+</div>
+<div id="login">
+</div> 
 @endsection

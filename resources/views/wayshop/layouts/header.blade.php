@@ -1,10 +1,10 @@
-<!-- wpf loader Two -->
+{{-- <!-- wpf loader Two -->
     <div id="wpf-loader-two">          
       <div class="wpf-loader-two-inner">
         <span>Loading</span>
       </div>
     </div> 
-    <!-- / wpf loader Two -->       
+    <!-- / wpf loader Two -->    --}}    
   <!-- SCROLL TOP BUTTON -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
   <!-- END SCROLL TOP BUTTON -->
@@ -12,6 +12,11 @@
 
   <!-- Start header section -->
   <header id="aa-header">
+    <div id="linear">
+        <div class="linear">
+          
+        </div>
+    </div>
     <!-- start header top  -->
     <div class="aa-header-top">
       <div class="container">
@@ -24,12 +29,16 @@
                 <div class="aa-language">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <img src="{{ asset('front_assets/img/flag/english.jpg') }}" alt="english flag">ENGLISH
+                      @if (Session::get('language') == 'vi')
+                       <img src="{{ asset('front_assets/img/flag/vietnam.gif') }}" alt="">VIETNAMESE
+                      @else
+                       <img src="{{ asset('front_assets/img/flag/english.jpg') }}" alt="english flag">ENGLISH
+                      @endif
                       <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#"><img src="{{ asset('front_assets/img/flag/french.jpg') }}" alt="">FRENCH</a></li>
-                      <li><a href="#"><img src="{{ asset('front_assets/img/flag/english.jpg') }}" alt="">ENGLISH</a></li>
+                      <li><a href="{{ route('language', ['vi']) }}"><img src="{{ asset('front_assets/img/flag/vietnam.gif') }}" alt="">VIETNAMESE</a></li>
+                      <li><a href="{{ route('language', ['en']) }}"><img src="{{ asset('front_assets/img/flag/english.jpg') }}" alt="">ENGLISH</a></li>
                     </ul>
                   </div>
                 </div>
@@ -64,9 +73,9 @@
                   <li class="hidden-xs"><a href="{{ url('/checkout') }}">Checkout</a></li>
                   @if (Auth::user())
                     <li class="hidden-xs"><a href="{{ route('cart/orderscart') }}">Orders Cart</a></li>
-                    <li><a href="{{ url('user/logout') }}">Logout <span>({{ Auth::user()->name }})</span></a></li>
+                    <li><a href="JavaScript:void(0)" id="logout">Logout <span>({{ Auth::user()->name }})</span></a></li>
                   @else
-                    <li><a href="" data-toggle="modal" data-target="#login-modal">Login</span></a></li>
+                    <li id="out"><a href="" data-toggle="modal" data-target="#login-modal">Login</span></a></li>
                   @endif
                 </ul>
               </div>
@@ -89,6 +98,7 @@
                 <a href="{{ url('/') }}">
                   <span class="fa fa-shopping-cart"></span>
                   <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                   <!-- Load Facebook SDK for JavaScript -->
                 </a>
                 <!-- img based logo -->
                 {{-- <a href="{{ url('/') }}"><img src="{{ asset('front_assets/img/logo.jpg') }}" alt="logo img"></a> --}} 
@@ -110,12 +120,12 @@
                     @endphp
                     @foreach ($data['userCart'] as $item)
                     <li class="cart{{ $item->id }}">
-                      <a class="aa-cartbox-img" href="{{ url('product-detail/'.$item['slug']) }}"><img src="{{ asset('front_assets/img/product'.$item->product_image) }}" alt="img"></a>
+                      <a class="aa-cartbox-img" href="{{ url('product-detail/'.$item['slug']) }}"><img src="{{ asset('front_assets/img/product/'.$item->product_image) }}" alt="img"></a>
                       <div class="aa-cartbox-info">
                         <h4><a href="{{ url('product-detail/'.$item['slug']) }}">{{ $item->product_name }}</a></h4>
                         <p>{{ $item->product_quantity }} x ${{ $item->product_quantity * $item->product_price }}</p>
                       </div>
-                      <a class="aa-remove-product"><span rel="{{ $item->id }}" class="remove fa fa-times"></span></a>
+                      
                     </li>
                     @php
                       $total += $item->product_price * $item->product_quantity;
@@ -138,9 +148,11 @@
               <!-- search box -->
               <div class="aa-search-box">
                 <form action="">
-                  <input type="text" name="" id="" placeholder="Search here ex. 'man' ">
+                  <input type="text" class="autocomplete" name="" id="keyword" placeholder="Search here ex. 'man' ">
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
+                <ul id="sanpham">
+                </ul>
               </div>
               <!-- / search box -->             
             </div>
@@ -224,21 +236,7 @@
     <div class="aa-slider-area">
       <div id="sequence" class="seq">
         <div class="seq-screen">
-          <ul class="seq-canvas">
-
-            @foreach($data['Slides'] as $item)
-            <li>
-              <div class="seq-model">
-                <img data-seq src="{{ asset('front_assets/img/slider/1.jpg') }}" alt="Men slide img" />
-              </div>
-              <div class="seq-title">
-               <span data-seq>Save Up to 75% Off</span>                
-                <h2 data-seq>Men Collection</h2>                
-                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-              </div>
-            </li>
-            @endforeach                 
+          <ul class="seq-canvas">            
 
             <!-- single slide item -->
             @foreach ($data['Slides'] as $value)
@@ -250,7 +248,7 @@
                {{-- <span data-seq>Save Up to 75% Off</span>  --}}               
                 <h2 data-seq>{{ $value->title }}</h2>                
                 {{-- <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p> --}}
-                <a data-seq href="{{ url('shop/'.$value->title) }}" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+                <a data-seq href="{{ url('banner-advertisement/'.$value->slug.'.html') }}" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
               </div>
             </li>
             @endforeach

@@ -19,6 +19,7 @@ use App\Models\Product;
 use App\Models\DeliveryAddress;
 use App\User;
 use Session;
+use Log;
 
 class IndexController extends Controller
 {
@@ -26,7 +27,9 @@ class IndexController extends Controller
     private $dataPosts;
     private $dataSlider;
     private $dataCate;
-    private $dataProduct;
+    private $MenProducts;
+    private $WomenProducts;
+    private $KidProducts;
     private $dataProducts;
     private $dataPro;
     private $userCart;
@@ -37,29 +40,46 @@ class IndexController extends Controller
         $Data = new DataController;
         $this->dataPosts = $Data->getPost();
         $this->dataSlider = $Data->getSlider();
-        $this->dataProduct = $Data->getProduct();
+        $this->MenProducts = $Data->getProductMen();
+        $this->WomenProducts = $Data->getProductWomen();
+        $this->KidProducts = $Data->getProductKids();
+        $this->BagsProducts = $Data->getProductBags();
+        $this->latestProducts = $Data->getLatestProducts();
+        $this->popularProducts = $Data->getpopularProducts();
+        $this->featuredProducts = $Data->getfeaturedProducts();
         $this->dataPro = $Data->getPro();
         $this->dataCate = $Data->getAllCategory();
         $this->dataProducts = $Data->getAllProduct();
         $this->dataPost = $Data->getAllPost();
     }
-    
+
+    // public function index()
+    // {
+    //     return view('index');
+    // }
+
     public function index()
     {
         $cate = Cate::orderBy('created_at')->take(5)->get();
         $arr = [];
-        for ($i = 0; $i < count($cate); $i++) { 
+        for ($i = 0; $i < count($cate); $i++) {
 
             $arr[$i] = [
                 'name' => $cate[$i]->name,
-                'image' => Product::where('cate_id', $cate[$i]->id)->limit(1)->get()
+                'image' => Product::where('cate_id', $cate[$i]->id)->where('sale', '>', 0)->orderBy('created_at', 'desc')->limit(1)->get()
             ];
         };
 
         $data = Array(
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
-            'MenProducts' => $this->dataProduct,
+            'MenProducts' => $this->MenProducts,
+            'WomenProducts' => $this->WomenProducts,
+            'KidProducts' => $this->KidProducts,
+            'BagsProducts' => $this->BagsProducts,
+            'latestProducts' => $this->latestProducts,
+            'popularProducts' => $this->popularProducts,
+            'featuredProducts' => $this->featuredProducts,
             'Posts' => $this->dataPosts,
             'cate' => $arr,
             'userCart' => $this->getCarts()
@@ -83,7 +103,12 @@ class IndexController extends Controller
 
     public function aboutus()
     {
-    	return view('wayshop.aboutus');
+         $data = Array(
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider,
+            'userCart' => $this->getCarts()
+        );
+    	return view('wayshop.aboutus')->with('data',$data);
     }
 
     public function cart()
@@ -123,7 +148,7 @@ class IndexController extends Controller
             foreach ($userCart as $value) {
                 $total_amount += $value->product_price * $value->product_quantity;
             }
-       
+
             if ($couponDetail->amount_type == 'fixed' ) {
                 $couponAmount = $couponDetail->amount;
             } else {
@@ -143,7 +168,7 @@ class IndexController extends Controller
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
             'userCart' => $this->getCarts(),
-        ); 
+        );
 
         if (Auth::user()) {
             $session_id = Session::get('session_id');
@@ -154,11 +179,11 @@ class IndexController extends Controller
 
         if ($request->isMethod('post')) {
             if (!Auth::user()) {
-                return view('wayshop.checkout')->with('data',$data)->width('mess', 'You need to login to pay');
+                return back()->with('data',$data)->with('mess', 'You need to login to pay');
             } else {
                 $user_id = Auth::user()->id;
                 $shippingCount = DeliveryAddress::where('user_id', $user_id)->count();
-      
+
                 if ($shippingCount > 0) {
                     $deliveryAddress = DeliveryAddress::where('user_id', $user_id)->first();
                     if ($request->billtoship != null) {
@@ -209,7 +234,7 @@ class IndexController extends Controller
                 }
             }
             return redirect('/order-review');
-        }    
+        }
     }
         return view('wayshop.checkout')->with('data',$data);
     }
@@ -238,7 +263,7 @@ class IndexController extends Controller
            $couponAmount = Session::get('couponAmount');
         } else {
            $couponCode = '';
-           $couponAmount = 0; 
+           $couponAmount = 0;
         }
 
         $order = new Order;
@@ -254,11 +279,12 @@ class IndexController extends Controller
         $order->coupou_amount = $couponAmount;
         $order->order_status = "New";
         $order->payment_method = $request->payment_method;
-        $order->grand_total = $request->grand_total;  
+        $order->grand_total = $request->grand_total;
         $order->save();
-        
-        $order_id = DB::getPdo()->lastinsertID();
 
+        $order_id = DB::getPdo()->lastinsertID();
+         
+        Session::put('grand_total', $request->grand_total);
         if ($request->payment_method == 'paypal') {
             return redirect()->route('paypal.checkout', $order_id);
         }
@@ -402,6 +428,19 @@ class IndexController extends Controller
         return view('wayshop.shop')->with('data',$data);
     }
 
+    public function productSlide($slug)
+    {
+        $Data = new DataController;
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider,
+            'dataProSlide' => $Data->getProductSlide($slug),
+            'userCart' => $this->getCarts(),
+            'dataPro' =>  $this->dataPro
+        );
+        return view('wayshop.shop')->with('data',$data);
+    }
+
     public function contact(Request $request)
     {
 
@@ -451,4 +490,16 @@ class IndexController extends Controller
         );
         return view('wayshop.404')->with('data',$data);
     }
+
+    public function search($keyword)
+    {
+        # code...
+    }
+
+    public function searchAjax($keyword)
+    {
+        $data = Product::where('name','like', '%'.$keyword.'%')->take(10)->get();
+        return response()->json($data);
+    }
+
 }

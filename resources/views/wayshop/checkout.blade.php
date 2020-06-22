@@ -435,8 +435,12 @@
                   </div>
                   <div id="billtoship">
                       <input type="checkbox" class="billtoship" value="billtoship" name="billtoship" class="form-check"> Shipping Address Same As Billing Address
-                    </div>     
-                  <input type="submit" value="Checkout" class="aa-browse-btn">                
+                    </div>
+                    @if ($total)
+                      <input type="submit" value="Checkout" class="aa-browse-btn">      
+                    @else 
+                      <input type="button" value="You have no orders!" class="aa-browse-btn">   
+                    @endif             
                 </div>
               </div>
             </div>
@@ -447,5 +451,8 @@
    </div>
  </section>
  <!-- / Cart view section -->
-
+<div id="app">
+</div>
+<div id="login">
+</div> 
 @endsection

@@ -19,25 +19,19 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
-    
-    public function check()
-    {
-        if (Auth::user()->hasRole('Administrator')) {
-            return redirect('404');
-        }
-    }
 
     public function index()
     {
-        $this->check();
+        
         $data = User::with('roles')->get();
         $role = Role::all();
+        // dd(...$data);
     	return view('admin.users.index',compact('data','role'));
     }
 
     public function showEditUser($id)
     {
-        $this->check();
+        
         $obj = new Role;
         $data = User::with('roles')->find($id);
         $roles = $obj->getAllRoles();
@@ -46,13 +40,11 @@ class UserController extends Controller
 
     public function EditUser($id, Request $request)
     {
-        $this->check();
+        
         $request->validate([
-                'name' => 'required|max:50|string',
-                'email' => 'required|string|email',
+                'name' => 'max:50|string',
+                'email' => 'string|email',
                 'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
-                'phone' => 'required|numeric',
-                'address' => 'required|string',
         ]);
         $user = User::with('roles')->find($id);
         $slug = Str::slug($request->name, '-');
@@ -77,7 +69,9 @@ class UserController extends Controller
             $user->status = $request->status;
 
             if (isset($request->roles)) {
-                $user->removeRole($user->roles[0]->name);
+                if (isset($user[0]['roles']->name)) {
+                    $user->removeRole($user[0]['roles']->name);
+                }           
                 $user->assignRole($request->roles);
             }
             
@@ -88,7 +82,7 @@ class UserController extends Controller
 
     public function DeleteUser($id)
     {
-        $this->check();
+        
     	$user = User::with('roles')->find($id);
     	$user->removeRole($user['roles'][0]->name);
     	$user->delete();
@@ -97,7 +91,7 @@ class UserController extends Controller
 
     public function updateStatusUser(Request $request)
     {
-        $this->check();
+        
         $user = User::find($request->id);
         $user->status = $request->status;
          $user->save();
@@ -106,7 +100,7 @@ class UserController extends Controller
 
     public function addRole(Request $request)
     {
-        $this->check();
+        
         if ($request->isMethod('post')) {
             $request->validate([
                 'name' => 'required|max:120|unique:roles|string',
@@ -123,7 +117,7 @@ class UserController extends Controller
 
     public function editRole(Request $request)
     {
-        $this->check();
+        
         $user = User::find($request->id);
         $remove = $user->removeRole($request->oldRole);
         $user->assignRole($request->newRole);

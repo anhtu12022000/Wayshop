@@ -39,5 +39,10 @@ class ContactController extends Controller
         return redirect()->with('success','Gửi thành công.');
     }
 
+    public function emailAds()
+    {
+        return view('admin.contacts.emailads');
+    }
+
 }
 ?>

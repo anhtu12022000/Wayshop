@@ -44,12 +44,12 @@
                   @foreach($data['Products'] as $item)
                     <li>
                       <figure>
-                        <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img src="{{ asset('front_assets/img/women/girl-1.png') }}" alt="polo shirt img"></a>
+                        <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img width="250" height="270" src="{{ asset('front_assets/img/product/'. $item->image )}}" alt="{{ $item->image }}"></a>
                         <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                         <figcaption>
                           <h4 class="aa-product-title"><a href="{{url('/product-detail/'.$item->id)}}">{{$item->name}}</a></h4>
                           @if ($item->sale > 0)
-                            <span class="aa-product-price">${{number_format($item->sale,0,'.',',')}}</span><span class="aa-product-price"><del>${{number_format($item->price,0,'.',',')}}</del></span>
+                            <span class="aa-product-price">${{number_format($item->sale,0,'.',',')}}</span><span class="aa-product-price"><del style="color: #000">${{number_format($item->price,0,'.',',')}}</del></span>
                           @else
                             <span class="aa-product-price">${{number_format($item->price,0,'.',',')}}</span>
                           @endif
@@ -62,23 +62,27 @@
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                       </div>
                       <!-- product badge -->
-                      @if($item->sale > 0)
-                        <span class="aa-badge aa-sale" href="#">SALE!</span>
+                      @if ($item['sale'] > 0)
+                      <span class="aa-badge aa-sale" href="#">SALE!</span>
+                      @elseif($item['quantity'] == 0)
+                      <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                      @else
+                      <span class="aa-badge aa-hot" href="#">HOT!</span>
                       @endif
                     </li>
                     @endforeach
-                @else
+                @elseif (isset($data['dataProCate']))
                 
                   @foreach($data['dataProCate'] as $value)
                     @foreach($value->product as $item)
                       <li>
                         <figure>
-                          <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img src="{{ asset('front_assets/img/women/girl-1.png') }}" alt="polo shirt img"></a>
+                          <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img width="250" height="270" src="{{ asset('front_assets/img/product/'. $item->image )}}" alt="{{ $item->image }}"></a>
                           <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                           <figcaption>
                             <h4 class="aa-product-title"><a href="{{url('/product-detail/'.$item->id)}}">{{$item->name}}</a></h4>
                             @if ($item->sale > 0)
-                              <span class="aa-product-price">${{number_format($item->sale,0,'.',',')}}</span><span class="aa-product-price"><del>${{number_format($item->price,0,'.',',')}}</del></span>
+                              <span class="aa-product-price">${{number_format($item->sale,0,'.',',')}}</span><span class="aa-product-price"><del style="color: #000">${{number_format($item->price,0,'.',',')}}</del></span>
                             @else
                               <span class="aa-product-price">${{number_format($item->price,0,'.',',')}}</span>
                             @endif
@@ -91,8 +95,45 @@
                           <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                         </div>
                         <!-- product badge -->
-                        @if($item->sale > 0)
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
+                        @if ($item['sale'] > 0)
+                        <span class="aa-badge aa-sale" href="#">SALE!</span>
+                        @elseif($item['quantity'] == 0)
+                        <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                        @else
+                        <span class="aa-badge aa-hot" href="#">HOT!</span>
+                        @endif
+                      </li>
+                    @endforeach
+                  @endforeach
+                @else
+                  @foreach($data['dataProSlide'] as $value)
+                    @foreach($value->product as $item)
+                      <li>
+                        <figure>
+                          <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img width="250" height="270" src="{{ asset('front_assets/img/product/'. $item->image )}}" alt="{{ $item->image }}"></a>
+                          <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                          <figcaption>
+                            <h4 class="aa-product-title"><a href="{{url('/product-detail/'.$item->id)}}">{{$item->name}}</a></h4>
+                            @if ($item->sale > 0)
+                              <span class="aa-product-price">${{number_format($item->sale,0,'.',',')}}</span><span class="aa-product-price"><del style="color: #000">${{number_format($item->price,0,'.',',')}}</del></span>
+                            @else
+                              <span class="aa-product-price">${{number_format($item->price,0,'.',',')}}</span>
+                            @endif
+                            <p class="aa-product-descrip">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam accusamus facere iusto, autem soluta amet sapiente ratione inventore nesciunt a, maxime quasi consectetur, rerum illum.</p>
+                          </figcaption>
+                        </figure>                         
+                        <div class="aa-product-hvr-content">
+                          <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                          <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                          <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                        </div>
+                        <!-- product badge -->
+                        @if ($item['sale'] > 0)
+                        <span class="aa-badge aa-sale" href="#">SALE!</span>
+                        @elseif($item['quantity'] == 0)
+                        <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                        @else
+                        <span class="aa-badge aa-hot" href="#">HOT!</span>
                         @endif
                       </li>
                     @endforeach
@@ -186,8 +227,10 @@
             <div class="aa-product-catg-pagination">
               @if (isset($data['Products']))
                 {{ $data['Products']->links() }}
-              @else
+              @elseif (isset($data['dataProCate'])) 
                 {{ $data['dataProCate']->links() }}
+              @else
+                {{ $data['dataProSlide']->links() }} 
               @endif
             </div>
           </div>
@@ -199,7 +242,7 @@
               <h3>Category</h3>
               <ul class="aa-catg-nav">
                 @foreach ($data['Cate'] as $item)
-                <li><a href="{{ url('post-detail/'.$item->slug) }}">{{ $item->name }}</a></li>
+                <li><a href="{{ url('post-detail/'.$item->slug.'.html') }}">{{ $item->name }}</a></li>
                 @endforeach
               </ul>
             </div>
@@ -235,18 +278,7 @@
             <div class="aa-sidebar-widget">
               <h3>Shop By Color</h3>
               <div class="aa-color-tag">
-                <a class="aa-color-green" href="#"></a>
-                <a class="aa-color-yellow" href="#"></a>
-                <a class="aa-color-pink" href="#"></a>
-                <a class="aa-color-purple" href="#"></a>
-                <a class="aa-color-blue" href="#"></a>
-                <a class="aa-color-orange" href="#"></a>
-                <a class="aa-color-gray" href="#"></a>
-                <a class="aa-color-black" href="#"></a>
-                <a class="aa-color-white" href="#"></a>
-                <a class="aa-color-cyan" href="#"></a>
-                <a class="aa-color-olive" href="#"></a>
-                <a class="aa-color-orchid" href="#"></a>
+                None
               </div>                            
             </div>
            
@@ -298,4 +330,8 @@
     </div>
   </section>
   <!-- / Subscribe section -->
+  <div id="app">
+</div>
+<div id="login">
+</div> 
 @endsection

@@ -52,11 +52,13 @@
                                         <td>{{ $value['name'] }}</td>
                                         <td class="text-center">
                                             <a href="{{ url('admin/cate/edit-cate',$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form method="POST" action="{{ url('admin/cate/del-cate/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete cate: {{ $value['name'] }}')">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                            </form>
+                                            @role('Administrator')
+                                                <form method="POST" action="{{ url('admin/cate/del-cate/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete cate: {{ $value['name'] }}')">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                            @endrole
                                         </td>
                                     </tr>
                                     @php $i++; @endphp

@@ -38,8 +38,8 @@
                         <td><a href="#"><img src="{{ asset('front_assets/img/product/'.$item->product_image) }}" alt="img"></a></td>
                         <td><a class="aa-cart-title" href="#">{{ $item->product_name }}</a></td>
                         <td>${{ $item->product_price }}</td>
-                        <td><input class="aa-cart-quantity" type="number" min="1" data-id="{{ $item->id }}" value="{{ $item->product_quantity }}"></td>
-                        <td class="total-product{{ $item->id }}">${{ $item->product_price * $item->product_quantity}}</td>
+                        <td><input class="aa-cart-quantity" type="number" min="1" max="5" data-id="{{ $item->id }}" value="{{ $item->product_quantity }}"></td>
+                        <td class="total-product{{ $item->id }}" data-price="{{ $item->product_price * $item->product_quantity}}">${{ $item->product_price * $item->product_quantity}}</td>
                       </tr>
                       <?php
                           $total += $item->product_price * $item->product_quantity;
@@ -68,7 +68,7 @@
                  <tbody>
                    <tr>
                      <th>Subtotal</th>
-                     <td class="Subtotal">${{ $total }}</td>
+                     <td class="Subtotal" data-total="{{ $total }}">${{ $total }}</td>
                    </tr>
                    @if (!empty(Session::get('couponAmount')))
                    <tr>
@@ -77,7 +77,7 @@
                    </tr>
                    <tr>
                      <th>Total</th>
-                     <td class="Total">${{ $total - Session::get('couponAmount') }}</td>
+                     <td class="Total" data-total="{{ $total }}">${{ $total - Session::get('couponAmount') }}</td>
                    </tr>
                    @else
                     <tr>
@@ -86,7 +86,7 @@
                    </tr>
                    <tr>
                      <th>Total</th>
-                     <td class="Total">${{ $total }}</td>
+                     <td class="Total" data-total="{{ $total }}">${{ $total }}</td>
                    </tr>
                    @endif
                  </tbody>
@@ -120,36 +120,39 @@
     </div>
   </section>
   <!-- / Subscribe section -->
+  <div id="app">
+</div>
+<div id="login">
+</div> 
 @endsection
 
 @section('scriptcart')
-   <script>
+<script>
+  $('.aa-cart-quantity').change(function () {
+    let id = $(this).attr('data-id');
+    let quantity = $(this).val();
+    $.ajax({
+      header: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: 'post',
+      url: `update-cart/${id}`,
+      data: {
+        _token: '{!! csrf_token() !!}',
+        quantity: quantity
+      },
+      success: function (data) {
+        $(this).val(quantity);  
+        $('.total-product'+id).text(`$${data.product_price * data.product_quantity}`);
+        $('.Subtotal').text(`$${data.product_price * data.product_quantity}`);
+        $('.Total').text(`$${data.product_price * data.product_quantity -@if(!empty(Session::get('couponAmount'))){{ Session::get('couponAmount') }} @else 0 @endif}`);
+        $('.mess').html('<span class="alert alert-success">Update Quantity Cart Success</span>');
+      },
+      error: function () {
+        alert('Error, Please try again!');
+      }
 
-    $('.aa-cart-quantity').change(function () {
-        let id = $(this).attr('data-id');
-        let quantity = $(this).val();
-        $.ajax({
-          header: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          type: 'post',
-          url: `update-cart/${id}`,
-          data: {
-            _token: '{!! csrf_token() !!}',
-            quantity: quantity
-          },
-          success: function (data) {
-            $(this).val(quantity);  
-            $('.total-product'+id).text(`$${data.product_price * data.product_quantity}`);
-            $('.Subtotal').text(`$${data.product_price * data.product_quantity}`);
-            $('.Total').text(`$${data.product_price * data.product_quantity -@if(!empty(Session::get('couponAmount'))){{ Session::get('couponAmount') }} @else 0 @endif}`);
-            $('.mess').html('<span class="alert alert-success">Update Quantity Cart Success</span>');
-          },
-          error: function () {
-            alert('Error, Please try again!');
-          }
-
-        })
-      });
-  </script>
+    })
+  });
+</script>
 @endsection

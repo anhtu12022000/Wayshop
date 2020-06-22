@@ -22,17 +22,6 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->timestamps();
         });
-
-         Schema::create('post_comments', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('author');
-            $table->string('email');
-            $table->string('url')->nullable();
-            $table->text('body');
-            $table->unsignedBigInteger('post_id');
-            $table->foreign('post_id')->references('id')->on('posts');
-            $table->timestamps();
-        });
     }
 
     /**
@@ -43,6 +32,5 @@ class CreatePostsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('posts');
-        Schema::dropIfExists('post_comments');
     }
 }

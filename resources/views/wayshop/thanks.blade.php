@@ -44,5 +44,8 @@ Thanks
     </div>
   </section>
   <!-- / Subscribe section -->
-
+<div id="app">
+</div>
+<div id="login">
+</div> 
 @endsection

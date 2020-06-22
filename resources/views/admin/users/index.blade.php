@@ -29,7 +29,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with default features</h3><a href="{{ url('admin/user/add') }}" class="btn btn-info float-right">Add</a>
+                        <h3 class="card-title">DataTable Users</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -59,7 +59,7 @@
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td>{{ $value['name'] }}</td>
-                                        <td><img width="100%" src="{{ asset('/front_assets/img/user/'.$value['image']) }}" width="60" alt=""></td>
+                                        <td><img width="70%" src="{{ asset('/front_assets/img/user/'.$value['image']) }}" width="60" alt=""></td>
                                         <td>{{ $value['email'] }}</td>
                                         <td>{{ $value['phone'] }}</td>
                                         <td>{{ $value['address'] }}</td>
@@ -69,16 +69,19 @@
                                             @endif/>
                                         </td>
                                     <td>
-                                        <select name="roles" data-id="{{ $value['id'] }}" data-name="{{ $value['roles'][0]->name }}" class="form-control" id="changeRole">
-                                            @foreach ($role as $item)
-                                                <option @if ($value['roles'][0]->name == $item->name)
-                                                    selected="" 
-                                                @endif value="{{ $item->name }}">{{ $item->name }}</option>
-                                            @endforeach 
-                                        </select>
+                                        @foreach ($value->roles as $val)
+                                            <select name="roles" data-id="{{ $value['id'] }}" data-name="{{ $val->name }}" class="form-control changeRole">
+                                                @foreach ($role as $item)
+                                                    <option @if ($val->name == $item->name)
+                                                        selected="" 
+                                                    @endif value="{{ $item->name }}">{{ $item->name }}</option>
+                                                @endforeach 
+                                            </select>
+                                        @endforeach
                                     </td>
                                         <td class="text-center">
                                             <a href="{{ url('admin/user/edit-user/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            
                                             <form method="POST" action="{{ url('admin/post/del-user/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete post: {{ $value['title'] }}')">
                                                 @method('DELETE')
                                                 @csrf
@@ -132,34 +135,36 @@
             });
         });
 
-        $('#changeRole').change(function () {
-            let id = $(this).attr('data-id');
-            let oldRole = $(this).attr('data-name');
+        $('.changeRole').change(function () {
             let newRole = $(this).val();
-            $.ajax({
-                header: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'post',
-                url: 'admin/role/edit-role-user',
-                data: {
-                    _token: '{!! csrf_token() !!}',
-                    oldRole: oldRole,
-                    newRole: newRole,
-                    id: id
-                },
-                success: function (data) {
-                    $('#messChangeRole').show();
-                    $('#changeRole').attr('data-name', newRole);
-                    setTimeout(function() {
-                        $('#messChangeRole').fadeOut('slow');
-                    }, 2000);
-                },
-                error: function () {
-                    alert('Error, Please try again!');
-                }
+            if (confirm(`Are you sure change role ${newRole}?!!!`)) {    
+                let id = $(this).attr('data-id');
+                let oldRole = $(this).attr('data-name');
+                $.ajax({
+                    header: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    url: 'admin/role/edit-role-user',
+                    data: {
+                        _token: '{!! csrf_token() !!}',
+                        oldRole: oldRole,
+                        newRole: newRole,
+                        id: id
+                    },
+                    success: function (data) {
+                        $('#messChangeRole').show();
+                        $('#changeRole').attr('data-name', newRole);
+                        setTimeout(function() {
+                            $('#messChangeRole').fadeOut('slow');
+                        }, 2000);
+                    },
+                    error: function () {
+                        alert('Error, Please try again!');
+                    }
 
-            });
+                });
+            };
         });    
 
         $('.CouponsStatus').change(function () {

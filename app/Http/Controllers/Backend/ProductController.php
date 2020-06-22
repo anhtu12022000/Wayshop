@@ -78,18 +78,18 @@ class ProductController extends Controller
     	return view('admin.products.edit')->with('data', $data);
     }
 
-    public function EditProduct($id, Request $request)
+    public function EditProduct(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:120|string',
-            'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'price' => 'required|min:1',
-            'detail' => 'required|string',
-            'quantity' => 'required|min:1' 
-        ]);
-        $product = Product::find($id);
+                'name' => 'required|max:120|string',
+                'description' => 'required|string',
+                'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+                'price' => 'required|min:1',
+                'detail' => 'required|string',
+                'quantity' => 'required|min:1' 
+            ]);
 
+        $product = Product::find($id);
         $slug = Str::slug($request->name, '-');
             if ($request->hasFile('image')) {
                 if($product->image != '' && file_exists(public_path('front_assets/img/product/'.$product->image)))
@@ -118,6 +118,8 @@ class ProductController extends Controller
             }
             $product->imageDetail = json_encode($imageDetail);
         }
+        $product->name = $request->name;
+        $product->slug = $slug;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->sale = $request->sale;

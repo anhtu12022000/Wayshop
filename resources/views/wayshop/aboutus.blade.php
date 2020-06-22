@@ -241,6 +241,9 @@
         </div>
     </div>
     <!-- End Instagram Feed  -->
-
+<div id="app">
+  </div>
+  <div id="login">
+  </div> 
 
 @endsection

@@ -56,11 +56,13 @@
                                         <td>{{ ($value['slug']) }}</td>
                                         <td class="text-center">
                                             <a href="{{ url('admin/slides/edit-slides/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            @role('Administrator')
                                             <form method="post" action="{{ url('admin/slides/del-slides/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete post: {{ $value['title'] }}')">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
                                             </form>
+                                            @endrole
                                         </td>
                                     </tr>
                                     @php $i++; @endphp

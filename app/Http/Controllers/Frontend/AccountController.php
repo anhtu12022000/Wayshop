@@ -36,7 +36,7 @@ class AccountController extends Controller
     		if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                 Auth::user()->assignRole('User');
                 $details = [
-                    'title' => "Welcome to Dailyshop",
+                    'title' => "Welcome to Dailyshop '".$request->name."'",
                     'body' => "Here, you can shop as much as you like with Dailyshop's offers!"
                 ];
                 \Mail::to($request->email)->send(new WelcomeMail($details));
@@ -55,7 +55,10 @@ class AccountController extends Controller
         $password = $request->input('password');
         $remember_token = $request->input('remember_token');
         if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1], $remember_token)) {
-                return back();
+            User::where('id', Auth::user()->id)->update([
+                'status_on' => 1
+            ]);
+            return back();
         } else {
             return redirect('/my-account')->with('danger', 'Invalid Email or Password')->withInput();
         }
@@ -96,6 +99,9 @@ class AccountController extends Controller
 
     public function logout()
     {
+        User::where('id', Auth::user()->id)->update([
+                'status_on' => 0
+            ]);
         Auth::logout();
         return redirect('/');   
     }
