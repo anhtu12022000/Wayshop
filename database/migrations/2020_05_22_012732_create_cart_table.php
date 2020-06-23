@@ -22,9 +22,9 @@ class CreateCartTable extends Migration
             $table->string('user_email');
             $table->string('session_id');
             $table->unsignedBigInteger('product_id')->nullable();
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->unsignedBigInteger('cate_id');
-            $table->foreign('cate_id')->references('id')->on('cate');
+            $table->foreign('cate_id')->references('id')->on('cate')->onDelete('cascade');
             $table->timestamps();
         });
     }

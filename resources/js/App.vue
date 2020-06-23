@@ -576,19 +576,22 @@ export default {
 
       //Lấy thông tin user từ DB
       auth_user_data () {
-        axios.get(this.$host_url+'/auth/user/'+localStorage.getItem("user_id"), {
-          headers: {
-            Authorization: "Bearer" + localStorage.getItem("token")
-          }
-        })
-        .then(res => {
-          this.auth_user = res.data;
-          this.message_conversation();
-           console.log(this.auth_user);
-        }).catch(err => {
-          console.log(err);
-        });
+        if (localStorage.getItem("token")) {
+          axios.get(this.$host_url+'/auth/user/'+localStorage.getItem("user_id"), {
+            headers: {
+              Authorization: "Bearer" + localStorage.getItem("token")
+            }
+          })
+          .then(res => {
+            this.auth_user = res.data;
+            this.message_conversation();
+             console.log(this.auth_user);
+          }).catch(err => {
+            console.log(err);
+          });
+        };
       },
+      
       boxMessage () {
         if (localStorage.getItem("token") == null) {
           this.text = "Login to chat";

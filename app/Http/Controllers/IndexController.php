@@ -20,6 +20,7 @@ use App\Models\DeliveryAddress;
 use App\User;
 use Session;
 use Log;
+use Carbon\Carbon;
 
 class IndexController extends Controller
 {
@@ -60,6 +61,7 @@ class IndexController extends Controller
 
     public function index()
     {
+
         $cate = Cate::orderBy('created_at')->take(5)->get();
         $arr = [];
         for ($i = 0; $i < count($cate); $i++) {
@@ -299,7 +301,6 @@ class IndexController extends Controller
             $catPro->product_price = $pro->product_price;
             $catPro->product_quantity = $pro->product_quantity;
             $catPro->total = $pro->product_price * $pro->product_quantity;
-            $catPro->status = "Pending";
             $catPro->save();
         }
         Session::put('thanks', 'Thanks you!');
@@ -400,7 +401,12 @@ class IndexController extends Controller
 
     public function wishlist()
     {
-        return view('wayshop.wishlist');
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider,
+            'userCart' => $this->getCarts()
+        );
+        return view('wayshop.wishlist')->with('data',$data);
     }
 
     public function shop()
@@ -491,9 +497,16 @@ class IndexController extends Controller
         return view('wayshop.404')->with('data',$data);
     }
 
-    public function search($keyword)
+    public function search(Request $request)
     {
-        # code...
+        $keyword = Product::where('name','like', '%'.$request->keyword.'%')->paginate(20);
+        $data = Array(
+            'Cate' => $this->dataCate,
+            'Slides' => $this->dataSlider,
+            'userCart' => $this->getCarts(),
+            'keyword' => $keyword,
+        );
+        return view('wayshop.search')->with('data',$data);
     }
 
     public function searchAjax($keyword)

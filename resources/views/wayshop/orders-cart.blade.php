@@ -32,9 +32,12 @@
                       <tr class="cart{{ $item->id }}">
                         <td><a class="removeOrder" href="javascript:void(0)" rel="{{ $item->id }}"><fa class="fa fa-close"></fa></a></td>
                         <td><a class="aa-cart-title" href="#">@foreach ($item->ordersPro as $pro)
-                          {{ $pro->product_name }}|
+                          <div style="border-bottom: 1px solid #000">
+                            {{ $pro->product_name }}|
                           ${{ $pro->product_price }}|
                           {{ $pro->product_quantity }} item
+                          </div>
+                          <br>
                         @endforeach</a></td>
                         <td>
                           <a href="#">{{ $item->payment_method }}</a>
@@ -89,4 +92,5 @@
 </div>
 <div id="login">
 </div> 
+<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 @endsection

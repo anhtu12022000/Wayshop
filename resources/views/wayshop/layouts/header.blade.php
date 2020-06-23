@@ -1,10 +1,10 @@
-{{-- <!-- wpf loader Two -->
-    <div id="wpf-loader-two">          
+<!-- wpf loader Two -->
+    {{-- <div id="wpf-loader-two">          
       <div class="wpf-loader-two-inner">
         <span>Loading</span>
       </div>
-    </div> 
-    <!-- / wpf loader Two -->    --}}    
+    </div>  --}}
+    <!-- / wpf loader Two -->       
   <!-- SCROLL TOP BUTTON -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
   <!-- END SCROLL TOP BUTTON -->
@@ -147,8 +147,8 @@
               <!-- / cart box -->
               <!-- search box -->
               <div class="aa-search-box">
-                <form action="">
-                  <input type="text" class="autocomplete" name="" id="keyword" placeholder="Search here ex. 'man' ">
+                <form action="{{ route('search') }}">
+                  <input type="text" class="autocomplete" name="keyword" id="keyword" placeholder="Search here ex. 'man' ">
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
                 <ul id="sanpham">

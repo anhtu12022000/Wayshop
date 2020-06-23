@@ -12,7 +12,14 @@ Dear {{$user->name}}
 
 <p>{{ $new_ads->body }}</p>
 
-Click on the link below to see more
+<p>Coupons</p>
+<ul>
+    @foreach ($coupons as $item)
+        <li><span style="color: #ff6666;">{{ $item->coupon_code }}</span></li>
+    @endforeach
+</ul>
+
+Click on the link below to see more! Hurry up to purchase before the end of the promotion!
 
 @component('mail::button', ['url' => url('/')])
 View Arrival

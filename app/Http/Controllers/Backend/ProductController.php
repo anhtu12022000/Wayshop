@@ -113,7 +113,7 @@ class ProductController extends Controller
                 //     unlink(public_path('front_assets/img/product/'.$product->imageDeatil));
                 // }
                 $filename = $slug.'.'.$fileDetail->getClientOriginalName();
-                //$fileDetail->move(public_path().'/front_assets/img/product', $filename);
+                $fileDetail->move(public_path().'/front_assets/img/product', $filename);
                 array_push($imageDetail, $filename);         	
             }
             $product->imageDetail = json_encode($imageDetail);

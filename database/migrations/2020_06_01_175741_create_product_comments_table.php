@@ -19,7 +19,7 @@ class CreateProductCommentsTable extends Migration
             $table->string('email');
             $table->text('body');
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

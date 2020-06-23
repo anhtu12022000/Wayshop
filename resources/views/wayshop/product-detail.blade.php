@@ -16,18 +16,23 @@ Product-Detail
                 <div class="aa-product-view-slider">                                
                   <div id="demo-1" class="simpleLens-gallery-container">
                     <div class="simpleLens-container">
-                      <div class="simpleLens-big-image-container"><a data-lens-image="{{ asset('front_assets/img/product/'.$data['Product']->image) }}" class="simpleLens-lens-image"><img src="{{ asset('front_assets/img/product/'.$data['Product']->image) }}" class="simpleLens-big-image"></a></div>
+                      <div class="simpleLens-big-image-container"><a data-lens-image="{{ asset('front_assets/img/product/'.$data['Product']->image) }}" class="simpleLens-lens-image"><img width="250" height="270" src="{{ asset('front_assets/img/product/'.$data['Product']->image) }}" class="simpleLens-big-image"></a></div>
                     </div>
                     <div class="simpleLens-thumbnails-container">
-                      <a data-big-image="img/view-slider/medium/polo-shirt-1.png'" data-lens-image="{{ 'front_assets/img/view-slider/large/polo-shirt-1.png' }}" class="simpleLens-thumbnail-wrapper" href="#">
-                        <img src="{{ asset('front_asset/img/view-slider/thumbnail/polo-shirt-1.png') }}">
+                      <a data-big-image="{{ asset('front_assets/img/product/'.$data['Product']->image) }}" data-lens-image="{{ asset('front_assets/img/product/'.$data['Product']->image) }}" class="simpleLens-thumbnail-wrapper" href="#">
+                        <img width="50" height="50" class="mt-2 border-info" src="{{ asset('front_assets/img/product/'.$data['Product']->image) }}">
+                      </a>
+                      @php
+                      if (!empty($data['Product']->imageDetail)) {
+                         $img = json_decode($data['Product']->imageDetail);
+                         foreach ($img as $item) {
+                      @endphp
+                      <a data-big-image="{{ asset('front_assets/img/product/'.$item) }}" data-lens-image="{{ asset('front_assets/img/product/'.$item) }}" class="simpleLens-thumbnail-wrapper" href="#">
+                        <img width="50" height="50" class="mt-2 border-info" src="{{ asset('front_assets/img/product/'.$item) }}">
                       </a>                                    
-                      <a data-big-image="img/view-slider/medium/polo-shirt-3.png'" data-lens-image="{{ 'front_assets/img/view-slider/large/polo-shirt-3.png' }}" class="simpleLens-thumbnail-wrapper" href="#">
-                        <img src="{{ asset('front_asset/img/view-slider/thumbnail/polo-shirt-3.png') }}">
-                      </a>
-                      <a data-big-image="img/view-slider/medium/polo-shirt-4.png'" data-lens-image="{{ 'front_assets/img/view-slider/large/polo-shirt-4.png' }}" class="simpleLens-thumbnail-wrapper" href="#">
-                        <img src="{{ asset('front_asset/img/view-slider/thumbnail/polo-shirt-4.png') }}">
-                      </a>
+                      @php
+                        }}
+                      @endphp
                     </div>
                   </div>
                 </div>
@@ -39,7 +44,7 @@ Product-Detail
                   <h3>{{ $data['Product']->name }}</h3>
                   <div class="aa-price-block">
 
-                    <span class="aa-product-view-price">${{number_format($data['Product']->price,0,'.',',')}}</span>
+                    <span class="aa-product-view-price" style="color: #ff6666;font-weight: bold;">${{number_format($data['Product']->price,0,'.',',')}}</span>
                     <p class="aa-product-avilability">Avilability: 
                       @if($data['Product']->quantity > 0)
                       <span>In stock</span>
@@ -338,4 +343,5 @@ Product-Detail
 </div>
 <div id="login">
 </div> 
+<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 @endsection

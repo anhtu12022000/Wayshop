@@ -124,6 +124,7 @@
 </div>
 <div id="login">
 </div> 
+<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 @endsection
 
 @section('scriptcart')
@@ -155,4 +156,5 @@
     })
   });
 </script>
+
 @endsection

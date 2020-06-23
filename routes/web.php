@@ -38,7 +38,7 @@ Route::get('/404','IndexController@notFound')->name('404');
 
 
 // Front-End
-Route::match(['get','post'], '/', 'IndexController@index');
+Route::match(['get','post'], '/', 'IndexController@index')->name('home');
 Route::get('/home', 'HomeController@index')->middleware(['auth','verified']);
 Route::match(['get','post'], 'shop', 'IndexController@shop');
 Route::match(['get','post'], '/aboutus', 'IndexController@aboutus');
@@ -86,8 +86,8 @@ Route::group(['prefix' => 'cart'], function() {
 
 
 
-Route::get('/search/{keyword}', 'IndexController@search')->where(['keyword' => '[A-Za-z0-9]']);
-Route::get('/searchajax/{keyword}', 'IndexController@searchAjax');
+Route::get('/search', 'IndexController@search')->name('search')->where(['keyword' => '[A-Za-z0-9]+']);
+Route::get('/searchajax/{keyword}', 'IndexController@searchAjax')->where(['keyword' => '[A-Za-z0-9]+']);
 
 Route::match(['get','post'], '/contact', 'IndexController@contact');
 
@@ -129,7 +129,7 @@ Route::namespace('Frontend')->group(function () {
 Route::group(['prefix' => 'admin'], function () {
     Route::match(['get','post'], '/', 'AdminController@index')->name('/admin');
     Route::match(['get','post'], '/dashboard', 'AdminController@dashboard')->middleware('auth');
-    Route::match(['get','post'], '/logout', 'AdminController@logout');
+    Route::match(['get','post'], '/logout', 'AdminController@logout')->middleware('auth');
     Route::namespace('Backend')->group(function () {
 
         //Router Administrator
@@ -148,12 +148,12 @@ Route::group(['prefix' => 'admin'], function () {
                 Route::post('/edit-role-user', 'UserController@EditRole');
             });
 
-            Route::delete('/del-post/{id}', 'PostController@DeletePost')->where(['id' => '[0-9]+']);
-            Route::delete('/del-slides/{id}', 'SlidesController@DeleteSlides')->where(['id' => '[0-9]+']);
-            Route::delete('/del-product/{id}', 'ProductController@DeleteProduct')->where(['id' => '[0-9]+']);
-            Route::delete('/del-cate/{id}', 'CateController@DeleteCate')->where(['id' => '[0-9]+']);
-            Route::delete('/del-coupons/{id}', 'CouponsController@DeleteCoupons')->where(['id' => '[0-9]+']);
-            Route::delete('/del-user/{id}', 'BillController@DeleteUser')->where(['id' => '[0-9]+']);
+            Route::delete('post/del-post/{id}', 'PostController@DeletePost')->where(['id' => '[0-9]+']);
+            Route::delete('slides/del-slides/{id}', 'SlidesController@DeleteSlides')->where(['id' => '[0-9]+']);
+            Route::delete('products/del-product/{id}', 'ProductController@DeleteProduct')->where(['id' => '[0-9]+']);
+            Route::delete('cate/del-cate/{id}', 'CateController@DeleteCate')->where(['id' => '[0-9]+']);
+            Route::delete('coupons/del-coupons/{id}', 'CouponsController@DeleteCoupons')->where(['id' => '[0-9]+']);
+            Route::delete('bills/del-bill/{id}', 'BillController@delDetailOrders')->where(['id' => '[0-9]+']);
         });
 
         Route::group(['prefix' => 'post'], function() {
@@ -208,12 +208,15 @@ Route::group(['prefix' => 'admin'], function () {
         Route::group(['prefix' => 'bills'], function() {
             Route::get('/', 'BillController@index');
             Route::get('/view-details/{id}', 'BillController@viewDetailOrders')->where(['id' => '[0-9]+']);
+
             Route::post('/edit-order-status/{id}', 'BillController@changeStatusOrder')->where(['id' => '[0-9]+']);
         });
 
         Route::group(['prefix' => 'ui'], function() {
             Route::get('/banner-ads', 'HomeController@bannerAds')->name('bannerads');
         });
+
+        Route::get('export', 'ExcelController@export')->name('admin.export');
     });
 });
 

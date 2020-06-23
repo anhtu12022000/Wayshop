@@ -96,7 +96,7 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: #ff6666;">
         <button type="button" class="close">&times;</button>
         <h4 class="modal-title">Notification</h4>
       </div>

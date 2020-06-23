@@ -342,10 +342,13 @@
                                  <tr>
                                     <td><a href="">{{ $item->id }}</a></td>
                                     <td>@foreach ($item->ordersPro as $pro)
-                          {{ $pro->product_name }}|
-                          ${{ $pro->product_price }}|
-                          {{ $pro->product_quantity }} item
-                        @endforeach</td>
+                                      <div style="border-bottom: 1px solid #ff6666;">
+                                         {{ $pro->product_name }}|
+                                         ${{ $pro->product_price }}|
+                                         {{ $pro->product_quantity }} item
+                                      </div>
+                                    @endforeach
+                                 </td>
                                     <td>@if ($item->order_status == 'Shipped')
                                        <span class="badge badge-success">Shipped</span>
                                     @elseif ($item->order_status == 'New')
@@ -549,6 +552,6 @@
      z-index: 0 !important;
    }
 </style>
-
+<script src="{{ asset('js/admin.js') }}" type="text/javascript"></script>
 @endsection
 

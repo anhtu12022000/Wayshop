@@ -75,7 +75,7 @@
     <script src="{{ asset('front_assets/js/sequence.js') }}"></script>
     <script src="{{ asset('front_assets/js/sequence-theme.modern-slide-in.js') }}"></script>  
     <!-- Product view slider -->
-    <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+    
     <script type="text/javascript" src="{{ asset('front_assets/js/jquery.simpleGallery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('front_assets/js/jquery.simpleLens.js') }}"></script>
     <!-- slick slider -->

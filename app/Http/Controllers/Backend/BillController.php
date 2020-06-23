@@ -46,7 +46,7 @@ class BillController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delDetailOrders($id)
     {
         $bill = Order::find($id)->delete();
         return redirect('admin/bills')->with('success','Delete Successfully');

@@ -45,7 +45,7 @@
                     <li>
                       <figure>
                         <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img width="250" height="270" src="{{ asset('front_assets/img/product/'. $item->image )}}" alt="{{ $item->image }}"></a>
-                        <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                        <a class="aa-add-card-btn addCart" rel="{{$item['id']}}" href="javascrip:void(0)"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                         <figcaption>
                           <h4 class="aa-product-title"><a href="{{url('/product-detail/'.$item->id)}}">{{$item->name}}</a></h4>
                           @if ($item->sale > 0)
@@ -78,7 +78,7 @@
                       <li>
                         <figure>
                           <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img width="250" height="270" src="{{ asset('front_assets/img/product/'. $item->image )}}" alt="{{ $item->image }}"></a>
-                          <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                          <a class="aa-add-card-btn addCart" rel="{{$item['id']}}" href="javascrip:void(0)"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                           <figcaption>
                             <h4 class="aa-product-title"><a href="{{url('/product-detail/'.$item->id)}}">{{$item->name}}</a></h4>
                             @if ($item->sale > 0)
@@ -111,7 +111,7 @@
                       <li>
                         <figure>
                           <a class="aa-product-img" href="{{url('/product-detail/'.$item->id)}}"><img width="250" height="270" src="{{ asset('front_assets/img/product/'. $item->image )}}" alt="{{ $item->image }}"></a>
-                          <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                          <a class="aa-add-card-btn addCart" rel="{{$item['id']}}" href="javascrip:void(0)"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                           <figcaption>
                             <h4 class="aa-product-title"><a href="{{url('/product-detail/'.$item->id)}}">{{$item->name}}</a></h4>
                             @if ($item->sale > 0)
@@ -334,4 +334,5 @@
 </div>
 <div id="login">
 </div> 
+<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 @endsection

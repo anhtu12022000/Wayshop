@@ -13,15 +13,17 @@ class NewAds extends Mailable
 
     protected $new_ads;
     protected $user;
+    protected $coupons;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user,$new_ads)
+    public function __construct($user, $new_ads, $coupons)
     {
         $this->user = $user;
         $this->new_ads = $new_ads;
+        $this->coupons = $coupons;
     }
 
     /**
@@ -31,13 +33,14 @@ class NewAds extends Mailable
      */
     public function build()
     {
-       
+        
         return $this->markdown('emails.newads')
                     ->subject($this->new_ads->title)
                     ->from('dailyshop@company.com', 'Wonderful Dailyshop')
                     ->with([
                         'user'=> $this->user,
                         'new_ads' => $this->new_ads,
+                        'coupons' => $this->coupons,
                     ]);
     }
 }

@@ -33,9 +33,9 @@ class CreateCateAndProductTable extends Migration
             $table->string('imageDetail', 500)->nullable();
             $table->boolean('status')->default(0);
             $table->unsignedBigInteger('slide_id')->nullable();
-            $table->foreign('slide_id')->references('id')->on('slides');
+            $table->foreign('slide_id')->references('id')->on('slides')->onDelete('cascade');
             $table->unsignedBigInteger('cate_id');
-            $table->foreign('cate_id')->references('id')->on('cate');
+            $table->foreign('cate_id')->references('id')->on('cate')->onDelete('cascade');
             $table->timestamps();
         });
 

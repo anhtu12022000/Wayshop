@@ -2089,6 +2089,9 @@ img {
   margin: 0 0 20px 30px;
   width: 29.916%;
 }
+.search .aa-product-catg-content .aa-product-catg-body .aa-product-catg li {
+  width: 21.916% !important;
+}
 #aa-product-category .aa-product-catg-content .aa-product-catg-body .aa-product-catg li .aa-product-descrip {
   display: none;
 }
@@ -3638,6 +3641,7 @@ img {
   .aa-product-details-content .aa-product-view-slider .simpleLens-big-image-container {
     width: 100%;
   }
+
   .aa-product-details-content .aa-product-view-slider .simpleLens-big-image-container .simpleLens-lens-image {
     width: 100%;
   }

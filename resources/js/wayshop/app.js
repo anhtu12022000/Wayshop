@@ -1,4 +1,5 @@
 
+
 $('#formlogin').submit(function (evt) {
 
   if (!/^[a-z][a-z0-9_\.]{2,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/.test($('#email').val())){
@@ -331,7 +332,7 @@ $(document).ready(function () {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: 'get',
-      url: 'cart/get-cart',
+      url: 'http://dailyshop.com/cart/get-cart',
       data: {
         _token: $('meta[name="csrf-token"]').attr('content'),
         id: id
@@ -364,7 +365,7 @@ $(document).ready(function () {
         $('.list-cart').html(html);
       },
       error: function () {
-        alert('Error, Please try again!');
+        
       }
 
     })
@@ -452,7 +453,7 @@ $(document).ready(function () {
         success: function (res) { 
           if (res.length > 0) {
             res.map(item => {
-              html += `<li><a href="product-detail/${item.slug}.html">${item.name}</a></li>`;
+              html += `<li><a href="http://dailyshop.com/product-detail/${item.slug}.html">${item.name}</a></li>`;
             });
           } else {
             html = `<li><a href="#">Empty product</a></li>`;
@@ -472,7 +473,7 @@ $(document).ready(function () {
       clearInterval(intervalId);             
     });
 
-     $('.autocomplete').on('keydown', _.debounce(make_ajax_request, 1300));
+     $('.autocomplete').on('keydown', _.debounce(make_ajax_request, 1000));
 
    });
 

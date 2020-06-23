@@ -373,7 +373,7 @@ $(document).ready(function () {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: 'get',
-      url: 'cart/get-cart',
+      url: 'http://dailyshop.com/cart/get-cart',
       data: {
         _token: $('meta[name="csrf-token"]').attr('content'),
         id: id
@@ -391,9 +391,7 @@ $(document).ready(function () {
         $('.aa-cart-notify').text(quantity);
         $('.list-cart').html(html);
       },
-      error: function error() {
-        alert('Error, Please try again!');
-      }
+      error: function error() {}
     });
   };
 
@@ -473,7 +471,7 @@ $(document).ready(function () {
       success: function success(res) {
         if (res.length > 0) {
           res.map(function (item) {
-            html += "<li><a href=\"product-detail/".concat(item.slug, ".html\">").concat(item.name, "</a></li>");
+            html += "<li><a href=\"http://dailyshop.com/product-detail/".concat(item.slug, ".html\">").concat(item.name, "</a></li>");
           });
         } else {
           html = "<li><a href=\"#\">Empty product</a></li>";
@@ -492,7 +490,7 @@ $(document).ready(function () {
   $('.autocomplete').on('keydown', function () {
     clearInterval(intervalId);
   });
-  $('.autocomplete').on('keydown', _.debounce(make_ajax_request, 1300));
+  $('.autocomplete').on('keydown', _.debounce(make_ajax_request, 1000));
 });
 
 function selectPayment() {

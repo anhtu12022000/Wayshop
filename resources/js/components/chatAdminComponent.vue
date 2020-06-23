@@ -26,8 +26,8 @@
                                        <span class="direct-chat-timestamp float-right">{{ chat.created_at }}</span>
                                     </div>
                                     <!-- /.direct-chat-infos -->
-                                    <img class="direct-chat-img" v-if="receiver_user.image != null" :src="receiver_user.image">
-                                    <img class="direct-chat-img" v-else-if="receiver_user.avatar_original != null" :src="receiver_user.image">
+                                    <img class="direct-chat-img" v-if="receiver_user.image != null && receiver_user.avatar_original == null" :src="`front_assets/img/user/${receiver_user.image}`">
+                                    <img class="direct-chat-img" v-else-if="receiver_user.avatar_original != null" :src="receiver_user.avatar_original">
                                     <img class="direct-chat-img" v-else src="admin_assets/dist/img/default.svg.png">
                                     <!-- /.direct-chat-img -->
                                     <div class="direct-chat-text">
@@ -302,7 +302,6 @@
 		},
 		mounted () {
 			//call this methods
-			this.auth_user_data();
 			this.user_list();
 			socket.on("chat-message", data => {
 				console.log("socket data" + data);

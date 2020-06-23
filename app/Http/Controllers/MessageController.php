@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\User;
 use App\Mail\NewAds;
 use Illuminate\Support\Str;
+use App\Models\Coupons;
 
 class MessageController extends Controller
 {
@@ -37,7 +38,7 @@ class MessageController extends Controller
 		$message->save();
 
 		if($request->item == "now") {
-
+			$coupons = Coupons::where('status', 1)->limit(20)->get();
 			$message->delivered = 'YES';
 			$message->send_date = Carbon::now();
 			$message->save();   
@@ -45,7 +46,7 @@ class MessageController extends Controller
 			$users = User::where('id', 23)->get();
 
 			foreach($users as $user) {
-				dispatch(new SendMailJob($user->email, new NewAds($user, $message)));
+				dispatch(new SendMailJob($user->email, new NewAds($user, $message, $coupons)));
 			}
 
 			return response()->json('Mail sent.', 201);

@@ -30,6 +30,16 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">DataTable with default features</h3>
+                        <div class="float-right">
+                            <form action="{{ route('admin.export') }}" method="get" class="form-group">
+                                @csrf
+                                <label for="">From</label>
+                                <input type="date" required="" name="from" class="form-control-label" placeholder="From">
+                                 <label for="">To</label>
+                                <input type="date" required="" name="to" class="form-control-label" placeholder="To">
+                                <button type="submit"><i style="color: #28a745" class="far fa-file-excel"></i></button>
+                            </form>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -96,7 +106,7 @@
                                         <td class="text-center">
                                             <a href="{{ url('admin/bills/view-details/'.$value->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
                                             @role('Administrator')
-                                                <form method="POST" action="{{ url('admin/bills/del-bill/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete bill by: {{ $value['name'] }}')">
+                                                <form method="post" action="{{ url('admin/bills/del-bill/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete bill by: {{ $value['name'] }}')">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>

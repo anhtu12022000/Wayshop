@@ -8,6 +8,7 @@
 @endsection
 @section('script')
     <!-- DataTables -->
+    <script src="{{ asset('js/admin.js') }}" type="text/javascript"></script>
     <script src="admin_assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="admin_assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="admin_assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

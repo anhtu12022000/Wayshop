@@ -16,6 +16,7 @@ mix.js('resources/js/wayshop/app.js', 'public/front_assets/js/allscript.js')
 
 
    mix.js('resources/js/app.js', 'public/js/app.js');
+   mix.js('resources/js/admin.js', 'public/js/admin.js');
 
    mix.webpackConfig({
 
