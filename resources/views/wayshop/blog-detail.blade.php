@@ -58,27 +58,34 @@
                     </div>
                    
                   </article>
+
                   <!-- blog navigation -->
+
                   <div class="aa-blog-navigation">
-                    <a class="aa-blog-prev" href="#"><span class="fa fa-arrow-left"></span>Prev Post</a>
-                    <a class="aa-blog-next" href="#">Next Post<span class="fa fa-arrow-right"></span></a>
+                    <div class="aa-product-catg-pagination">
+                    @if (isset($data['PostComment']))
+                    {{ $data['PostComment']->links() }}
+                    @endif
+                  </div>
+                    {{-- <a class="aa-blog-prev" href="#"><span class="fa fa-arrow-left"></span>Prev Post</a>
+                    <a class="aa-blog-next" href="#">Next Post<span class="fa fa-arrow-right"></span></a> --}}
                   </div>
                   <!-- Blog Comment threats -->
                   <div class="aa-blog-comment-threat">
-                    <h3>Comments (4)</h3>
+                    <h3>Comments ({{ count($data['PostComment']) }})</h3>
                     <div class="comments">
                       <ul class="commentlist">
                         @foreach ($data['PostComment'] as $item)
                         <li>
                           <div class="media">
                             <div class="media-left">    
-                                <img class="media-object news-img" src="{{ asset('img/testimonial-img-3.jpg') }}" alt="img">      
+                                <img class="media-object news-img" src="{{ asset('admin_assets/dist/img/avatar5.png') }}" alt="img"> 
                             </div>
                             <div class="media-body">
-                             <h4 class="author-name">Charlie Balley</h4>
-                             <span class="comments-date"> March 26th 2016</span>
-                             <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
-                             <a href="#" class="reply-btn">Reply</a>
+                             <h4 class="author-name">{{ $item->author }}</h4>
+                             <span class="comments-date"> {{ $item->created_at }}</span>
+                             <p>{{ $item->body }}</p>
+                             <a href="javascript:void(0);" class="reply-btn">Reply</a>
                             </div>
                           </div>
                         </li>
@@ -87,6 +94,7 @@
                       </nav>
                     </div>
                   </div>
+
                   <!-- blog comments form -->
                   <div id="respond">
                     <h3 class="reply-title">Leave a Comment</h3>
@@ -96,16 +104,12 @@
                         Your email address will not be published. Required fields are marked <span class="required">*</span>
                       </p>
                       <p class="comment-form-author">
-                        <label for="author">Name <span class="required">*</span></label>
-                        <input type="text" name="author" value="" size="30" required="required">
+                        <label for="author">Author <span class="required">*</span></label>
+                        <input type="text" name="author" value="{{ Auth::user()->name }}" value="" size="30" required="required">
                       </p>
                       <p class="comment-form-email">
                         <label for="email">Email <span class="required">*</span></label>
-                        <input type="email" name="email" value="" aria-required="true" required="required">
-                      </p>
-                      <p class="comment-form-url">
-                        <label for="url">Website</label>
-                        <input type="text" name="url" value="">
+                        <input type="email" name="email" value="" value="{{ Auth::user()->email }}" aria-required="true" required="required">
                       </p>
                       <p class="comment-form-comment">
                         <label for="comment">Comment</label>

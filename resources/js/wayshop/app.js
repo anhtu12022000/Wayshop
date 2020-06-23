@@ -1,4 +1,6 @@
 
+ let url = 'http://'+document.location.hostname;
+
 
 $('#formlogin').submit(function (evt) {
 
@@ -49,7 +51,7 @@ $('#formlogin').submit(function (evt) {
             password: $('#password').val()
           },
           success: function (data) {
-           window.location.href = "http://dailyshop.com/";
+           window.location.href = url;
          }
        });
 
@@ -66,7 +68,7 @@ $('#formlogin').submit(function (evt) {
 $('#formregister').submit(function (evt) {
   if ($('#name2').val().length == 0) {
     $('#name2').focus();
-    $('.errorName').css('color', '#dc3545').text('* Họ và tên không được để trống!');
+    $('.errorName').css('color', '#dc3545').text('* Username can not be blank!');
     evt.preventDefault();
   } else {
     $('.errorName').css('color', '#20b2aa').html('<i class="fa fa-check-circle-o p-3"></i>');
@@ -160,7 +162,7 @@ $(document).ready(function () {
         _token: $('meta[name="csrf-token"]').attr('content'),
       },
       success: function (data) {
-       window.location.href = "http://dailyshop.com/";
+       window.location.href = url;
      }
    });
 
@@ -198,7 +200,7 @@ $(document).ready(function () {
           <div class="media">
           <div class="media-left">
           <a href="#">
-          <img class="media-object" src="front_asset/img/testimonial-img-3.jpg" alt="girl image">
+          <img class="media-object" src="${url}/admin_assets/dist/img/avatar5.png" alt="girl image">
           </a>
           </div>
           <div class="media-body">
@@ -228,7 +230,6 @@ $(document).ready(function () {
     e.preventDefault();
     let author = document.querySelector("input[name='author']").value;
     let email = document.querySelector("input[name='email']").value;
-    let url = document.querySelector("input[name='url']").value;
     let body = document.querySelector("#body").value;
     let post_id = document.querySelector("input[name='post_id']").value;
     $.ajax({
@@ -251,7 +252,7 @@ $(document).ready(function () {
             <li>
               <div class="media">
                 <div class="media-left">    
-                    <img class="media-object news-img" src="img/testimonial-img-3.jpg" alt="img">      
+                    <img class="media-object news-img" src="${url}/admin_assets/dist/img/avatar5.png" alt="img">      
                 </div>
                 <div class="media-body">
                   <h4 class="author-name">${data.author}</h4>
@@ -332,7 +333,7 @@ $(document).ready(function () {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: 'get',
-      url: 'http://dailyshop.com/cart/get-cart',
+      url: `${url}/cart/get-cart`,
       data: {
         _token: $('meta[name="csrf-token"]').attr('content'),
         id: id
@@ -345,7 +346,7 @@ $(document).ready(function () {
           quantity += 1;
           total += item.product_price * item.product_quantity;
           html += `<li class="cart${item.id}">
-          <a class="aa-cartbox-img" href="product-detail/${item.product_slug}"><img src="front_assets/img/product/${item.product_image}" alt="img"></a>
+          <a class="aa-cartbox-img" href="${url}/product-detail/${item.product_slug}"><img src="front_assets/img/product/${item.product_image}" alt="img"></a>
           <div class="aa-cartbox-info">
           <h4><a href="product-detail/${item.product_slug}">${item.product_name}</a></h4>
           <p>${item.product_quantity} x $${item.product_quantity * item.product_price}</p>
@@ -453,7 +454,7 @@ $(document).ready(function () {
         success: function (res) { 
           if (res.length > 0) {
             res.map(item => {
-              html += `<li><a href="http://dailyshop.com/product-detail/${item.slug}.html">${item.name}</a></li>`;
+              html += `<li><a href="${url}/product-detail/${item.slug}.html">${item.name}</a></li>`;
             });
           } else {
             html = `<li><a href="#">Empty product</a></li>`;

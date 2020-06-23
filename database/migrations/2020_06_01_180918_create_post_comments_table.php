@@ -17,7 +17,6 @@ class CreatePostCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('author');
             $table->string('email');
-            $table->string('url')->nullable();
             $table->text('body');
             $table->unsignedBigInteger('post_id');
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');

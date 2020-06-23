@@ -42,7 +42,7 @@
       <form action="{{ url('/admin') }}" method="post">
         @csrf
         <div class="input-group mb-3">
-          <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email">
+          <input type="email" name="email" value="{{ old('email') }}" value="admin@gmail.com" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" value="{{ old('password') }}" class="form-control" placeholder="Password">
+          <input type="password" name="password" value="{{ old('password') }}" value="123456" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

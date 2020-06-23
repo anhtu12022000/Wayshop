@@ -417,6 +417,56 @@
                      </div>
                      <!-- /.info-box-content -->
                   </div>
+                  <!-- /.card -->
+                  <!-- PRODUCT LIST -->
+                  <div class="card">
+                     <div class="card-header">
+                        <h3 class="card-title">Recently Added Products</h3>
+                        <div class="card-tools">
+                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                           <i class="fas fa-minus"></i>
+                           </button>
+                           <button type="button" class="btn btn-tool" data-card-widget="remove">
+                           <i class="fas fa-times"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <!-- /.card-header -->
+                     <div class="card-body p-0">
+                        <ul class="products-list product-list-in-card pl-2 pr-2">
+                           @foreach ($data['product'] as $pro)
+                           <li class="item">
+                              <div class="product-img">
+                                 <img src="{{ asset('front_assets/img/product/'.$pro->image) }}" alt="Product Image" class="img-size-50">
+                              </div>
+                              <div class="product-info">
+                                 <a href="javascript:void(0)" class="product-title">{{ $pro->name }}
+                                 <span class="badge @if ($pro->price >= 1000)
+                                    badge-warning
+                                    @elseif ($pro->price < 1000 && $pro->price >= 700)
+                                    badge-info
+                                    @elseif ($pro->price < 700 && $pro->price >= 400)
+                                    badge-success
+                                    @else
+                                    badge-danger
+                                    @endif 
+                                    float-right">${{ $pro->price }}</span></a>
+                                 <span class="product-description">
+                                 {{ $pro->description }}
+                                 </span>
+                              </div>
+                           </li>
+                           @endforeach
+                           
+                        </ul>
+                     </div>
+                     <!-- /.card-body -->
+                     <div class="card-footer text-center">
+                        <a href="{{ url('admin/products') }}" class="uppercase">View All Products</a>
+                     </div>
+                     <!-- /.card-footer -->
+                  </div>
+                  <!-- /.card -->
                   <!-- /.info-box -->
                   <div class="card">
                      <div class="card-header">
@@ -483,56 +533,7 @@
                      </div>
                      <!-- /.footer -->
                   </div>
-                  <!-- /.card -->
-                  <!-- PRODUCT LIST -->
-                  <div class="card">
-                     <div class="card-header">
-                        <h3 class="card-title">Recently Added Products</h3>
-                        <div class="card-tools">
-                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                           <i class="fas fa-minus"></i>
-                           </button>
-                           <button type="button" class="btn btn-tool" data-card-widget="remove">
-                           <i class="fas fa-times"></i>
-                           </button>
-                        </div>
-                     </div>
-                     <!-- /.card-header -->
-                     <div class="card-body p-0">
-                        <ul class="products-list product-list-in-card pl-2 pr-2">
-                           @foreach ($data['product'] as $pro)
-                           <li class="item">
-                              <div class="product-img">
-                                 <img src="{{ asset('front_assets/img/product/'.$pro->image) }}" alt="Product Image" class="img-size-50">
-                              </div>
-                              <div class="product-info">
-                                 <a href="javascript:void(0)" class="product-title">{{ $pro->name }}
-                                 <span class="badge @if ($pro->price >= 1000)
-                                    badge-warning
-                                    @elseif ($pro->price < 1000 && $pro->price >= 700)
-                                    badge-info
-                                    @elseif ($pro->price < 700 && $pro->price >= 400)
-                                    badge-success
-                                    @else
-                                    badge-danger
-                                    @endif 
-                                    float-right">${{ $pro->price }}</span></a>
-                                 <span class="product-description">
-                                 {{ $pro->description }}
-                                 </span>
-                              </div>
-                           </li>
-                           @endforeach
-                           
-                        </ul>
-                     </div>
-                     <!-- /.card-body -->
-                     <div class="card-footer text-center">
-                        <a href="{{ url('admin/products') }}" class="uppercase">View All Products</a>
-                     </div>
-                     <!-- /.card-footer -->
-                  </div>
-                  <!-- /.card -->
+                  
                </div>
                <!-- /.col -->
             </div>

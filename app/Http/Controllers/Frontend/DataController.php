@@ -10,6 +10,8 @@ use App\Models\Slides;
 use App\Models\Product;
 use App\Models\Cate;
 use App\Models\Cart;
+use App\Models\PostComment;
+use App\Models\ProductComment;
 use Session;
 
 class DataController extends Controller
@@ -93,6 +95,12 @@ class DataController extends Controller
  		return $proDtail;
  	}
 
+ 	public function productComments($id)
+ 	{
+ 		$ProductComments = ProductComment::where('product_id', $id)->paginate(5);
+ 		return $ProductComments;
+ 	}
+
  	public function productRelated($id)
  	{
  		$productRelated = Product::where('id','>',$id)->get();
@@ -103,6 +111,12 @@ class DataController extends Controller
  	{
  		$postDetail = Posts::where('slug','like',$slug)->first();
  		return $postDetail;
+ 	}
+
+ 	public function PostComments($id)
+ 	{
+ 		$PostComments = PostComment::where('post_id', $id)->paginate(5);
+ 		return $PostComments;
  	}
 
  	public function getAllPost()

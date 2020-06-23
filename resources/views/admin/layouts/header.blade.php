@@ -32,7 +32,7 @@
                <li class="nav-item dropdown">
                   <a class="nav-link" href="">
                   <i class="far fa-comments"></i>
-                  <span class="badge badge-danger navbar-badge"></span>
+                  <span class="badge badge-danger navbar-badge chats">0</span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                      <a href="#" class="dropdown-item">

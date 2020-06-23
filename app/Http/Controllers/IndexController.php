@@ -17,6 +17,8 @@ use App\Models\OrdersProduct;
 use App\Models\Cate;
 use App\Models\Product;
 use App\Models\DeliveryAddress;
+use App\Models\PostComment;
+use App\Models\ProductComment;
 use App\User;
 use Session;
 use Log;
@@ -145,6 +147,11 @@ class IndexController extends Controller
 
             $session_id = Session::get('session_id');
             $userCart = Cart::where('session_id',$session_id)->get();
+
+            if ( count($userCart) == 0 && $couponDetail->amount_type == 'percentage' ) {
+                return back()->with('mess','Coupon calculated by % of total order! Please purchase the product first!');
+            }
+
             $total_amount = 0;
 
             foreach ($userCart as $value) {
@@ -156,6 +163,10 @@ class IndexController extends Controller
             } else {
                 $couponAmount = $total_amount * ($couponDetail->amount/100);
             }
+
+            Coupons::where('coupon_code',$couponDetail->coupon_code)->update([
+                'status' => 0   
+            ]);
 
             Session::put('couponAmount', $couponAmount);
             Session::put('couponCode', $request->coupon_code);
@@ -337,11 +348,13 @@ class IndexController extends Controller
     public function productDetail(Request $request)
     {
         $Data = new DataController;
+        $Product = $Data->productDetail($request->slug);
         $data = Array(
             'Cate' => $this->dataCate,
             'userCart' => $this->getCarts(),
             'Slides' => $this->dataSlider,
-            'Product' => $Data->productDetail($request->slug),
+            'Product' => $Product,
+            'ProductComment' => $Data->productComments($Product->id),
             'productRelated' => $Data->productRelated($request->slug)
         );
 
@@ -364,12 +377,13 @@ class IndexController extends Controller
     public function postDetail($slug)
     {
         $Data = new DataController;
+        $Post = $Data->postDetail($slug);
         $data = Array(
             'Cate' => $this->dataCate,
             'Slides' => $this->dataSlider,
             'userCart' => $this->getCarts(),
-            'Post' => $Data->postDetail($slug),
-            'PostComment' => $Data->postDetail($slug),
+            'Post' => $Post,
+            'PostComment' => $Data->PostComments($Post->id),
             'postRelated' => $this->dataPosts
         );
         return view('wayshop.blog-detail')->with('data',$data);
@@ -381,7 +395,6 @@ class IndexController extends Controller
             $comment = new PostComment;
             $comment->author = $request->author;
             $comment->email = $request->email;
-            $comment->url = $request->url;
             $comment->body = $request->body;
             $comment->post_id = $request->post_id;
             $comment->save();

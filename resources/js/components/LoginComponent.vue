@@ -136,12 +136,12 @@
 export default {
    data: () => ({
     valid: true,
-    email: "",
+    email: "vungoctu.dev@gmail.com",
     emailRules: [
     v => !!v || 'E-mail is required',
     v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
     ],
-    password: "",
+    password: "123456",
     passwordRules: [
     v => !!v || 'Password is required',
     ],

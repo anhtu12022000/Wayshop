@@ -61,6 +61,7 @@
                   </table>
                 </div>
              </form>
+      
              <!-- Cart Total view -->
              <div class="cart-view-total">
                <h4>Cart Totals</h4>

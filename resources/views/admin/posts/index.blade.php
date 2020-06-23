@@ -55,6 +55,7 @@
                                         <td><img width="100%" src="{{ asset('/front_assets/img/post/'.$value['image']) }}" width="60" alt=""></td>
                                         <td>{{ ($value['description']) }}</td>
                                         <td class="text-center">
+                                            <a href="{{ url('admin/post/view-comment/'.$value['id']) }}">View Comments</a>
                                             <a href="{{ url('admin/post/edit-post/'.$value['id']) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form method="POST" action="{{ url('admin/post/del-post/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete post: {{ $value['title'] }}')">
                                                 @method('DELETE')

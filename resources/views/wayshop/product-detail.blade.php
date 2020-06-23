@@ -56,7 +56,7 @@ Product-Detail
                   <p>
                     {{ $data['Product']->description }}
                   </p>
-                  <h4>Size</h4>
+                  <h4>Size <span style="color: red">(Updating)</span></h4>
                   <div class="aa-prod-view-size">
                     <a href="#">S</a>
                     <a href="#">M</a>
@@ -65,17 +65,18 @@ Product-Detail
                   </div>
                   <div class="aa-prod-quantity">
                     <form action="">
+                      <label for="">Quantity: </label>
                       <select id="" name="">
                         <option selected="1" value="0">1</option>
-                        <option value="1">2</option>
+                        {{-- <option value="1">2</option>
                         <option value="2">3</option>
                         <option value="3">4</option>
-                        <option value="4">5</option>
+                        <option value="4">5</option> --}}
                       </select>
                     </form>
-                    <p class="aa-prod-category">
+                    {{-- <p class="aa-prod-category">
                       Category: <a href="#">Polo T-Shirt</a>
-                    </p>
+                    </p> --}}
                   </div>
                   <div class="aa-prod-view-bottom">
                     <a class="aa-add-to-cart-btn addCart" rel="{{ $data['Product']->id }}" href="javascrip:void(0)">Add To Cart</a>
@@ -99,14 +100,14 @@ Product-Detail
               </div>
               <div class="tab-pane fade " id="review">
                <div class="aa-product-review-area">
-                 <h4>2 Reviews for T-Shirt</h4> 
+                 <h4>{{ count($data['ProductComment']) }} Reviews for T-Shirt</h4> 
                  <ul class="aa-review-nav">
-                    {{--  @foreach($data['ProductComment'] as $item)
+                     @foreach($data['ProductComment'] as $item)
                      <li>
                         <div class="media">
                           <div class="media-left">
                             <a href="#">
-                              <img class="media-object" src="{{ asset('front_asset/img/testimonial-img-3.jpg') }}" alt="girl image">
+                              <img class="media-object" src="{{ asset('admin_assets/dist/img/avatar5.png') }}" alt="girl image">
                             </a>
                           </div>
                           <div class="media-body">
@@ -116,17 +117,23 @@ Product-Detail
                               <span class="fa fa-star"></span>
                               <span class="fa fa-star"></span>
                               <span class="fa fa-star"></span>
-                              <span class="fa fa-star-o"></span>
+                              <span class="fa fa-star"></span>
                             </div>
                             <p>{{$item->body}}</p>
                           </div>
                         </div>
                       </li>
-                      @endforeach --}}
+                      @endforeach
                     </ul>
+                    <div class="aa-blog-navigation">
+                    <div class="aa-product-catg-pagination">
+                      @if (isset($data['ProductComment']))
+                      {{ $data['ProductComment']->links() }}
+                      @endif
+                    </div>
                     <h4>Add a review</h4>
                     <div class="aa-your-rating">
-                     <p>Your Rating</p>
+                     <p>Your Rating <span style="color: red">(Updating)</span></p>
                      <a href="#"><span class="fa fa-star-o"></span></a>
                      <a href="#"><span class="fa fa-star-o"></span></a>
                      <a href="#"><span class="fa fa-star-o"></span></a>
@@ -142,11 +149,11 @@ Product-Detail
                     </div>
                     <div class="form-group">
                       <label for="name">Name</label>
-                      <input type="text" class="form-control" name="author" required placeholder="Name">
+                      <input type="text" class="form-control" name="author" value="{{ Auth::user()->name }}" required placeholder="Name">
                     </div>  
                     <div class="form-group">
                       <label for="email">Email</label>
-                      <input type="email" class="form-control" name="email" required placeholder="example@gmail.com">
+                      <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" required placeholder="example@gmail.com">
                     </div>
 
                     <button type="submit" class="btn btn-default aa-review-submit">Submit</button>

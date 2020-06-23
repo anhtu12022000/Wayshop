@@ -71,6 +71,7 @@
                                         @endif/>
                                     </td>
                                         <td class="text-center">
+                                            <a href="{{ url('admin/products/view-comment/'.$value->id) }}">View Comments</a>
                                             <a href="{{ url('admin/products/edit-product',$value->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             @role('Administrator')
                                                 <form method="POST" action="{{ url('admin/products/del-product/'.$value->id) }}" onsubmit="return confirm('Are you sure delete product: {{ $value->name }}')">

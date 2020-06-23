@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Posts;
+use App\Models\PostComment;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -17,7 +18,7 @@ class PostController extends Controller
     
     public function index()
     {
-        $data = Posts::all();
+        $data = Posts::orderBy('created_at', 'desc')->get();
     	return view('admin.posts.index')->with('data', $data);
     }
 
@@ -90,5 +91,17 @@ class PostController extends Controller
     {
         Posts::find($id)->delete();
         return redirect('/admin/post')->with('success','Delete Successfully.');
+    }
+
+    public function viewComment($id)
+    {
+       $data = PostComment::where('post_id', $id)->paginate(15);
+       return view('admin.posts.comment')->with('data', $data);
+    }
+
+    public function delComment($id)
+    {
+        PostComment::find($id)->delete();
+        return back()->with('success', 'Delete Comment Successfully.');
     }
 }

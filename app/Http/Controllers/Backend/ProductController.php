@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cate;
 use App\Models\Product;
+use App\Models\ProductComment;
 use Illuminate\Support\Str;
 use DB;
 
@@ -14,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         $data =  DB::table('products')->join('cate', 'products.cate_id', '=', 'cate.id')
-            ->select('products.*', 'cate.name as namecate')
+            ->select('products.*', 'cate.name as namecate')->orderBy('created_at', 'desc')
             ->get();
     	return view('admin.products.index')->with('data', $data);
     }
@@ -135,11 +136,12 @@ class ProductController extends Controller
 
     public function DeleteProduct($id)
     {
-        $product = Product::find($id)->delete();
+        $product = Product::find($id);
         if($product->image != '' && file_exists(public_path('front_assets/img/product/'.$product->image)))
         {
             unlink(public_path('front_assets/img/product/'.$product->image));
         }
+        $product->delete();
         return redirect('admin/products')->with('success','Delete Successfully.');
     }
 
@@ -148,5 +150,17 @@ class ProductController extends Controller
         $data = $request->all();
         $mess = Product::where('id','=',$data['id'])->update(['status' => $data['status']]);
         return $mess;
+    }
+
+    public function viewComment($id)
+    {
+       $data = ProductComment::where('product_id', $id)->paginate(15);
+       return view('admin.products.comment')->with('data', $data);
+    }
+
+    public function delComment($id)
+    {
+        ProductComment::find($id)->delete();
+        return back()->with('success', 'Delete Comment Successfully.');
     }
 }

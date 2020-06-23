@@ -280,7 +280,7 @@
 							this.numbernewmess++;
 						};
 					});
-					$('.badge-danger').text(this.numbernewmess);
+					$('.chats').text(this.numbernewmess);
 				}).catch(err => {
 					console.log(err);
 				});

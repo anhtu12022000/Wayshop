@@ -93,6 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+var url = 'http://' + document.location.hostname;
 $('#formlogin').submit(function (evt) {
   if (!/^[a-z][a-z0-9_\.]{2,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/.test($('#email').val())) {
     $('.errorEmail').css('color', '#dc3545').text('* Email can not be blank or Email invalide!');
@@ -143,7 +144,7 @@ $('#formlogin').submit(function (evt) {
             password: $('#password').val()
           },
           success: function success(data) {
-            window.location.href = "http://dailyshop.com/";
+            window.location.href = url;
           }
         });
       }
@@ -157,7 +158,7 @@ $('#formlogin').submit(function (evt) {
 $('#formregister').submit(function (evt) {
   if ($('#name2').val().length == 0) {
     $('#name2').focus();
-    $('.errorName').css('color', '#dc3545').text('* Họ và tên không được để trống!');
+    $('.errorName').css('color', '#dc3545').text('* Username can not be blank!');
     evt.preventDefault();
   } else {
     $('.errorName').css('color', '#20b2aa').html('<i class="fa fa-check-circle-o p-3"></i>');
@@ -249,7 +250,7 @@ $(document).ready(function () {
         _token: $('meta[name="csrf-token"]').attr('content')
       },
       success: function success(data) {
-        window.location.href = "http://dailyshop.com/";
+        window.location.href = url;
       }
     });
   });
@@ -277,7 +278,7 @@ $(document).ready(function () {
       },
       success: function success(data) {
         document.getElementById("productComment").reset();
-        $(".aa-review-nav").append("\n          <li>\n          <div class=\"media\">\n          <div class=\"media-left\">\n          <a href=\"#\">\n          <img class=\"media-object\" src=\"front_asset/img/testimonial-img-3.jpg\" alt=\"girl image\">\n          </a>\n          </div>\n          <div class=\"media-body\">\n          <h4 class=\"media-heading\"><strong>".concat(data.author, "</strong> - <span>").concat(data.created_at, "</span></h4>\n          <div class=\"aa-product-rating\">\n          <span class=\"fa fa-star\"></span>\n          <span class=\"fa fa-star\"></span>\n          <span class=\"fa fa-star\"></span>\n          <span class=\"fa fa-star\"></span>\n          <span class=\"fa fa-star-o\"></span>\n          </div>\n          <p>").concat(data.body, "</p>\n          </div>\n          </div>\n          </li>\n          "));
+        $(".aa-review-nav").append("\n          <li>\n          <div class=\"media\">\n          <div class=\"media-left\">\n          <a href=\"#\">\n          <img class=\"media-object\" src=\"".concat(url, "/admin_assets/dist/img/avatar5.png\" alt=\"girl image\">\n          </a>\n          </div>\n          <div class=\"media-body\">\n          <h4 class=\"media-heading\"><strong>").concat(data.author, "</strong> - <span>").concat(data.created_at, "</span></h4>\n          <div class=\"aa-product-rating\">\n          <span class=\"fa fa-star\"></span>\n          <span class=\"fa fa-star\"></span>\n          <span class=\"fa fa-star\"></span>\n          <span class=\"fa fa-star\"></span>\n          <span class=\"fa fa-star-o\"></span>\n          </div>\n          <p>").concat(data.body, "</p>\n          </div>\n          </div>\n          </li>\n          "));
       },
       error: function error() {
         alert('Error, Please try again!');
@@ -288,7 +289,6 @@ $(document).ready(function () {
     e.preventDefault();
     var author = document.querySelector("input[name='author']").value;
     var email = document.querySelector("input[name='email']").value;
-    var url = document.querySelector("input[name='url']").value;
     var body = document.querySelector("#body").value;
     var post_id = document.querySelector("input[name='post_id']").value;
     $.ajax({
@@ -307,7 +307,7 @@ $(document).ready(function () {
       },
       success: function success(data) {
         document.getElementById("commentform").reset();
-        $(".commentlist").append("\n            <li>\n              <div class=\"media\">\n                <div class=\"media-left\">    \n                    <img class=\"media-object news-img\" src=\"img/testimonial-img-3.jpg\" alt=\"img\">      \n                </div>\n                <div class=\"media-body\">\n                  <h4 class=\"author-name\">".concat(data.author, "</h4>\n                  <span class=\"comments-date\"> ").concat(data.created_at, "</span>\n                  <p>").concat(data.body, "</p>\n                  <a href=\"#\" class=\"reply-btn\">Reply</a>\n                </div>\n              </div>\n            </li>\n        "));
+        $(".commentlist").append("\n            <li>\n              <div class=\"media\">\n                <div class=\"media-left\">    \n                    <img class=\"media-object news-img\" src=\"".concat(url, "/admin_assets/dist/img/avatar5.png\" alt=\"img\">      \n                </div>\n                <div class=\"media-body\">\n                  <h4 class=\"author-name\">").concat(data.author, "</h4>\n                  <span class=\"comments-date\"> ").concat(data.created_at, "</span>\n                  <p>").concat(data.body, "</p>\n                  <a href=\"#\" class=\"reply-btn\">Reply</a>\n                </div>\n              </div>\n            </li>\n        "));
       },
       error: function error() {
         alert('Error, Please try again!');
@@ -373,7 +373,7 @@ $(document).ready(function () {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       type: 'get',
-      url: 'http://dailyshop.com/cart/get-cart',
+      url: "".concat(url, "/cart/get-cart"),
       data: {
         _token: $('meta[name="csrf-token"]').attr('content'),
         id: id
@@ -385,7 +385,7 @@ $(document).ready(function () {
         data.map(function (item) {
           quantity += 1;
           total += item.product_price * item.product_quantity;
-          html += "<li class=\"cart".concat(item.id, "\">\n          <a class=\"aa-cartbox-img\" href=\"product-detail/").concat(item.product_slug, "\"><img src=\"front_assets/img/product/").concat(item.product_image, "\" alt=\"img\"></a>\n          <div class=\"aa-cartbox-info\">\n          <h4><a href=\"product-detail/").concat(item.product_slug, "\">").concat(item.product_name, "</a></h4>\n          <p>").concat(item.product_quantity, " x $").concat(item.product_quantity * item.product_price, "</p>\n          </div>\n          <a class=\"aa-remove-product remove\" rel=\"").concat(item.id, "\"><span class=\"fa fa-times\"></span></a>\n          </li>");
+          html += "<li class=\"cart".concat(item.id, "\">\n          <a class=\"aa-cartbox-img\" href=\"").concat(url, "/product-detail/").concat(item.product_slug, "\"><img src=\"front_assets/img/product/").concat(item.product_image, "\" alt=\"img\"></a>\n          <div class=\"aa-cartbox-info\">\n          <h4><a href=\"product-detail/").concat(item.product_slug, "\">").concat(item.product_name, "</a></h4>\n          <p>").concat(item.product_quantity, " x $").concat(item.product_quantity * item.product_price, "</p>\n          </div>\n          <a class=\"aa-remove-product remove\" rel=\"").concat(item.id, "\"><span class=\"fa fa-times\"></span></a>\n          </li>");
         });
         html += "<li>\n        <span class=\"aa-cartbox-total-title\">\n        Total\n        </span>\n        <span class=\"aa-cartbox-total-price\">\n        $".concat(total, "\n        </span>\n        </li>");
         $('.aa-cart-notify').text(quantity);
@@ -471,7 +471,7 @@ $(document).ready(function () {
       success: function success(res) {
         if (res.length > 0) {
           res.map(function (item) {
-            html += "<li><a href=\"http://dailyshop.com/product-detail/".concat(item.slug, ".html\">").concat(item.name, "</a></li>");
+            html += "<li><a href=\"".concat(url, "/product-detail/").concat(item.slug, ".html\">").concat(item.name, "</a></li>");
           });
         } else {
           html = "<li><a href=\"#\">Empty product</a></li>";
