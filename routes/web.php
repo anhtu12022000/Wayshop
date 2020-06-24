@@ -32,7 +32,7 @@ Route::get('vue', function() {
 
 Auth::routes(['verify' => true]);
 
-Route::group(['middleware' => 'language'], function () {
+// Route::group(['middleware' => 'language'], function () {
 
 Route::get('/404','IndexController@notFound')->name('404');
 
@@ -240,4 +240,4 @@ Route::group(['middleware' => ['role:Administrator|Marketing']], function () {
 
 Route::get('/language/{language}', 'LanguageController@index')->name('language');
 
-});
+// });
