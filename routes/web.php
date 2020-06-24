@@ -233,6 +233,7 @@ Route::group(['middleware' => ['role:Administrator|Marketing']], function () {
     Route::get('/get_messages', 'MessageController@getMessages');
     Route::post('/del_messages/{id}', 'MessageController@delMessages');
     Route::post('/notifications', 'MessageController@sendMail');
+    Route::post('resend-email', 'MessageController@resendMail');
 
 });
 //Change Language

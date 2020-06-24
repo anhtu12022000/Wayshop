@@ -7,23 +7,23 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NewAds extends Mailable
+class Contact extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $new_ads;
+    protected $content;
     protected $user;
-    protected $coupons;
+    protected $email;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user, $new_ads, $coupons = null)
+    public function __construct($user, $email, $content)
     {
         $this->user = $user;
-        $this->new_ads = $new_ads;
-        $this->coupons = $coupons;
+        $this->content = $content;
+        $this->email = $email;
     }
 
     /**
@@ -34,13 +34,12 @@ class NewAds extends Mailable
     public function build()
     {
         
-        return $this->markdown('emails.newads')
-                    ->subject($this->new_ads->title)
+        return $this->markdown('emails.contact')
+                    ->subject($this->email)
                     ->from('dailyshop@company.com', 'Wonderful Dailyshop')
                     ->with([
                         'user'=> $this->user,
-                        'new_ads' => $this->new_ads,
-                        'coupons' => $this->coupons,
+                        'content' => $this->content,
                     ]);
     }
 }

@@ -2,6 +2,8 @@
 @section('css')
    <link rel="stylesheet" href="admin_assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
    <link rel="stylesheet" href="admin_assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+   <link rel="stylesheet" href="admin_assets/plugins/summernote/summernote-bs4.css">
+   <link rel="stylesheet" href="admin_assets/plugins/select2/css/select2.min.css">
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -58,7 +60,7 @@
                                         <th>{{ $value['message'] }}</td>
                                         <td>{{ $value['created_at'] }}</td>
                                         <td class="text-center">
-                                            <a href="javascipt:void(0)" rel="{{ $value['email'] }}" class="btn btn-sm btn-warning"><i class="far fa-paper-plane"></i></a>
+                                            <a href="javascipt:void(0)" id="send" rel="{{ $value['email'] }}" class="btn btn-sm btn-warning"><i class="far fa-paper-plane"></i></a>
                                             <form method="POST" action="{{ url('admin/contacts/del-contact/'.$value['id']) }}" onsubmit="return confirm('Are you sure delete contact by: {{ $value['name'] }}')">
                                                 @method('DELETE')
                                                 @csrf
@@ -83,6 +85,14 @@
                             </tfoot>
                         </table>
                     </div>
+                    <div class="form-group content" style="display: none;">
+                        <label>Content</label>
+                        <textarea class="textarea" name="detail" id="content" placeholder="Place some text here" >{{old('detail')}}</textarea>
+                        <span class="text-danger"> {{$errors->first('detail')}} </span>
+
+
+                        <button type="button" class="btn btn-danger" id="sending">Sending</button>
+                    </div>
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
@@ -98,17 +108,58 @@
 @endsection
 @section('script')
     <!-- DataTables -->
+    <script src="admin_assets/plugins/summernote/summernote-bs4.min.js"></script>
     <script src="admin_assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="admin_assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="admin_assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="admin_assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <!-- page script -->
     <script>
+        
+        $(function () {
+            $('.textarea').summernote();
+        });
+
         $(function () {
             $("#example1").DataTable({
                 "responsive": true,
                 "autoWidth": false,
             });
         });
+
+        let email = '';
+        $('#send').click(function () {
+            $('.content').fadeIn();
+            email = $(this).attr('rel');
+        });
+
+        $('#sending').click(function () {
+            if ( $('#content').val() == '' ) {
+                alert('Please writing some content!');
+                return false;
+            } else {
+                $.ajax({
+                  header: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                  type: 'post',
+                  url: `/resend-email`,
+                  data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    email: email,
+                    content: $('#content').val(),
+                  },
+                  success: function (data) { 
+                        alert('Sending mail Succesfully!');
+                        window.reload();
+                  },
+                  error: function () {
+                    alert('Error or Email fake, Please try again!');
+                  }
+
+                });
+            };
+        });
+
     </script>
 @endsection

@@ -8,6 +8,7 @@ use App\Jobs\SendMailJob;
 use Carbon\Carbon;
 use App\User;
 use App\Mail\NewAds;
+use App\Mail\Contact;
 use Illuminate\Support\Str;
 use App\Models\Coupons;
 
@@ -70,6 +71,14 @@ class MessageController extends Controller
         } 
         $mess->delete();
 		return response()->json('Delete Success.', 200);
+	}
+
+	public function resendMail(Request $request)
+	{
+		$user = User::where('email', $request->email)->first();
+		dispatch(new SendMailJob($request->email, new Contact($user, $request->email, $request->content)));
+
+		return response()->json('Mail Sending Successfully.', 200); 
 	}
 
 }

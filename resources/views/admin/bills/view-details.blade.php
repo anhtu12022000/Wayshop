@@ -49,7 +49,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @php $i = 1; @endphp
+                                @php $i = 1;  $total = 0; @endphp
                                 @foreach ($detailOrder as $value)
                                     <tr>
                                         <td>{{ $i }}</td>
@@ -68,7 +68,7 @@
                                         @endrole                                        
                                         </td>
                                     </tr>
-                                    @php $i++; @endphp
+                                    @php $i++; $total += $value['total']; @endphp
                                 @endforeach
                             </tbody>
                             <tfoot>
@@ -83,6 +83,9 @@
                             </tr>
                             </tfoot>
                         </table>
+                        <div>
+                           <h3><b> Total: </b> ${{ $total }} </h3>
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>
