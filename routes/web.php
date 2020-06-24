@@ -148,6 +148,13 @@ Route::group(['prefix' => 'admin'], function () {
                 Route::post('/edit-role-user', 'UserController@EditRole');
             });
 
+            Route::group(['prefix' => 'bills'], function() {
+                Route::get('/', 'BillController@index');
+                Route::get('/view-details/{id}', 'BillController@viewDetailOrders')->where(['id' => '[0-9]+']);
+
+                Route::post('/edit-order-status/{id}', 'BillController@changeStatusOrder')->where(['id' => '[0-9]+']);
+            });
+
             Route::delete('post/del-post/{id}', 'PostController@DeletePost')->where(['id' => '[0-9]+']);
             Route::delete('slides/del-slides/{id}', 'SlidesController@DeleteSlides')->where(['id' => '[0-9]+']);
             Route::delete('products/del-product/{id}', 'ProductController@DeleteProduct')->where(['id' => '[0-9]+']);
@@ -156,13 +163,17 @@ Route::group(['prefix' => 'admin'], function () {
             Route::delete('bills/del-bill/{id}', 'BillController@delDetailOrders')->where(['id' => '[0-9]+']);
         });
 
-        Route::group(['prefix' => 'post'], function() {
-            Route::get('/', 'PostController@index');
-            Route::match(['get','post'], '/add-post', 'PostController@addPost');
-            Route::get('/edit-post/{id}', 'PostController@showEditPost')->where(['id' => '[0-9]+']);
-            Route::post('/edit-post/{id}', 'PostController@EditPost')->where(['id' => '[0-9]+']);
-            Route::get('/view-comment/{id}', 'PostController@viewComment')->where(['id' => '[0-9]+']);
-            Route::delete('/del-comment/{id}', 'PostController@delComment')->where(['id' => '[0-9]+']);
+
+        Route::group(['middleware' => ['role:Administrator|Editor']], function () {
+
+            Route::group(['prefix' => 'post'], function() {
+                Route::get('/', 'PostController@index');
+                Route::match(['get','post'], '/add-post', 'PostController@addPost');
+                Route::get('/edit-post/{id}', 'PostController@showEditPost')->where(['id' => '[0-9]+']);
+                Route::post('/edit-post/{id}', 'PostController@EditPost')->where(['id' => '[0-9]+']);
+                Route::get('/view-comment/{id}', 'PostController@viewComment')->where(['id' => '[0-9]+']);
+                Route::delete('/del-comment/{id}', 'PostController@delComment')->where(['id' => '[0-9]+']);
+            });
         });
 
         Route::group(['prefix' => 'slides'], function() {
@@ -208,13 +219,6 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/update-status', 'CouponsController@updateStatusCoupons');
         });
 
-        Route::group(['prefix' => 'bills'], function() {
-            Route::get('/', 'BillController@index');
-            Route::get('/view-details/{id}', 'BillController@viewDetailOrders')->where(['id' => '[0-9]+']);
-
-            Route::post('/edit-order-status/{id}', 'BillController@changeStatusOrder')->where(['id' => '[0-9]+']);
-        });
-
         Route::group(['prefix' => 'ui'], function() {
             Route::get('/banner-ads', 'HomeController@bannerAds')->name('bannerads');
         });
@@ -223,14 +227,14 @@ Route::group(['prefix' => 'admin'], function () {
     });
 });
 
-
+Route::group(['middleware' => ['role:Administrator|Marketing']], function () {
 //Send mail Ads
+    Route::get('/get_users', 'MessageController@getUsers');
+    Route::get('/get_messages', 'MessageController@getMessages');
+    Route::post('/del_messages/{id}', 'MessageController@delMessages');
+    Route::post('/notifications', 'MessageController@sendMail');
 
-Route::get('/get_users', 'MessageController@getUsers');
-Route::get('/get_messages', 'MessageController@getMessages');
-Route::post('/del_messages/{id}', 'MessageController@delMessages');
-Route::post('/notifications', 'MessageController@sendMail');
-
+});
 //Change Language
 
 Route::get('/language/{language}', 'LanguageController@index')->name('language');

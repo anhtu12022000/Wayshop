@@ -216,9 +216,11 @@
             <!-- /.row -->
             <div class="row">
                      <div class="col-md-8">
+                        @hasanyrole('Marketing|Administrator')
                         <!-- DIRECT CHAT -->
                         <div id="chatAdmin"></div>
                         <!--/.direct-chat -->
+                        @endhasanyrole
                      </div>
                      <!-- /.col -->
                      <div class="col-md-4">

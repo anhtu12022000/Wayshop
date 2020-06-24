@@ -107,9 +107,7 @@ class UserController extends Controller
             ]);
             $role = Role::create(['name' => $request->name]);
             if ($role) {
-                return view('admin.role.add')->with('success', 'Add role Successfully!');
-            } else {
-                return view('admin.role.add')->with('danger', 'Add role not Success, Please try again!');
+                return route('user')->with('success', 'Add role Successfully!');
             }
         }
         return view('admin.role.add');

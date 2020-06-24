@@ -47,9 +47,15 @@
                               </a>
                            </li>
                            <li class="nav-item">
-                              <a href="{{ url('admin/user/add-user') }}" class="nav-link">
+                              <a href="{{ route('addrole') }}" class="nav-link">
                                  <i class="far fa-circle nav-icon"></i>
-                                 <p>Permission</p>
+                                 <p>Roles</p>
+                              </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('addrole') }}" class="nav-link">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Permission (Updating)</p>
                               </a>
                            </li>
                         </ul>
