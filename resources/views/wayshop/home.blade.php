@@ -5,7 +5,7 @@ Home
 @section('content')
 
 <!-- Start Promo section -->
-<section id="aa-promo">
+{{-- <section id="aa-promo">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -75,7 +75,7 @@ Home
 </div>
 </div>
 </div>
-</section>
+</section> --}}
 <!-- / Promo section -->
 <!-- Products section -->
 <section id="aa-product">

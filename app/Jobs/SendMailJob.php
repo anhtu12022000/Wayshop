@@ -23,7 +23,7 @@ class SendMailJob implements ShouldQueue
     public function __construct($email,$emailClass)
     {
         $this->email = $email;
-        $this->emailClass= $emailClass;
+        $this->emailClass = $emailClass;
     }
 
     /**

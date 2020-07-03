@@ -149,11 +149,15 @@ Product-Detail
                     </div>
                     <div class="form-group">
                       <label for="name">Name</label>
-                      <input type="text" class="form-control" name="author" value="{{ Auth::user()->name }}" required placeholder="Name">
+                      <input type="text" class="form-control" name="author" value="@if (Auth::check())
+                        {{ Auth::user()->name }}
+                      @endif" required placeholder="Name">
                     </div>  
                     <div class="form-group">
                       <label for="email">Email</label>
-                      <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" required placeholder="example@gmail.com">
+                      <input type="email" class="form-control" name="email" value="@if (Auth::check())
+                        {{ Auth::user()->email }}
+                      @endif" required placeholder="example@gmail.com">
                     </div>
 
                     <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
